@@ -1,0 +1,934 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>WriteSea Homepage Redesign</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a hairline-framed paper column (Rox), serif two-tone headlines (Harvey/Rox), real product UI on painted sea panels, a dark voice section (Dessa) and a deep-sea rollout section (Runner). Single deliberate light look. */
+:root{
+  color-scheme:light;
+  --paper:#F7F6F4; --cell:#EFEDE8; --card:#FFFFFF;
+  --ink:#1C1917; --muted:#6B6661; --soft:#8E8984; --line:#E2DED7;
+  --sea:#0D3550; --sea-ink:#E8F0F3; --sea-line:rgba(232,240,243,.14);
+  --night:#0F0E0D; --night-2:#1C1B19; --night-line:#2E2C29; --night-muted:#9D978F;
+  --lime:#D6F36A; --blue:#2C7FB8;
+  --serif:"Newsreader", "Iowan Old Style", Georgia, serif;
+  --sans:"Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --pad:clamp(20px,4vw,48px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--night)}
+a{color:inherit}
+img{display:block;max-width:100%;height:auto}
+h1,h2,h3{margin:0;font-family:var(--serif);font-weight:400;letter-spacing:-.015em;text-wrap:balance}
+p{margin:0}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:-999px;top:8px;z-index:100;background:var(--ink);color:var(--paper);padding:8px 14px;border-radius:6px}
+.skip:focus{left:16px}
+
+/* Hairline frame */
+.outer{padding-left:max(0px,env(safe-area-inset-left,0px));padding-right:max(0px,env(safe-area-inset-right,0px))}
+.frame{max-width:1240px;margin:0 auto;border-left:1px solid var(--line);border-right:1px solid var(--line)}
+.sec{position:relative;border-top:1px solid var(--line);padding-block:clamp(56px,8vw,104px);padding-left:max(var(--pad),env(safe-area-inset-left,0px));padding-right:max(var(--pad),env(safe-area-inset-right,0px))}
+.sec::before,.sec::after{content:"";position:absolute;top:-5px;width:9px;height:9px;background:linear-gradient(var(--soft),var(--soft)) center/1px 9px no-repeat,linear-gradient(var(--soft),var(--soft)) center/9px 1px no-repeat}
+.sec::before{left:-5px}.sec::after{right:-5px}
+.two{color:var(--soft)}
+.label{font-family:var(--mono);font-size:12.5px;color:var(--muted);letter-spacing:.01em}
+.chipl{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:12px;padding:3px 9px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--ink)}
+.chipl i{width:7px;height:7px;border-radius:2px;background:var(--blue)}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:42px;padding:0 18px;border-radius:6px;font:500 14.5px/1 var(--sans);text-decoration:none;border:1px solid transparent;cursor:pointer;transition:background .2s,color .2s,transform .12s}
+.btn:active{transform:scale(.98)}
+.btn-dark{background:var(--ink);color:var(--paper)}
+.btn-dark:hover{background:#3A3531}
+.btn-line{border-color:#CFCAC2;color:var(--ink);background:transparent}
+.btn-line:hover{border-color:var(--ink)}
+.btn-sm{min-height:34px;padding:0 13px;font-size:13.5px}
+.arrow-link{font-weight:500;font-size:15px;text-decoration:none;display:inline-flex;gap:6px;align-items:center}
+.arrow-link svg{width:14px;height:14px;transition:transform .2s}
+.arrow-link:hover svg{transform:translateX(3px)}
+
+/* Announcement + nav */
+.announce{background:var(--night);color:#EDEAE4;font-size:13px;text-align:center;padding:9px 16px}
+.announce a{color:#fff;font-weight:500;margin-left:8px;text-underline-offset:3px}
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav .frame{display:flex;align-items:center;gap:32px;height:62px;padding-left:max(var(--pad),env(safe-area-inset-left,0px));padding-right:max(var(--pad),env(safe-area-inset-right,0px));border-left-color:transparent;border-right-color:transparent}
+.nav .logo img{height:34px;width:auto}
+.nav ul{display:flex;gap:26px;list-style:none;margin:0;padding:0;font-size:14.5px}
+.nav ul a{text-decoration:none;color:var(--muted)}
+.nav ul a:hover{color:var(--ink)}
+.nav .right{margin-left:auto;display:flex;gap:8px}
+@media (max-width:880px){.nav ul{display:none}.nav .login{display:none}}
+
+/* Hero */
+.hero{border-top:0;padding-bottom:var(--pad)}
+.hero::before,.hero::after{display:none}
+.hero-top{display:grid;grid-template-columns:1.25fr .75fr;gap:48px;align-items:end}
+.hero h1{font-size:clamp(46px,7vw,92px);line-height:.98;letter-spacing:-.03em}
+.hero h1 span{display:block}
+.hero-side{display:grid;gap:22px;padding-bottom:10px}
+.hero-side p{font-size:17px;color:var(--muted);max-width:30em}
+.hero-side p b{color:var(--ink);font-weight:500}
+.ctas{display:flex;gap:10px;flex-wrap:wrap}
+@media (max-width:900px){.hero-top{grid-template-columns:1fr;gap:24px}}
+.rise{animation:rise .9s cubic-bezier(.2,.8,.2,1) both}
+.rise.d2{animation-delay:.12s}.rise.d3{animation-delay:.24s}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+/* Painted panel */
+.painted{position:relative;border-radius:6px;overflow:hidden;background:#123E5C;isolation:isolate}
+.painted canvas{position:absolute;inset:0;width:100%;height:100%;z-index:-1}
+.stage-hero{margin-top:clamp(36px,5vw,64px);aspect-ratio:16/9.2;max-width:100%;display:grid;place-items:center;padding:clamp(18px,4vw,56px)}
+.stage-hero .shot{width:min(760px,82%);filter:drop-shadow(0 30px 50px rgba(5,20,32,.45))}
+.float{position:absolute;background:rgba(255,255,255,.97);border-radius:8px;padding:12px 14px;box-shadow:0 18px 40px -18px rgba(5,20,32,.6);display:grid;gap:6px;min-width:210px;opacity:0;transform:translateY(10px) scale(.98);transition:opacity .5s,transform .6s cubic-bezier(.2,.8,.2,1)}
+.float.show{opacity:1;transform:none}
+.float .label{font-size:11.5px}
+.float b{font-weight:500;font-size:14.5px}
+.float .mini{height:5px;border-radius:3px;background:#E9E6E0;overflow:hidden}
+.float .mini i{display:block;height:100%;background:#2E9E6B;width:0;transition:width 1.2s .2s cubic-bezier(.2,.8,.2,1)}
+.float.show .mini i{width:var(--w)}
+.f1{left:4%;bottom:12%}.f2{right:4%;top:12%}.f3{left:6%;top:14%}.f4{right:5%;bottom:10%}
+.float .ok{display:inline-flex;align-items:center;gap:6px;color:#227A52;font-weight:500;font-size:14px}
+.float .ok::before{content:"";width:8px;height:8px;border-radius:50%;background:#2E9E6B}
+@media (max-width:700px){.stage-hero{aspect-ratio:auto;padding:28px 14px 150px}.stage-hero .shot{width:100%}.float{min-width:0;max-width:calc(100% - 24px)}.f1,.f3{left:12px;right:12px;top:auto;bottom:12px}.f2,.f4{left:12px;right:12px;top:auto;bottom:12px}}
+
+/* Logo wall (Rox) */
+.logos{border-top:1px solid var(--line)}
+.logos-head{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:18px;padding-left:max(var(--pad),env(safe-area-inset-left,0px));padding-right:max(var(--pad),env(safe-area-inset-right,0px));border-bottom:1px solid var(--line)}
+.logo-grid{display:grid;grid-template-columns:repeat(6,1fr)}
+.logo-grid div{display:grid;place-items:center;height:104px;padding:18px 22px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);min-width:0}
+.logo-grid div:nth-child(6n){border-right:0}
+.logo-grid div:nth-last-child(-n+6){border-bottom:0}
+.logo-grid img{max-height:40px;width:auto;max-width:100%;filter:grayscale(1) contrast(1.1);opacity:.62;mix-blend-mode:multiply;transition:opacity .25s,filter .25s}
+.logo-grid div:hover img{opacity:1;filter:none}
+@media (max-width:800px){.logo-grid{grid-template-columns:repeat(3,1fr)}.logo-grid div:nth-child(6n){border-right:1px solid var(--line)}.logo-grid div:nth-child(3n){border-right:0}.logo-grid div:nth-last-child(-n+6){border-bottom:1px solid var(--line)}.logo-grid div:nth-last-child(-n+3){border-bottom:0}.logo-grid div{height:84px;padding:14px}}
+
+/* Statement (Rox two-tone + HubSpot explainer) */
+.statement{display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:end}
+.statement h2{font-size:clamp(32px,4.2vw,54px);line-height:1.06}
+.statement .body{display:grid;gap:14px;font-size:17px;color:var(--muted)}
+.statement .body b{color:var(--ink);font-weight:500}
+@media (max-width:860px){.statement{grid-template-columns:1fr;gap:20px}}
+
+/* Three jobs (Beside) */
+.jobs{display:grid;grid-template-columns:.85fr 1.15fr;gap:56px}
+.jobs h2{font-size:clamp(30px,3.6vw,46px);line-height:1.08;margin-top:12px}
+.jobs .intro p{margin-top:16px;color:var(--muted);font-size:16.5px;max-width:26em}
+.joblist{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.joblist li{display:grid;grid-template-columns:28px 1fr auto;gap:16px;align-items:start;padding:22px 0;border-bottom:1px solid var(--line)}
+.joblist .n{font-family:var(--mono);font-size:13px;color:var(--soft);padding-top:3px}
+.joblist h3{font-family:var(--sans);font-size:17px;font-weight:500;letter-spacing:0}
+.joblist p{color:var(--muted);font-size:15px;margin-top:3px}
+.handled{font-family:var(--mono);font-size:12px;white-space:nowrap;padding:4px 9px;border-radius:6px;background:var(--cell);border:1px solid var(--line)}
+@media (max-width:860px){.jobs{grid-template-columns:1fr;gap:28px}.joblist li{grid-template-columns:24px 1fr}.handled{grid-column:2;justify-self:start}}
+
+/* Section heads */
+.shead{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:end;margin-bottom:40px}
+.shead h2{font-size:clamp(32px,4.2vw,54px);line-height:1.06;margin-top:14px}
+.shead p{color:var(--muted);font-size:16.5px}
+@media (max-width:860px){.shead{grid-template-columns:1fr;gap:16px}}
+
+/* Zaro compare cards */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.zcard{background:var(--cell);border:1px solid var(--line);border-radius:6px;padding:20px;display:grid;gap:18px;align-content:start;min-width:0}
+.zcard.after{background:linear-gradient(180deg,#E3EDF5,#F3F6F8)}
+.zcard h3{font-family:var(--sans);font-weight:500;font-size:20px;letter-spacing:-.01em}
+.zcard h3 + p{color:var(--muted);font-size:14px;margin-top:2px}
+.doc{background:var(--card);border-radius:8px;box-shadow:0 1px 2px rgba(0,0,0,.05),0 12px 30px -18px rgba(0,0,0,.25);padding:20px 22px;display:grid;gap:14px}
+.doc-top{display:flex;align-items:center;gap:12px;font-size:20px}
+.pct{font-family:var(--mono);font-size:15px;padding:3px 9px;border-radius:6px;font-variant-numeric:tabular-nums;transition:background .4s,color .4s}
+.pct.low{background:#F6E3D9;color:#9A4422}
+.pct.high{background:#DDF1E6;color:#1F7A4D}
+.lines{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.lines li{display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start;font-size:14.5px;padding:10px 12px;border:1px solid var(--line);border-radius:6px;background:#FBFAF8;min-height:46px}
+.lines .ic{width:20px;height:20px;border-radius:5px;display:grid;place-items:center;font-family:var(--mono);font-size:11px;margin-top:1px}
+.lines .bad .ic{background:#F6E3D9;color:#9A4422}
+.lines .good .ic{background:#DDF1E6;color:#1F7A4D}
+.lines .bad span:last-child{color:var(--muted)}
+.lines mark{background:#FCE9A6;color:inherit;border-radius:3px;padding:0 2px}
+.caret::after{content:"";display:inline-block;width:1.5px;height:1em;background:var(--blue);vertical-align:-2px;margin-left:1px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.doc-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:13px;color:var(--muted);flex-wrap:wrap}
+.linkbtn{background:none;border:0;padding:4px 0;font:500 13px var(--sans);color:var(--ink);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+@media (max-width:820px){.compare{grid-template-columns:1fr}}
+
+/* Interview card */
+.interview{margin-top:16px;display:grid;grid-template-columns:.9fr 1.1fr;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--card)}
+.iv-l{padding:24px;display:grid;gap:16px;align-content:start;border-right:1px solid var(--line);background:var(--cell);min-width:0}
+.iv-r{padding:24px;display:grid;gap:16px;align-content:start;min-width:0}
+.iv-tabs{display:flex;gap:6px;flex-wrap:wrap}
+.iv-tabs button{font:400 12.5px var(--mono);min-height:32px;padding:0 10px;border-radius:6px;border:1px solid var(--line);background:var(--card);cursor:pointer;color:var(--muted)}
+.iv-tabs button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.q{font-family:var(--serif);font-size:26px;line-height:1.2;min-height:2.4em}
+.mic{display:flex;align-items:center;gap:3px;height:30px}
+.mic i{width:3px;height:5px;border-radius:2px;background:var(--ink);opacity:.25}
+.mic.live i{opacity:1;animation:lvl .9s ease-in-out infinite}
+.mic i:nth-child(3n){animation-delay:-.3s}.mic i:nth-child(3n+1){animation-delay:-.6s}.mic i:nth-child(4n){animation-duration:.7s}
+@keyframes lvl{0%,100%{height:5px}50%{height:26px}}
+.mic span{font-family:var(--mono);font-size:12px;color:var(--muted);margin-left:10px}
+.answer{font-size:15.5px;min-height:6.6em}
+.star{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.star div{border:1px solid var(--line);border-radius:6px;padding:8px 10px;font-size:12.5px;color:var(--muted);transition:background .3s,border-color .3s;min-width:0}
+.star b{display:block;font-family:var(--mono);font-weight:500;color:var(--ink);font-size:13px}
+.star .ok{background:#DDF1E6;border-color:#B9E2CB}
+.star .miss{background:#FCF1C9;border-color:#F2DE93}
+.metrics{display:flex;gap:22px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.metrics b{display:block;font-family:var(--mono);font-weight:500;font-size:20px;color:var(--ink);font-variant-numeric:tabular-nums}
+.coach{font-size:14px;padding:12px 14px;border-radius:6px;background:var(--cell);border:1px solid var(--line);opacity:0;transition:opacity .35s}
+.coach.show{opacity:1}
+@media (max-width:820px){.interview{grid-template-columns:1fr}.iv-l{border-right:0;border-bottom:1px solid var(--line)}.star div{padding:6px;font-size:11px}}
+.feat{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.feat span{font-size:13.5px;padding:6px 11px;border-radius:6px;border:1px solid var(--line);background:var(--card)}
+
+/* Headshot */
+.hs{display:grid;grid-template-columns:.8fr 1.2fr;gap:48px;align-items:center}
+.hs h2{font-size:clamp(32px,4.2vw,54px);line-height:1.06;margin-top:14px}
+.hs > div > p{color:var(--muted);font-size:16.5px;margin-top:16px;max-width:28em}
+.hsteps{list-style:none;margin:28px 0 0;padding:0;border-top:1px solid var(--line)}
+.hsteps li{display:grid;grid-template-columns:28px 1fr;gap:12px;padding:16px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.hsteps .n{font-family:var(--mono);font-size:13px;color:var(--soft);padding-top:2px}
+.hsteps b{font-weight:500}
+.hsteps p{font-size:14.5px;color:var(--muted)}
+.hsteps li.on .n{color:var(--blue)}
+.hsteps .bar{grid-column:2;height:2px;background:var(--line);margin-top:10px;overflow:hidden;display:none}
+.hsteps li.on .bar{display:block}
+.hsteps .bar i{display:block;height:100%;background:var(--ink);transform-origin:left;transform:scaleX(0)}
+.hsteps li.on.auto .bar i{animation:fill 4s linear forwards}
+.hsteps li.on:not(.auto) .bar i{transform:scaleX(1)}
+@keyframes fill{to{transform:scaleX(1)}}
+.hs-stage{aspect-ratio:1/1;max-width:100%;padding:clamp(18px,4vw,40px)}
+.hs-stage .view{position:relative;width:100%;height:100%;display:grid;place-items:center}
+.hs-stage .view > *{grid-area:1/1;opacity:0;transform:translateY(14px) scale(.98);transition:opacity .6s,transform .7s cubic-bezier(.2,.8,.2,1)}
+.hs-stage .view > .on{opacity:1;transform:none}
+.hs-stage .view img{max-width:96%;max-height:96%;width:auto;filter:drop-shadow(0 24px 44px rgba(5,20,32,.45))}
+.upload{width:min(360px,90%);background:#fff;border-radius:10px;padding:18px;display:grid;gap:12px;box-shadow:0 24px 44px -12px rgba(5,20,32,.45)}
+.upload b{font-weight:500}
+.upload .drop{border:1.5px dashed #CFCAC2;border-radius:8px;padding:18px;text-align:center;font-size:13.5px;color:var(--muted)}
+.upload .files{display:grid;gap:6px}
+.upload .files div{display:flex;justify-content:space-between;gap:8px;font-family:var(--mono);font-size:12px;padding:8px 10px;border-radius:6px;background:var(--cell)}
+.upload .files em{font-style:normal;color:#1F7A4D}
+@media (max-width:900px){.hs{grid-template-columns:1fr;gap:32px}}
+
+/* Engage (Dessa) */
+.dark{background:var(--night);color:#F2EFEA;border-top-color:var(--night-line)}
+.dark::before,.dark::after{background:linear-gradient(#55524D,#55524D) center/1px 9px no-repeat,linear-gradient(#55524D,#55524D) center/9px 1px no-repeat}
+.eng-head{text-align:center;max-width:720px;margin:0 auto}
+.eng-head .chipl{background:var(--night-2);border-color:var(--night-line);color:#F2EFEA}
+.eng-head .chipl i{background:var(--lime)}
+.eng-head h2{font-size:clamp(36px,5vw,64px);line-height:1.04;margin-top:18px}
+.eng-head h2 .two{color:var(--night-muted)}
+.eng-head p{margin:18px auto 0;color:var(--night-muted);font-size:17px;max-width:34em}
+.player{max-width:880px;margin:48px auto 0;display:grid;gap:10px}
+.trk{display:grid;grid-template-columns:44px 1fr;gap:12px;align-items:center;background:var(--night-2);border:1px solid var(--night-line);border-radius:999px;padding:8px 18px 8px 8px}
+.trk .who{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-family:var(--mono);font-size:12px;background:#2B2926;color:#F2EFEA}
+.trk.grad .who{background:#34402A;color:var(--lime)}
+.bars{display:flex;align-items:center;gap:2px;height:40px;min-width:0}
+.bars i{flex:1;border-radius:2px;background:#4A4743;transition:background .15s}
+.bars i.on{background:#F2EFEA}
+.trk.grad .bars i.on{background:var(--lime)}
+.ptags{position:relative;height:30px;margin:0 18px 0 64px}
+.ptags span{position:absolute;top:0;transform:translateX(-50%) scale(.9);font-size:12px;font-weight:500;padding:5px 10px;border-radius:999px;background:var(--lime);color:#1E2508;white-space:nowrap;opacity:0;transition:opacity .3s,transform .3s}
+.ptags span.show{opacity:1;transform:translateX(-50%) scale(1)}
+.pctrl{display:flex;align-items:center;gap:12px;margin-top:6px}
+.play{width:44px;height:44px;border-radius:50%;border:0;background:#F2EFEA;color:var(--night);display:grid;place-items:center;cursor:pointer}
+.play svg{width:14px;height:14px;fill:currentColor}
+.pctrl .time{font-family:var(--mono);font-size:12.5px;color:var(--night-muted);font-variant-numeric:tabular-nums}
+.pctrl .lang{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--night-muted)}
+.eng-body{max-width:880px;margin:36px auto 0;display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+.tx{background:var(--night-2);border:1px solid var(--night-line);border-radius:8px;padding:20px;display:grid;gap:10px;align-content:start;font-size:14.5px;min-width:0}
+.tx p{opacity:.2;transition:opacity .35s}
+.tx p.show{opacity:1}
+.tx b{font-family:var(--mono);font-weight:400;font-size:12px;color:var(--night-muted);display:block}
+.tx p.g b{color:var(--lime)}
+.rec{background:#F7F6F4;color:var(--ink);border-radius:8px;padding:20px;display:grid;gap:0;align-content:start;margin:0;min-width:0}
+.rec .label{margin-bottom:6px}
+.rec div{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+.rec dt{color:var(--muted)}
+.rec dd{margin:0;font-weight:500;text-align:right;transition:opacity .3s}
+.rec dd.empty{opacity:.35;font-weight:400}
+.rec .sync{margin-top:12px;font-size:13px;color:#1F7A4D;font-weight:500;opacity:0;transition:opacity .3s}
+.rec .sync.show{opacity:1}
+@media (max-width:760px){.eng-body{grid-template-columns:1fr}.ptags{height:auto;margin:4px 0 0;display:flex;flex-wrap:wrap;gap:6px}.ptags span{position:static;transform:none!important}.pctrl .lang{display:none}}
+
+/* Rollout (Runner) */
+.deep{background:var(--sea);color:var(--sea-ink);border-top-color:var(--sea)}
+.deep::before,.deep::after{background:linear-gradient(#6E8FA3,#6E8FA3) center/1px 9px no-repeat,linear-gradient(#6E8FA3,#6E8FA3) center/9px 1px no-repeat}
+.roll{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.roll h2{font-size:clamp(32px,4.2vw,54px);line-height:1.06}
+.roll h2 .two{color:#8FB0C3}
+.roll > div > p{margin-top:16px;color:#B7CCD8;font-size:16.5px;max-width:28em}
+.rsteps{list-style:none;margin:32px 0 0;padding:0;border-top:1px solid var(--sea-line)}
+.rsteps li{border-bottom:1px solid var(--sea-line)}
+.rsteps button{all:unset;box-sizing:border-box;width:100%;display:grid;grid-template-columns:30px 1fr;gap:12px;padding:16px 0;cursor:pointer}
+.rsteps button:focus-visible{outline:2px solid var(--lime);outline-offset:2px}
+.rsteps .n{width:22px;height:22px;border-radius:50%;border:1px solid #6E8FA3;display:grid;place-items:center;font-family:var(--mono);font-size:11px;color:#B7CCD8;margin-top:1px}
+.rsteps b{font-weight:500;display:block;color:#fff}
+.rsteps .d{font-size:14.5px;color:#9DB8C8;display:block;max-height:0;overflow:hidden;transition:max-height .4s}
+.rsteps li.on .d{max-height:6em;margin-top:4px}
+.rsteps li.on .n{background:var(--sea-ink);color:var(--sea);border-color:var(--sea-ink)}
+.rsteps .bar{grid-column:2;height:2px;background:var(--sea-line);margin-top:12px;overflow:hidden;display:none}
+.rsteps li.on .bar{display:block}
+.rsteps .bar i{display:block;height:100%;background:var(--sea-ink);transform:scaleX(0);transform-origin:left}
+.rsteps li.on.auto .bar i{animation:fill 5s linear forwards}
+.rsteps li.on:not(.auto) .bar i{transform:scaleX(1)}
+.roll-view{position:relative;border-radius:6px 6px 0 0;overflow:hidden;border:1px solid var(--sea-line);border-bottom:0}
+.roll-view img{width:100%}
+.roll-cap{display:flex;justify-content:space-between;gap:12px;padding:14px 16px;border:1px solid var(--sea-line);border-radius:0 0 6px 6px;font-size:13.5px;color:#B7CCD8;background:#0B2C43;flex-wrap:wrap}
+.roll-cap b{color:#fff;font-weight:500}
+.hl{position:absolute;border:2px solid var(--lime);border-radius:6px;box-shadow:0 0 0 9999px rgba(8,30,46,.38);transition:left .6s,top .6s,width .6s,height .6s;pointer-events:none}
+@media (max-width:900px){.roll{grid-template-columns:1fr;gap:32px}}
+
+/* Products row */
+.prod3{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+.prod3 a{display:grid;gap:12px;padding:26px 24px 28px 0;text-decoration:none;border-right:1px solid var(--line);align-content:start}
+.prod3 a + a{padding-left:24px}
+.prod3 a:last-child{border-right:0}
+.prod3 h3{font-size:30px}
+.prod3 p{color:var(--muted);font-size:15px}
+@media (max-width:820px){.prod3{grid-template-columns:1fr}.prod3 a,.prod3 a + a{padding:22px 0;border-right:0;border-bottom:1px solid var(--line)}}
+
+/* Final CTA */
+.final{border-top:1px solid var(--line);padding-block:var(--pad);padding-left:max(var(--pad),env(safe-area-inset-left,0px));padding-right:max(var(--pad),env(safe-area-inset-right,0px))}
+.final .painted{padding:clamp(40px,8vw,104px) clamp(24px,6vw,72px);color:#fff}
+.final .painted::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(100deg,rgba(7,26,41,.78) 0%,rgba(7,26,41,.5) 55%,rgba(7,26,41,.1) 100%)}
+.final h2{font-size:clamp(38px,6vw,76px);line-height:1;max-width:12em}
+.final p{margin-top:18px;font-size:17px;color:rgba(255,255,255,.86);max-width:32em}
+.final .ctas{margin-top:30px}
+.final .btn-dark{background:#fff;color:var(--ink)}
+.final .btn-dark:hover{background:var(--lime)}
+.final .btn-line{color:#fff;border-color:rgba(255,255,255,.5)}
+.final .btn-line:hover{border-color:#fff}
+
+footer .cols{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:32px}
+footer .cols img{height:34px;width:auto}
+footer .cols p{color:var(--muted);font-size:14px;margin-top:14px;max-width:22em}
+footer h4{margin:0 0 12px;font:400 12.5px var(--mono);color:var(--muted)}
+footer ul{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:14.5px}
+footer ul a{text-decoration:none}
+footer ul a:hover{text-decoration:underline}
+footer .legal{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:48px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+@media (max-width:760px){footer .cols{grid-template-columns:1fr 1fr}footer .cols > div:first-child{grid-column:1/-1}}
+
+/* Testimonials (Harvey editorial) */
+.tq{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);border:1px solid var(--line);background:var(--card)}
+.tq-main{padding:clamp(24px,4vw,48px);display:flex;flex-direction:column;justify-content:space-between;gap:28px;border-right:1px solid var(--line)}
+.tq-main blockquote{margin:0;font-family:var(--serif);font-weight:400;font-size:clamp(24px,2.7vw,36px);line-height:1.22;letter-spacing:-.015em;transition:opacity .35s}
+.tq-who{display:flex;align-items:center;gap:14px;transition:opacity .35s}
+.tq-who img{width:52px;height:52px;border-radius:50%;object-fit:cover}
+.tq-who b{display:block;font-weight:600;font-size:15px}
+.tq-who span{color:var(--muted);font-size:14px}
+.tq-side{position:relative;min-height:420px;overflow:hidden;background:var(--cell)}
+.tq-side img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .45s}
+.tq-side .chipl{position:absolute;left:14px;bottom:14px;z-index:1}
+.tq.out blockquote,.tq.out .tq-who{opacity:0}
+.tq-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--line);border-top:0}
+.tq-tabs button{position:relative;border:0;border-right:1px solid var(--line);background:var(--paper);padding:16px 14px;text-align:left;font:500 13.5px var(--sans);color:var(--soft);cursor:pointer;transition:color .2s,background .2s}
+.tq-tabs button:last-child{border-right:0}
+.tq-tabs button small{display:block;font:400 11.5px var(--mono);margin-top:3px}
+.tq-tabs button[aria-selected="true"]{color:var(--ink);background:var(--card)}
+.tq-tabs button i{position:absolute;left:0;top:0;height:2px;width:0;background:var(--ink)}
+.tq-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border:1px solid var(--line);border-top:0;background:var(--card)}
+.tq-row div{padding:22px;border-right:1px solid var(--line)}
+.tq-row div:last-child{border-right:0}
+.tq-row strong{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(36px,4vw,52px);letter-spacing:-.02em;line-height:1}
+.tq-row span{display:block;margin-top:8px;color:var(--muted);font-size:14px}
+.tq-note{margin-top:14px}
+@media (max-width:860px){.tq{grid-template-columns:1fr}.tq-main{border-right:0;border-bottom:1px solid var(--line)}.tq-side{min-height:260px;order:-1}.tq-tabs{grid-template-columns:1fr 1fr}.tq-tabs button:nth-child(2){border-right:0}.tq-tabs button:nth-child(-n+2){border-bottom:1px solid var(--line)}.tq-row{grid-template-columns:1fr}.tq-row div{border-right:0;border-bottom:1px solid var(--line)}.tq-row div:last-child{border-bottom:0}}
+/* FAQ */
+.faqg{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(24px,5vw,72px);align-items:start}
+.faqg h2{font-size:clamp(32px,4.2vw,54px);line-height:1.06;margin-top:14px}
+.faqg .side p{color:var(--muted);font-size:16.5px;margin-top:16px;max-width:24em}
+.faqg .side .btn{margin-top:22px}
+.faql details{border-top:1px solid var(--line)}
+.faql details:last-child{border-bottom:1px solid var(--line)}
+.faql summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:40px 1fr 22px;align-items:center;gap:8px;padding:20px 0;font-family:var(--serif);font-size:clamp(19px,1.7vw,22px);line-height:1.25}
+.faql summary::-webkit-details-marker{display:none}
+.faql summary .label{align-self:center}
+.faql summary svg{width:14px;height:14px;transition:transform .3s;color:var(--muted)}
+.faql details[open] summary svg{transform:rotate(45deg)}
+.faql details p{padding:0 30px 22px 48px;color:var(--muted);max-width:40em}
+@media (max-width:860px){.faqg{grid-template-columns:1fr}.faql details p{padding-left:0;padding-right:0}.faql summary{grid-template-columns:32px 1fr 20px}}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+
+<a class="skip" href="#main">Skip to main content</a>
+<div class="announce">Engage OS now calls graduates to verify where they landed.<a href="#engage">Hear a call</a></div>
+
+<header class="nav">
+  <div class="frame">
+    <a class="logo" href="#top"><img src="assets/logo.png" alt="WriteSea" width="242" height="100"></a>
+    <ul>
+      <li><a href="#career">Career OS</a></li>
+      <li><a href="#headshot">Headshot OS</a></li>
+      <li><a href="#engage">Engage OS</a></li>
+      <li><a href="#rollout">For career centers</a></li>
+      <li><a href="#stories">Stories</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <div class="right">
+      <a class="btn btn-line btn-sm login" href="https://writesea.com">Log in</a>
+      <a class="btn btn-dark btn-sm" href="#demo">Book a demo</a>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="outer">
+<div class="frame">
+
+  <!-- Hero (Harvey) -->
+  <section class="sec hero" id="top">
+    <div class="hero-top">
+      <h1><span class="rise">Get every student hired.</span><span class="rise d2 two">Then prove it.</span></h1>
+      <div class="hero-side rise d3">
+        <p>WriteSea gives colleges three AI tools. <b>Career OS</b> preps resumes and interviews, <b>Headshot OS</b> makes professional photos, and <b>Engage OS</b> calls graduates to record where they landed.</p>
+        <div class="ctas"><a class="btn btn-dark" href="#demo">Book a demo</a><a class="btn btn-line" href="#career">See the products</a></div>
+      </div>
+    </div>
+    <div class="painted stage-hero" data-paint="sea">
+      <canvas aria-hidden="true"></canvas>
+      <img class="shot" data-key src="assets/career-os.png" alt="Career OS screens: student profile, resume builder settings, cover letter customizer, salary negotiation and a mock interview with a 92% score" width="1024" height="879">
+      <div class="float f1"><span class="label">Resume Review</span><b>Score went from 58 to 91</b><div class="mini"><i style="--w:91%"></i></div></div>
+      <div class="float f2"><span class="label">Mock Interview</span><b>Behavioral round complete</b><span class="ok">Score 86</span></div>
+      <div class="float f3"><span class="label">Headshot OS</span><b>12 headshots ready</b><span class="ok">Added to LinkedIn</span></div>
+      <div class="float f4"><span class="label">Engage OS, 6-month check-in</span><b>Amara O. is employed</b><span class="ok">Data analyst, healthcare</span></div>
+    </div>
+  </section>
+
+  <!-- Logos (Rox) -->
+  <section class="logos" aria-label="Customers">
+    <div class="logos-head"><span class="label">Trusted by 60+ colleges and universities</span><a class="arrow-link label" href="#demo">Read their stories <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a></div>
+    <div class="logo-grid">
+      <div><img src="assets/logos/stanford-university-logo.png" alt="Stanford University" loading="lazy"></div>
+      <div><img src="assets/logos/arizona-state-university-logo-png-transparent.png" alt="Arizona State University" loading="lazy"></div>
+      <div><img src="assets/logos/University_of_Alabama_logo-1.png" alt="The University of Alabama" loading="lazy"></div>
+      <div><img src="assets/logos/Oakton_College_Logo.png" alt="Oakton College" loading="lazy"></div>
+      <div><img src="assets/logos/New_TCC_LOGO.png" alt="Tulsa Community College" loading="lazy"></div>
+      <div><img src="assets/logos/Dillard_Main_Logo-Blue.png" alt="Dillard University" loading="lazy"></div>
+      <div><img src="assets/logos/LAN-5047-Logo-Langston-Horizontal-Color_0.png" alt="Langston University" loading="lazy"></div>
+      <div><img src="assets/logos/Xavier_University_Cincinnati_logo.png" alt="Xavier University" loading="lazy"></div>
+      <div><img src="assets/logos/Oklahoma_City_University_logo.svg.png" alt="Oklahoma City University" loading="lazy"></div>
+      <div><img src="assets/logos/Sitelogo_CCC_Logo.png" alt="City Colleges of Chicago" loading="lazy"></div>
+      <div><img src="assets/logos/ua-little-rock-h-rgb.png" alt="University of Arkansas at Little Rock" loading="lazy"></div>
+      <div><img src="assets/logos/Lewis_univ_logo.png" alt="Lewis University" loading="lazy"></div>
+    </div>
+  </section>
+
+  <!-- What is WriteSea (Rox two-tone + HubSpot) -->
+  <section class="sec">
+    <div class="statement">
+      <h2>Career prep for every student. <span class="two">Verified outcomes for every graduate.</span></h2>
+      <div class="body">
+        <p>Career centers are asked to prepare thousands of students with a small team, then report on jobs they can't see. <b>WriteSea does both.</b></p>
+        <p>Students get help any time of day. Your team gets one dashboard and real answers about where graduates went.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Three jobs (Beside) -->
+  <section class="sec">
+    <div class="jobs">
+      <div class="intro">
+        <span class="label">The problem</span>
+        <h2>Three jobs stand between a student and a first job.</h2>
+        <p>WriteSea takes all three off your team's plate, so advisors can spend their time on the conversations that need a person.</p>
+      </div>
+      <ol class="joblist">
+        <li><span class="n">1</span><div><h3>Getting interview-ready</h3><p>A resume that gets read, a cover letter for each job, practice answering real questions.</p></div><span class="handled">Handled by Career OS</span></li>
+        <li><span class="n">2</span><div><h3>Making a strong first impression</h3><p>A professional headshot for LinkedIn, applications and the career fair.</p></div><span class="handled">Handled by Headshot OS</span></li>
+        <li><span class="n">3</span><div><h3>Knowing where graduates landed</h3><p>Employment, salary and grad school answers, collected months after graduation.</p></div><span class="handled">Handled by Engage OS</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Career OS (Zaro compare) -->
+  <section class="sec" id="career">
+    <div class="shead">
+      <div><span class="chipl"><i></i>Career OS</span><h2>Students prepare on their own time. <span class="two">Your team reviews more, faster.</span></h2></div>
+      <p>Resume building and review, cover letters, mock interviews, job tracking and salary negotiation, available to every student around the clock.</p>
+    </div>
+
+    <div class="compare">
+      <div class="zcard">
+        <div class="tags"><span class="chipl">Resume</span><span class="chipl">First draft</span></div>
+        <div><h3>What students bring in.</h3><p>Vague lines, no numbers, nothing tied to the job.</p></div>
+        <div class="doc">
+          <div class="doc-top">Ready to send: <span class="pct low">58%</span></div>
+          <ul class="lines">
+            <li class="bad"><span class="ic">!</span><span><mark>Helped with</mark> the food bank social media.</span></li>
+            <li class="bad"><span class="ic">!</span><span><mark>Worked on</mark> survey data for a professor.</span></li>
+            <li class="bad"><span class="ic">!</span><span>Skills: <mark>hard worker</mark>, team player, Excel.</span></li>
+          </ul>
+          <div class="doc-foot"><span>Target role: Data Analyst Intern</span></div>
+        </div>
+      </div>
+      <div class="zcard after">
+        <div class="tags"><span class="chipl"><i></i>Career OS</span><span class="chipl">Resume Review</span></div>
+        <div><h3>What Career OS sends back.</h3><p>Each line rewritten with a result, matched to the job post.</p></div>
+        <div class="doc">
+          <div class="doc-top">Ready to send: <span class="pct high" id="rs-pct">91%</span></div>
+          <ul class="lines" id="rs-lines">
+            <li class="good"><span class="ic">✓</span><span>Grew the food bank's Instagram from 300 to 2,100 followers in one semester, doubling volunteer sign-ups.</span></li>
+            <li class="good"><span class="ic">✓</span><span>Analyzed survey data from 1,200 students in Python, cutting report time from 3 days to 4 hours.</span></li>
+            <li class="good"><span class="ic">✓</span><span>Skills: Python, SQL, Tableau, Excel (pivot tables, lookups).</span></li>
+          </ul>
+          <div class="doc-foot"><span>Updated by Career OS just now</span><button class="linkbtn" id="rs-run" type="button">Run the review again</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="interview">
+      <div class="iv-l">
+        <div class="tags"><span class="chipl"><i></i>Career OS</span><span class="chipl">Mock Interview</span></div>
+        <div class="iv-tabs" role="group" aria-label="Interview type">
+          <button type="button" data-q="0" aria-pressed="true">Behavioral</button>
+          <button type="button" data-q="1" aria-pressed="false">Role fit</button>
+          <button type="button" data-q="2" aria-pressed="false">Technical</button>
+        </div>
+        <p class="q" id="iv-q">Tell me about a time you used data to change someone's mind.</p>
+        <div class="mic" id="iv-mic" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><span id="iv-mic-label">Answer recorded, 1:12</span></div>
+      </div>
+      <div class="iv-r">
+        <span class="label">Student answer</span>
+        <p class="answer" id="iv-a">Our food bank kept running out of produce on Mondays. I pulled six months of sign-in data and showed the coordinator that most visits came after weekend shifts. We moved the delivery to Sunday night.</p>
+        <div class="star" id="iv-star"><div class="ok"><b>S</b>Situation</div><div class="ok"><b>T</b>Task</div><div class="ok"><b>A</b>Action</div><div class="miss"><b>R</b>Result</div></div>
+        <div class="metrics"><span><b id="iv-score">86</b>Score</span><span><b id="iv-pace">138</b>Words per min</span><span><b id="iv-filler">2</b>Filler words</span></div>
+        <p class="coach show" id="iv-tip">Add the result. What changed after the move? A number makes the answer stick.</p>
+      </div>
+    </div>
+    <div class="feat"><span>Resume Builder</span><span>Resume Review</span><span>Cover Letters</span><span>Mock Interviews</span><span>Job Feed</span><span>Job Tracker</span><span>Contact Tracker</span><span>Salary Negotiation</span></div>
+  </section>
+
+  <!-- Headshot OS -->
+  <section class="sec" id="headshot">
+    <div class="hs">
+      <div>
+        <span class="chipl"><i></i>Headshot OS</span>
+        <h2>Studio headshots <span class="two">from a few everyday photos.</span></h2>
+        <p>No photographer, no scheduling. Students get a full set of professional headshots in minutes, ready for LinkedIn and the career fair.</p>
+        <ol class="hsteps" id="hs-steps">
+          <li data-v="0"><span class="n">1</span><div><b>Upload a few photos</b><p>Any clear selfies from a phone.</p></div><span class="bar"><i></i></span></li>
+          <li data-v="1"><span class="n">2</span><div><b>Choose outfits and backgrounds</b><p>Business suit, university library, studio grey and more.</p></div><span class="bar"><i></i></span></li>
+          <li data-v="2"><span class="n">3</span><div><b>Download and share</b><p>A library of headshots for LinkedIn, resumes and badges.</p></div><span class="bar"><i></i></span></li>
+        </ol>
+      </div>
+      <div class="painted hs-stage" data-paint="dawn">
+        <canvas aria-hidden="true"></canvas>
+        <div class="view" id="hs-view">
+          <div class="upload" data-v="0">
+            <b>Upload your photos</b>
+            <div class="drop">Drag in 4 to 10 clear photos of your face</div>
+            <div class="files"><div>selfie_kitchen.jpg<em>Uploaded</em></div><div>grad_party.jpg<em>Uploaded</em></div><div>library_window.jpg<em>Uploaded</em></div></div>
+          </div>
+          <img data-v="1" data-key src="assets/headshot-styles.png" alt="Headshot OS style picker showing University Library background with a grey business suit" width="1044" height="858" loading="lazy">
+          <img data-v="2" src="assets/headshots.png" alt="Grid of AI-generated professional headshots" width="1024" height="879" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Engage OS (Dessa) -->
+  <section class="sec dark" id="engage">
+    <div class="eng-head">
+      <span class="chipl"><i></i>Engage OS</span>
+      <h2>Graduates talk. <span class="two">Engage OS listens.</span></h2>
+      <p>A friendly voice AI calls students and graduates, asks how their career is going, and saves the answers to your outcomes report. Press play to hear a 6-month check-in.</p>
+    </div>
+    <div class="player">
+      <div class="trk"><span class="who">WS</span><div class="bars" id="en-a"></div></div>
+      <div class="trk grad"><span class="who">AO</span><div class="bars" id="en-g"></div></div>
+      <div class="ptags" id="en-tags">
+        <span style="left:26%" data-t=".26">Employed</span>
+        <span style="left:50%" data-t=".5">Employer named</span>
+        <span style="left:71%" data-t=".71">Salary range</span>
+        <span style="left:91%" data-t=".91">Wants to mentor</span>
+      </div>
+      <div class="pctrl">
+        <button class="play" id="en-play" type="button" aria-label="Play the check-in call"><svg viewBox="0 0 16 16"><path d="M4 2.5v11l9-5.5z"/></svg></button>
+        <span class="time" id="en-time">1:24 / 1:24</span>
+        <span class="lang">Call transcript, English</span>
+      </div>
+    </div>
+    <div class="eng-body">
+      <div class="tx" id="en-tx" aria-live="polite">
+        <p class="show" data-t=".03"><b>WriteSea</b>Hi Amara, it's WriteSea calling for your college. How's life after graduation?</p>
+        <p class="show g" data-t=".2"><b>Amara</b>Good! I started a full-time job in August.</p>
+        <p class="show" data-t=".33"><b>WriteSea</b>Congratulations. Where are you working now?</p>
+        <p class="show g" data-t=".44"><b>Amara</b>I'm a data analyst at a regional hospital network.</p>
+        <p class="show" data-t=".57"><b>WriteSea</b>Would you share a salary range? It stays anonymous.</p>
+        <p class="show g" data-t=".66"><b>Amara</b>Sure, it's between 60 and 70 thousand.</p>
+        <p class="show g" data-t=".88"><b>Amara</b>And yes, I'd love to mentor current students.</p>
+      </div>
+      <dl class="rec" id="en-rec">
+        <span class="label">Saved to Amara's record</span>
+        <div><dt>Status</dt><dd data-t=".22">Employed full-time</dd></div>
+        <div><dt>Role</dt><dd data-t=".46">Data analyst</dd></div>
+        <div><dt>Industry</dt><dd data-t=".47">Healthcare</dd></div>
+        <div><dt>Salary range</dt><dd data-t=".68">$60k to $70k</dd></div>
+        <div><dt>Alumni mentor</dt><dd data-t=".9">Yes</dd></div>
+        <p class="sync show" id="en-sync">Added to the class of 2027 outcomes report</p>
+      </dl>
+    </div>
+  </section>
+
+  <!-- Rollout (Runner) -->
+  <section class="sec deep" id="rollout">
+    <div class="roll">
+      <div>
+        <h2>One record per student. <span class="two">One dashboard for your team.</span></h2>
+        <p>Every resume review, practice interview, headshot and check-in call lands in the same place. Here's how a campus uses it.</p>
+        <ol class="rsteps" id="r-steps">
+          <li><button type="button"><span class="n">1</span><span><b>Give every student access</b><span class="d">Students sign in with their school email and start on their own, any time of day.</span></span><span class="bar"><i></i></span></button></li>
+          <li><button type="button"><span class="n">2</span><span><b>See who needs help</b><span class="d">Open any student's record to see logins, jobs tracked and how far they've got in hiring.</span></span><span class="bar"><i></i></span></button></li>
+          <li><button type="button"><span class="n">3</span><span><b>Track activity across campus</b><span class="d">Resume reviews, interviews and negotiated offers add up in one view.</span></span><span class="bar"><i></i></span></button></li>
+          <li><button type="button"><span class="n">4</span><span><b>Report outcomes with confidence</b><span class="d">Engage OS answers feed your reports for leadership and accreditors.</span></span><span class="bar"><i></i></span></button></li>
+        </ol>
+      </div>
+      <div>
+        <div class="roll-view">
+          <img data-key src="assets/dashboard.png" alt="WriteSea admin dashboard with a student profile and campus totals for logins, interviews, resume reviews and offers negotiated" width="1044" height="612" loading="lazy">
+          <div class="hl" id="r-hl"></div>
+        </div>
+        <div class="roll-cap"><b id="r-cap">Admin dashboard</b><span>Screenshot from WriteSea</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section class="sec">
+    <div class="shead" style="margin-bottom:28px"><h2>Three products, one platform. <span class="two">Start with one, add the rest.</span></h2></div>
+    <div class="prod3">
+      <a href="#career"><span class="label">For students</span><h3>Career OS</h3><p>Resumes, cover letters, mock interviews, job tracking and salary negotiation.</p><span class="arrow-link">Explore Career OS <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a>
+      <a href="#headshot"><span class="label">For students</span><h3>Headshot OS</h3><p>Professional headshots from a few everyday photos, in minutes.</p><span class="arrow-link">Explore Headshot OS <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a>
+      <a href="#engage"><span class="label">For your institution</span><h3>Engage OS</h3><p>Voice AI check-ins, surveys and outreach that verify graduate outcomes.</p><span class="arrow-link">Explore Engage OS <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a>
+    </div>
+  </section>
+
+  <!-- Testimonials (Harvey) -->
+  <section class="sec" id="stories">
+    <div class="shead" style="margin-bottom:28px"><div><span class="label">Customer stories</span><h2>Career teams doing more with the same people. <span class="two">In their words.</span></h2></div><p>How partner campuses use Career OS, Headshot OS and Engage OS.</p></div>
+    <div class="tq" id="tq">
+      <div class="tq-main">
+        <blockquote id="tqQuote">"We used to see the same two hundred students every semester. Now every student gets resume feedback the same day, and my advisors spend their time on the conversations that need a person."</blockquote>
+        <div class="tq-who"><img id="tqImg" src="assets/stories/person-1.jpg" alt=""><div><b id="tqName">Dr. Maya Ellison</b><span id="tqRole">Director of Career Services, Riverton State University</span></div></div>
+      </div>
+      <div class="tq-side"><img id="tqPhoto" src="assets/stories/story-1.jpg" alt=""><span class="chipl" id="tqUses">Uses Career OS</span></div>
+    </div>
+    <div class="tq-tabs" role="tablist" aria-label="Customer stories" id="tqTabs">
+      <button type="button" role="tab" aria-selected="true"><i></i>Riverton State<small>Career OS</small></button>
+      <button type="button" role="tab" aria-selected="false"><i></i>Eastbrook College<small>Career OS · Headshot OS</small></button>
+      <button type="button" role="tab" aria-selected="false"><i></i>Calder Valley CC<small>Engage OS</small></button>
+      <button type="button" role="tab" aria-selected="false"><i></i>Pinecrest University<small>Engage OS · Dashboard</small></button>
+    </div>
+    <div class="tq-row">
+      <div><strong>60+</strong><span>Colleges and universities using WriteSea</span></div>
+      <div><strong>72%</strong><span>Graduates reached by check-in calls (sample)</span></div>
+      <div><strong>25+</strong><span>Hours saved per advisor each month (sample)</span></div>
+    </div>
+    <p class="label tq-note">Sample testimonials: fictional people and colleges, replace before launch.</p>
+  </section>
+
+  <!-- FAQ -->
+  <section class="sec" id="faq">
+    <div class="faqg">
+      <div class="side"><span class="label">FAQ</span><h2>Questions, <span class="two">answered.</span></h2><p>Setup, data and support. Anything else, ask us on a demo call.</p><a class="btn btn-line" href="#demo">Book a demo</a></div>
+      <div class="faql"><details open><summary><span class="label">01</span><span>How does WriteSea work with our campus systems?</span><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 1v12M1 7h12"/></svg></summary><p>WriteSea connects to SIS, LMS and CRM platforms through a secure API and pre-built connectors. Our implementation team manages the full integration from day one.</p></details><details><summary><span class="label">02</span><span>What implementation support do we get?</span><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 1v12M1 7h12"/></svg></summary><p>Full onboarding with a dedicated implementation specialist, team training, data migration support and ongoing customer success management.</p></details><details><summary><span class="label">03</span><span>How is student success measured?</span><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 1v12M1 7h12"/></svg></summary><p>WriteSea tracks internship placements, job offers, salary benchmarks, alumni engagement and skills milestones.</p></details><details><summary><span class="label">04</span><span>Can WriteSea support alumni engagement?</span><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 1v12M1 7h12"/></svg></summary><p>Yes. Alumni tools help you stay connected with graduates, track long-term outcomes and build a mentorship and referral community.</p></details><details><summary><span class="label">05</span><span>Which LMS and SIS platforms do you support?</span><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 1v12M1 7h12"/></svg></summary><p>Canvas, Blackboard and Moodle, plus SIS systems such as Ellucian, PeopleSoft and Banner.</p></details></div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="final" id="demo">
+    <div class="painted" data-paint="sea">
+      <canvas aria-hidden="true"></canvas>
+      <h2>See WriteSea with your students in mind.</h2>
+      <p>We'll walk you through the student experience, the admin dashboard and a live Engage OS call, set up for your campus.</p>
+      <div class="ctas"><a class="btn btn-dark" href="https://writesea.com">Book a demo</a><a class="btn btn-line" href="#top">Back to top</a></div>
+    </div>
+  </section>
+
+  <footer class="sec">
+    <div class="cols">
+      <div><img src="assets/logo.png" alt="WriteSea" width="242" height="100" loading="lazy"><p>AI career tools for colleges and universities.</p></div>
+      <div><h4>Products</h4><ul><li><a href="#career">Career OS</a></li><li><a href="#headshot">Headshot OS</a></li><li><a href="#engage">Engage OS</a></li><li><a href="#rollout">Admin dashboard</a></li></ul></div>
+      <div><h4>Solutions</h4><ul><li><a href="https://writesea.com/career-services/">Career services</a></li><li><a href="https://writesea.com">Workforce development</a></li><li><a href="https://writesea.com">Non-profits</a></li><li><a href="https://writesea.com/job-boards-career-marketplaces/">Job boards</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="https://writesea.com">About</a></li><li><a href="https://writesea.com/blog">Blog</a></li><li><a href="https://writesea.com/careers/">Careers</a></li><li><a href="https://writesea.com">Press</a></li></ul></div>
+    </div>
+    <div class="legal"><span>© 2026 WriteSea</span><span>Privacy &nbsp; Terms</span></div>
+  </footer>
+</div>
+</main>
+
+<script>
+(() => {
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  const runner = fn => { let t = 0; return () => { const my = ++t; return fn(() => my === t); }; };
+  const onView = (el, cb, th = .4) => { const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { io.disconnect(); cb(); } }), { threshold: th }); io.observe(el); };
+  async function type(el, text, alive, cps = 60) {
+    el.textContent = ''; el.classList.add('caret');
+    for (let i = 0; i < text.length; i++) { if (!alive()) return; el.textContent = text.slice(0, i + 1); await sleep(1000 / cps); }
+    el.classList.remove('caret');
+  }
+  async function count(set, from, to, ms, alive) {
+    const t0 = performance.now();
+    while (alive()) { const p = Math.min(1, (performance.now() - t0) / ms); set(Math.round(from + (to - from) * (1 - Math.pow(1 - p, 3)))); if (p === 1) break; await new Promise(requestAnimationFrame); }
+  }
+
+  /* ---------- Painted sea panels ---------- */
+  const PALETTES = {
+    sea:  { base: '#123E5C', blobs: ['#0B2A42', '#1D5E86', '#2C7FB8', '#5BB6E6', '#9FD3EE', '#F0E4CC', '#0E3550'] },
+    dawn: { base: '#2A5D7C', blobs: ['#1D4A66', '#5BB6E6', '#A7D7EE', '#F3DDBF', '#E8B98C', '#2C7FB8', '#163B55'] }
+  };
+  const rand = seed => { let s = seed; return () => (s = (s * 16807) % 2147483647) / 2147483647; };
+  function paint(panel) {
+    const cv = $('canvas', panel), pal = PALETTES[panel.dataset.paint] || PALETTES.sea;
+    const w = panel.clientWidth, h = panel.clientHeight, dpr = Math.min(2, devicePixelRatio || 1);
+    if (!w || !h) return;
+    cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+    const c = cv.getContext('2d'); c.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const r = rand(panel.dataset.paint === 'dawn' ? 7 : 42);
+    c.fillStyle = pal.base; c.fillRect(0, 0, w, h);
+    for (let i = 0; i < 26; i++) {
+      const x = r() * w, y = r() * h, rad = (0.25 + r() * 0.6) * Math.max(w, h);
+      const g = c.createRadialGradient(x, y, 0, x, y, rad), col = pal.blobs[Math.floor(r() * pal.blobs.length)];
+      g.addColorStop(0, col + 'AA'); g.addColorStop(1, col + '00');
+      c.fillStyle = g; c.fillRect(0, 0, w, h);
+    }
+    // broad, blurred brush sweeps (oil-paint feel), then a few fine highlights
+    c.lineCap = 'round';
+    const sweep = (count, minW, maxW, alpha, blur) => {
+      c.filter = blur ? `blur(${blur}px)` : 'none';
+      for (let i = 0; i < count; i++) {
+        const x = r() * w, y = r() * h, len = 120 + r() * 420, ang = -0.18 + r() * 0.36;
+        c.strokeStyle = pal.blobs[Math.floor(r() * pal.blobs.length)] + alpha;
+        c.lineWidth = minW + r() * (maxW - minW);
+        c.beginPath(); c.moveTo(x, y);
+        c.quadraticCurveTo(x + Math.cos(ang) * len / 2, y + Math.sin(ang) * len / 2 + (r() - .5) * 40, x + Math.cos(ang) * len, y + Math.sin(ang) * len);
+        c.stroke();
+      }
+    };
+    sweep(70, 30, 90, '30', 14);
+    sweep(60, 6, 20, '26', 4);
+    sweep(24, 1, 3, '30', 0);
+    c.filter = 'none';
+    const img = c.getImageData(0, 0, cv.width, cv.height), d = img.data;
+    for (let i = 0; i < d.length; i += 4) { const n = (Math.random() - .5) * 16; d[i] += n; d[i + 1] += n; d[i + 2] += n; }
+    c.putImageData(img, 0, 0);
+  }
+  /* ---------- Lift product screenshots off their flat blue backdrop ---------- */
+  const KEYS = [[91, 187, 239], [120, 200, 242], [104, 193, 241]];
+  function keyBlue(img) {
+    const go = () => {
+      try {
+        const cv = document.createElement('canvas'); cv.width = img.naturalWidth; cv.height = img.naturalHeight;
+        const c = cv.getContext('2d'); c.drawImage(img, 0, 0);
+        const data = c.getImageData(0, 0, cv.width, cv.height), d = data.data;
+        for (let i = 0; i < d.length; i += 4) {
+          let best = 999;
+          for (const k of KEYS) { const dd = Math.hypot(d[i] - k[0], d[i + 1] - k[1], d[i + 2] - k[2]); if (dd < best) best = dd; }
+          if (best < 46) d[i + 3] = Math.min(d[i + 3], Math.max(0, (best - 22) / 24) * 255);
+        }
+        c.putImageData(data, 0, 0);
+        img.src = cv.toDataURL('image/png');
+      } catch (e) { /* keep the original image if the canvas can't read it */ }
+    };
+    img.loading = 'eager';
+    img.complete && img.naturalWidth ? go() : img.addEventListener('load', go, { once: true });
+  }
+  $$('img[data-key]').forEach(keyBlue);
+
+  const panels = $$('.painted');
+  panels.forEach(paint);
+  let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => panels.forEach(paint), 200); });
+
+  /* ---------- Hero floating cards ---------- */
+  const floats = $$('.float'), narrow = () => innerWidth <= 700;
+  let k = 0;
+  const cycle = () => {
+    floats.forEach((f, i) => f.classList.toggle('show', narrow() ? i === k % 4 : (i === k % 4 || i === (k + 1) % 4)));
+    k += narrow() ? 1 : 2;
+  };
+  cycle();
+  if (!RM) setInterval(cycle, 3800);
+
+  /* ---------- Career OS: resume review ---------- */
+  const GOOD = [
+    "Grew the food bank's Instagram from 300 to 2,100 followers in one semester, doubling volunteer sign-ups.",
+    'Analyzed survey data from 1,200 students in Python, cutting report time from 3 days to 4 hours.',
+    'Skills: Python, SQL, Tableau, Excel (pivot tables, lookups).'
+  ];
+  const playResume = runner(async alive => {
+    const pct = $('#rs-pct'), lis = $$('#rs-lines li');
+    pct.className = 'pct low'; pct.textContent = '58%';
+    lis.forEach(li => { li.className = 'bad'; $('.ic', li).textContent = '!'; $('span:last-child', li).textContent = ''; });
+    await sleep(400);
+    for (let i = 0; i < lis.length; i++) {
+      if (!alive()) return;
+      const li = lis[i]; li.className = 'good'; $('.ic', li).textContent = '✓';
+      await type($('span:last-child', li), GOOD[i], alive, 85);
+      if (!alive()) return;
+      if (i === 1) pct.className = 'pct high';
+      await count(v => pct.textContent = v + '%', [58, 72, 84][i], [72, 84, 91][i], 600, alive);
+    }
+  });
+  $('#rs-run').addEventListener('click', playResume);
+
+  /* ---------- Career OS: mock interview ---------- */
+  const QS = [
+    { q: "Tell me about a time you used data to change someone's mind.",
+      a: 'Our food bank kept running out of produce on Mondays. I pulled six months of sign-in data and showed the coordinator that most visits came after weekend shifts. We moved the delivery to Sunday night.',
+      star: ['ok','ok','ok','miss'], tip: 'Add the result. What changed after the move? A number makes the answer stick.', score: 86, pace: 138, filler: 2, len: '1:12' },
+    { q: 'Why do you want to be a data analyst on our team?',
+      a: "I like turning messy data into decisions people act on. Your team publishes its patient wait-time dashboards, and I rebuilt one in Tableau to practice. I'd like to help make those faster.",
+      star: ['ok','ok','ok','ok'], tip: 'Strong answer. Specific, researched and tied to the role.', score: 93, pace: 131, filler: 0, len: '0:58' },
+    { q: 'How would you find duplicate students in a table of 50,000 sign-ups?',
+      a: "I'd normalize emails and names first, then group by email and count. For people without an email I'd match on name plus birth date and review the close matches by hand.",
+      star: ['ok','ok','ok','miss'], tip: 'Good approach. Name the tool you would use, for example SQL GROUP BY with HAVING COUNT > 1.', score: 81, pace: 142, filler: 1, len: '0:47' }
+  ];
+  let qi = 0;
+  function showInterviewFinal() {
+    const d = QS[qi];
+    $('#iv-q').textContent = d.q; $('#iv-a').textContent = d.a;
+    $$('#iv-star div').forEach((s, i) => s.className = d.star[i]);
+    $('#iv-score').textContent = d.score; $('#iv-pace').textContent = d.pace; $('#iv-filler').textContent = d.filler;
+    $('#iv-tip').textContent = d.tip; $('#iv-tip').classList.add('show'); $('#iv-mic-label').textContent = 'Answer recorded, ' + d.len;
+  }
+  const playInterview = runner(async alive => {
+    const d = QS[qi], mic = $('#iv-mic'), star = $$('#iv-star div'), tip = $('#iv-tip');
+    $('#iv-a').textContent = ''; star.forEach(s => s.className = ''); tip.classList.remove('show');
+    $('#iv-mic-label').textContent = 'Listening'; ['#iv-score', '#iv-pace', '#iv-filler'].forEach(s => $(s).textContent = '–');
+    await type($('#iv-q'), d.q, alive, 50); if (!alive()) return;
+    await sleep(250); mic.classList.add('live');
+    await type($('#iv-a'), d.a, alive, 75); mic.classList.remove('live'); if (!alive()) return;
+    $('#iv-mic-label').textContent = 'Answer recorded, ' + d.len;
+    for (let i = 0; i < 4; i++) { await sleep(220); if (!alive()) return; star[i].className = d.star[i]; }
+    $('#iv-pace').textContent = d.pace; $('#iv-filler').textContent = d.filler;
+    tip.textContent = d.tip; tip.classList.add('show');
+    await count(v => $('#iv-score').textContent = v, 40, d.score, 700, alive);
+  });
+  $$('.iv-tabs button').forEach(b => b.addEventListener('click', () => {
+    $$('.iv-tabs button').forEach(x => x.setAttribute('aria-pressed', x === b));
+    qi = +b.dataset.q;
+    RM ? showInterviewFinal() : playInterview();
+  }));
+
+  /* ---------- Headshot OS steps ---------- */
+  const hsSteps = $$('#hs-steps li'), hsViews = $$('#hs-view [data-v]');
+  let hsTimer;
+  function showHs(i, auto) {
+    hsSteps.forEach((li, n) => { li.classList.remove('on', 'auto'); if (n === i) { void li.offsetWidth; li.classList.add('on'); if (auto && !RM) li.classList.add('auto'); } });
+    hsViews.forEach(v => v.classList.toggle('on', +v.dataset.v === i));
+    clearTimeout(hsTimer);
+    if (auto && !RM) hsTimer = setTimeout(() => showHs((i + 1) % 3, true), 4000);
+  }
+  hsSteps.forEach((li, i) => {
+    li.tabIndex = 0; li.setAttribute('role', 'button');
+    li.addEventListener('click', () => showHs(i, true));
+    li.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showHs(i, true); } });
+  });
+  showHs(2, false);
+
+  /* ---------- Engage OS call ---------- */
+  const N = 90;
+  const A_SEG = [[.01,.15],[.29,.38],[.53,.61],[.78,.84]];
+  const G_SEG = [[.17,.27],[.40,.51],[.63,.75],[.86,.98]];
+  const seeded = (i, k) => { const x = Math.sin(i * 12.9898 + k * 78.233) * 43758.5453; return x - Math.floor(x); };
+  function bars(el, segs, k) {
+    for (let i = 0; i < N; i++) {
+      const f = i / N, talk = segs.some(([a, b]) => f >= a && f <= b);
+      const b = document.createElement('i'); b.style.height = (talk ? 28 + seeded(i, k) * 72 : 6 + seeded(i, k) * 8) + '%'; el.appendChild(b);
+    }
+  }
+  bars($('#en-a'), A_SEG, 1); bars($('#en-g'), G_SEG, 2);
+  const barsA = $$('#en-a i'), barsG = $$('#en-g i');
+  const DUR = 84, fmt = s => Math.floor(s / 60) + ':' + String(Math.floor(s % 60)).padStart(2, '0');
+  $$('#en-rec dd').forEach(d => d.dataset.v = d.textContent);
+  function paintCall(p) {
+    const n = Math.floor(p * N);
+    barsA.forEach((b, i) => b.classList.toggle('on', i < n));
+    barsG.forEach((b, i) => b.classList.toggle('on', i < n));
+    $$('#en-tags span').forEach(s => s.classList.toggle('show', p >= +s.dataset.t));
+    $$('#en-tx p').forEach(s => s.classList.toggle('show', p >= +s.dataset.t));
+    $$('#en-rec dd').forEach(d => { const on = p >= +d.dataset.t; d.textContent = on ? d.dataset.v : 'Waiting'; d.classList.toggle('empty', !on); });
+    $('#en-sync').classList.toggle('show', p >= 1);
+    $('#en-time').textContent = fmt(p * DUR) + ' / ' + fmt(DUR);
+  }
+  paintCall(1);
+  const playCall = runner(async alive => {
+    const ms = 12000, t0 = performance.now();
+    while (alive()) { const p = Math.min(1, (performance.now() - t0) / ms); paintCall(p); if (p === 1) break; await new Promise(requestAnimationFrame); }
+  });
+  $('#en-play').addEventListener('click', () => { $('#en-play').setAttribute('aria-label', 'Restart the check-in call'); RM ? paintCall(1) : playCall(); });
+
+  /* ---------- Rollout steps with dashboard highlight ---------- */
+  // Boxes as fractions of the dashboard screenshot (1044 x 612)
+  const HL = [
+    { x: .30, y: .11, w: .69, h: .15, cap: 'Students sign in and start on their own' },
+    { x: .085, y: .39, w: .51, h: .60, cap: 'Student profile: logins, jobs tracked, hiring stage' },
+    { x: .48, y: .32, w: .51, h: .37, cap: 'Campus totals: interviews, resume reviews, offers' },
+    { x: .55, y: .72, w: .44, h: .27, cap: 'Outcomes over time, ready for your reports' }
+  ];
+  const rLis = $$('#r-steps li'), hl = $('#r-hl');
+  let rTimer;
+  function showR(i, auto) {
+    rLis.forEach((li, n) => { li.classList.remove('on', 'auto'); if (n === i) { void li.offsetWidth; li.classList.add('on'); if (auto && !RM) li.classList.add('auto'); } });
+    const b = HL[i];
+    Object.assign(hl.style, { left: b.x * 100 + '%', top: b.y * 100 + '%', width: b.w * 100 + '%', height: b.h * 100 + '%' });
+    $('#r-cap').textContent = b.cap;
+    clearTimeout(rTimer);
+    if (auto && !RM) rTimer = setTimeout(() => showR((i + 1) % 4, true), 5000);
+  }
+  $$('#r-steps button').forEach((b, i) => b.addEventListener('click', () => showR(i, true)));
+  showR(0, false);
+
+  /* ---------- Start each demo when it scrolls into view ---------- */
+  if (!RM) {
+    onView($('.zcard.after'), playResume, .5);
+    onView($('.interview'), playInterview, .5);
+    onView($('#hs-view'), () => showHs(0, true), .4);
+    onView($('.player'), () => { paintCall(0); playCall(); }, .6);
+    onView($('.roll-view'), () => showR(0, true), .4);
+  }
+
+  /* testimonials */
+  (() => {
+    const T = [
+      ['story-1','person-1','Uses Career OS','"We used to see the same two hundred students every semester. Now every student gets resume feedback the same day, and my advisors spend their time on the conversations that need a person."','Dr. Maya Ellison','Director of Career Services, Riverton State University'],
+      ['story-2','person-2','Uses Career OS and Headshot OS','"Students practice at midnight before a big interview and walk into the real one calm. Employers have noticed the difference in how our graduates show up."','Marcus Reid','Dean of Student Affairs, Eastbrook College'],
+      ['story-3','person-3','Uses Engage OS','"Our email survey got a handful of replies. When Engage OS calls, graduates pick up and talk. For the first time we know where most of our class actually works."','Alana Brooks','Director of Alumni Relations, Calder Valley Community College'],
+      ['story-4','person-4','Uses Engage OS and the Admin Dashboard','"Accreditors want verified data. Every outcome now comes from a real conversation and lands on one record per student, so our reports hold up."','Daniel Ortiz','Associate Provost, Pinecrest University']
+    ];
+    const tq = document.getElementById('tq'), tabs = [...document.querySelectorAll('#tqTabs button')];
+    let cur = 0, timer;
+    function show(i, anim = true) {
+      cur = i; const t = T[i];
+      tabs.forEach((b, k) => { b.setAttribute('aria-selected', k === i); const bar = b.querySelector('i'); bar.style.transition = 'none'; bar.style.width = '0'; });
+      const apply = () => {
+        document.getElementById('tqPhoto').src = 'assets/stories/' + t[0] + '.jpg';
+        document.getElementById('tqImg').src = 'assets/stories/' + t[1] + '.jpg';
+        document.getElementById('tqUses').textContent = t[2];
+        document.getElementById('tqQuote').textContent = t[3];
+        document.getElementById('tqName').textContent = t[4];
+        document.getElementById('tqRole').textContent = t[5];
+        tq.classList.remove('out');
+      };
+      if (anim && !RM) { tq.classList.add('out'); setTimeout(apply, 330); } else apply();
+      if (!RM) { const bar = tabs[i].querySelector('i'); void bar.offsetWidth; bar.style.transition = 'width 7s linear'; bar.style.width = '100%'; clearTimeout(timer); timer = setTimeout(() => show((cur + 1) % T.length), 7000); }
+    }
+    tabs.forEach((b, i) => b.addEventListener('click', () => show(i)));
+    show(0, false);
+  })();
+})();
+</script>
