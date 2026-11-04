@@ -1,0 +1,1067 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>WriteSea Career Platform</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: HubSpot's platform story (foundation, products, AI layer) told with Zaro's isometric line drawing, Beside/HubSpot cards, Harvey's accordion, Dessa's voice player, Rox's logo grid and a dark HubSpot-style close. Bone paper, charcoal ink, one colour per product. */
+:root{
+  color-scheme:light;
+  --bone:#F5FBFE; --bone-2:#F7F5FD; --card:#FFFFFF; --ink:#161513; --ink-2:#55524C; --soft:#8B877F; --line:#DDD8F8;
+  --coral:#3AAFED; --coral-soft:#D8EFFB;
+  --violet:#563BDB; --violet-soft:#DDD8F8;
+  --lime:#B0DFF8; --lime-ink:#161513;
+  --char:#563BDB; --char-2:#7862E2; --char-line:#7862E2; --char-muted:#DDD8F8;
+  --good:#563BDB; --good-soft:#D8EFFB;
+  --serif:"Fraunces", "Iowan Old Style", Georgia, serif;
+  --sans:"Hanken Grotesk", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --pad:clamp(20px,4vw,48px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bone);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bone)}
+a{color:inherit}
+img{display:block;max-width:100%;height:auto}
+h1,h2,h3{margin:0;font-family:var(--serif);font-weight:400;letter-spacing:-.02em;line-height:1.06;text-wrap:balance;font-variation-settings:"SOFT" 50}
+p{margin:0}
+:focus-visible{outline:2px solid var(--violet);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1240px;margin:0 auto;padding-left:max(var(--pad),env(safe-area-inset-left,0px));padding-right:max(var(--pad),env(safe-area-inset-right,0px))}
+.sec{padding-block:clamp(72px,10vw,128px);position:relative}
+.mono{font-family:var(--mono);font-size:12px;color:var(--ink-2)}
+.soft{color:var(--soft)}
+.h2{font-size:clamp(34px,4.4vw,58px)}
+.lead{font-size:18px;color:var(--ink-2);max-width:34em}
+.skip{position:absolute;left:-999px;top:8px;z-index:100;background:var(--ink);color:#fff;padding:8px 14px;border-radius:8px}
+.skip:focus{left:16px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:46px;padding:0 22px;border-radius:8px;background:var(--violet);color:#fff;font:600 15px/1 var(--sans);text-decoration:none;border:1.5px solid var(--violet);cursor:pointer;transition:background .2s,transform .12s}
+.btn:hover{background:#7862E2;border-color:#7862E2}
+.btn:active{transform:scale(.98)}
+.btn.line{background:transparent;color:var(--violet)}
+.btn.line:hover{background:var(--card)}
+.btn.sm{height:38px;padding:0 15px;font-size:14px}
+.dot{display:inline-block;width:10px;height:10px;border-radius:3px;flex:none}
+.d-coral{background:var(--coral)}.d-violet{background:var(--violet)}.d-lime{background:var(--lime);box-shadow:inset 0 0 0 1px rgba(0,0,0,.15)}.d-char{background:var(--char)}
+
+/* Nav (HubSpot, with products mega menu) */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(245,251,254,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:28px;height:66px}
+.word{font-family:var(--serif);font-size:24px;font-weight:500;letter-spacing:-.03em;text-decoration:none;display:flex;align-items:center;gap:8px}
+.word i{width:22px;height:22px;border-radius:6px;background:conic-gradient(var(--coral) 0 33%,var(--violet) 0 66%,var(--lime) 0);display:block}
+.menu{display:flex;gap:4px;list-style:none;margin:0;padding:0}
+.menu > li > a,.menu > li > button{all:unset;cursor:pointer;display:flex;align-items:center;gap:6px;padding:8px 12px;border-radius:8px;font-size:15px;font-weight:500}
+.menu > li > button svg{width:12px;height:12px;transition:transform .2s}
+.menu > li > button[aria-expanded="true"] svg{transform:rotate(180deg)}
+.menu > li > a:hover,.menu > li > button:hover{background:var(--bone-2)}
+.menu > li > button:focus-visible,.menu > li > a:focus-visible{outline:2px solid var(--violet)}
+.nav .right{margin-left:auto;display:flex;gap:8px;align-items:center}
+.nav .right .login{font-size:15px;font-weight:500;text-decoration:none;padding:0 8px}
+.mega{position:absolute;left:0;right:0;top:66px;background:var(--card);border-bottom:1px solid var(--line);box-shadow:0 30px 60px -40px rgba(0,0,0,.35);opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .2s,transform .25s,visibility 0s .25s}
+.mega.open{opacity:1;visibility:visible;transform:none;transition-delay:0s}
+.mega .wrap{display:grid;grid-template-columns:.7fr 2fr;gap:40px;padding-block:28px 32px;height:auto}
+.mega h3{font-size:26px}
+.mega .intro p{color:var(--ink-2);font-size:14.5px;margin-top:8px}
+.mega-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.mega-grid a{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;padding:12px;border-radius:10px;text-decoration:none;align-items:center}
+.mega-grid a:hover{background:var(--bone)}
+.mega-grid a b{font-weight:600;font-size:15px}
+.mega-grid a span:last-child{grid-column:2;font-size:13px;color:var(--ink-2)}
+.mega-grid .lbl{grid-column:1/-1;font:500 11.5px var(--mono);color:var(--soft);padding:4px 12px 0}
+@media (max-width:960px){.menu,.nav .login,.mega{display:none}}
+
+/* Hero (HubSpot copy structure + Zaro isometric drawing) */
+.hero{padding-block:clamp(48px,7vw,88px) clamp(40px,5vw,64px)}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.hero h1{font-size:clamp(44px,5.8vw,80px);font-weight:300}
+.hero h1 em{font-style:italic;font-weight:300}
+.hero .lead{margin-top:22px}
+.hero .ctas{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px}
+.hero .note{margin-top:14px;font-size:13.5px;color:var(--ink-2)}
+.stack{position:relative;display:grid;gap:10px;justify-items:center}
+.stack svg{width:100%;height:auto;max-width:600px;overflow:visible}
+.plate{transition:opacity .35s,transform .5s cubic-bezier(.2,.8,.2,1);transform-box:fill-box}
+.stack.focus .plate{opacity:.38}
+.stack.focus .plate.on{opacity:1}
+.stack .float{animation:bob 6s ease-in-out infinite}
+.stack .float.f2{animation-delay:-2s}.stack .float.f3{animation-delay:-4s}
+@keyframes bob{50%{transform:translateY(-6px)}}
+.layers{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:6px}
+.layers button{all:unset;box-sizing:border-box;cursor:pointer;display:inline-flex;gap:8px;align-items:center;padding:8px 13px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.5);transition:background .2s,border-color .2s}
+.layers button b{font-weight:600;font-size:14px}
+.layers button span:last-child{display:none}
+.layers button.on,.layers button:hover{background:var(--card);border-color:var(--violet)}
+.layers button:focus-visible{outline:2px solid var(--violet)}
+.layer-desc{min-height:3.2em;font-size:14.5px;color:var(--ink-2);padding:2px 4px 0;max-width:34em;text-align:center}
+@media (max-width:980px){.hero-grid{grid-template-columns:1fr}}
+
+/* Pillars (HubSpot three photo cards) */
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:clamp(40px,6vw,72px)}
+.pillar{border-radius:16px;overflow:hidden;min-height:340px;position:relative;display:grid;align-content:end;padding:22px;color:#fff}
+.pillar h3{font-size:clamp(24px,2.4vw,32px);font-weight:400;position:relative;z-index:1;max-width:12em}
+.pillar .ui{position:absolute;left:22px;right:22px;top:22px;z-index:1}
+.p1{background:linear-gradient(160deg,#89CFF4,#3AAFED);color:#161513}
+.p1 .chip{background:rgba(255,255,255,.45);color:#161513}
+.p2{background:#563BDB}
+.p2 img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 25%;opacity:.95}
+.p2::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(86,59,219,0) 30%,rgba(86,59,219,.9) 100%)}
+.p3{background:var(--char)}
+.mini{background:rgba(255,255,255,.96);color:var(--ink);border-radius:10px;padding:12px 14px;font-size:13px;display:grid;gap:6px;box-shadow:0 18px 40px -20px rgba(0,0,0,.5)}
+.mini .r{display:flex;justify-content:space-between;gap:10px}
+.mini .ok{font:500 11.5px var(--mono);color:var(--good)}
+.chip{display:inline-flex;align-items:center;gap:6px;font:500 11.5px var(--mono);padding:4px 9px;border-radius:999px;background:rgba(255,255,255,.18);backdrop-filter:blur(6px);color:#fff;width:max-content}
+.wave{display:flex;align-items:center;gap:2px;height:40px}
+.wave i{flex:1;border-radius:2px;background:#9A89E9}
+.wave i.on{background:var(--lime)}
+@media (max-width:900px){.pillars{grid-template-columns:1fr}.pillar{min-height:300px}}
+
+/* What is (HubSpot) + logo grid (Rox) */
+.what{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.what p{font-size:19px;color:var(--ink-2)}
+.what p + p{margin-top:14px}
+.what p b{color:var(--ink);font-weight:600}
+.logos{margin-top:56px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--card)}
+.logos .head{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:14px 18px;border-bottom:1px solid var(--line)}
+.lgrid{display:grid;grid-template-columns:repeat(6,1fr)}
+.lgrid div{display:grid;place-items:center;height:92px;padding:14px 18px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);min-width:0}
+.lgrid div:nth-child(6n){border-right:0}
+.lgrid div:nth-last-child(-n+6){border-bottom:0}
+.lgrid img{max-height:34px;width:auto;max-width:100%;filter:grayscale(1);opacity:.6;mix-blend-mode:multiply;transition:opacity .2s,filter .2s}
+.lgrid div:hover img{opacity:1;filter:none}
+@media (max-width:860px){.what{grid-template-columns:1fr;gap:18px}.lgrid{grid-template-columns:repeat(3,1fr)}.lgrid div:nth-child(6n){border-right:1px solid var(--line)}.lgrid div:nth-child(3n){border-right:0}.lgrid div:nth-last-child(-n+6){border-bottom:1px solid var(--line)}.lgrid div:nth-last-child(-n+3){border-bottom:0}}
+
+/* Layered products (HubSpot hubs grid) */
+.hubs{display:grid;grid-template-columns:.8fr 1.4fr;gap:56px;align-items:start}
+.hubs .left{position:sticky;top:110px}
+.hubs .left .h2{font-size:clamp(34px,4vw,52px)}
+.hubs .left p{margin-top:18px;color:var(--ink-2);font-size:17px}
+.hubs .left .ctas{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.tier{display:grid;gap:10px}
+.tier + .tier{margin-top:28px}
+.tier-h{display:flex;align-items:center;gap:10px;font:500 12px var(--mono);color:var(--ink-2)}
+.tier-h::after{content:"";flex:1;height:1px;background:var(--line)}
+.tier-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.hub{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;display:grid;gap:10px;align-content:start;transition:box-shadow .2s,transform .2s;position:relative}
+.hub:hover{box-shadow:0 20px 40px -28px rgba(0,0,0,.35);transform:translateY(-2px)}
+.hub .t{display:flex;align-items:center;gap:10px}
+.hub .ic{width:34px;height:34px;border-radius:9px;display:grid;place-items:center}
+.hub .ic svg{width:18px;height:18px}
+.hub h3{font-family:var(--sans);font-size:18px;font-weight:700;letter-spacing:-.01em}
+.hub h3 sup{font-size:10px;font-weight:500;color:var(--soft)}
+.hub p{font-size:14.5px;color:var(--ink-2)}
+.hub ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.hub li{font-size:12.5px;padding:4px 9px;border-radius:999px;background:var(--bone)}
+.hub a{font-size:14px;font-weight:600;text-underline-offset:4px;text-decoration-thickness:1.5px;margin-top:4px}
+.hub.coral .ic{background:var(--coral-soft);color:var(--coral)}.hub.coral a{text-decoration-color:var(--coral)}
+.hub.violet .ic{background:var(--violet-soft);color:var(--violet)}.hub.violet a{text-decoration-color:var(--violet)}
+.hub.lime .ic{background:var(--lime);color:var(--lime-ink)}.hub.lime a{text-decoration-color:#89CFF4}
+.hub.char .ic{background:var(--bone-2);color:var(--ink)}
+.hub.found{grid-column:1/-1;background:var(--char);color:#F7F5FD;border-color:var(--char);grid-template-columns:1fr auto;align-items:center}
+.hub.found p{color:var(--char-muted)}
+.hub.found .ic{background:var(--char-2);color:#F7F5FD}
+.hub.found .sys{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end;max-width:300px}
+.hub.found .sys span{font:500 11.5px var(--mono);padding:5px 9px;border-radius:6px;border:1px solid var(--char-line);color:#F7F5FD}
+@media (max-width:960px){.hubs{grid-template-columns:1fr;gap:32px}.hubs .left{position:static}}
+@media (max-width:640px){.tier-grid{grid-template-columns:1fr}.hub.found{grid-template-columns:1fr}.hub.found .sys{justify-content:flex-start}}
+
+/* AI coaches (HubSpot agents carousel on a soft gradient, Beside-style cards) */
+.agents{background:radial-gradient(80% 120% at 0% 0%,#D8EFFB 0%,transparent 60%),radial-gradient(70% 120% at 100% 100%,#DDD8F8 0%,transparent 60%),var(--bone);overflow:hidden}
+.ag-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap}
+.ag-head p{max-width:30em;color:var(--ink-2);font-size:17px}
+.track{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 32px) / 3);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;margin-top:40px;padding-bottom:8px;scrollbar-width:none}
+.track::-webkit-scrollbar{display:none}
+.agent{scroll-snap-align:start;background:rgba(255,255,255,.72);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.9);border-radius:18px;padding:20px;display:grid;gap:14px;align-content:start;min-width:0}
+.agent .stage{border-radius:12px;background:var(--bone);border:1px solid var(--line);aspect-ratio:4/3;max-width:100%;padding:16px;display:grid;align-content:center;gap:8px;position:relative;overflow:hidden}
+.agent h3{font-family:var(--sans);font-weight:700;font-size:19px;letter-spacing:-.01em}
+.agent p{font-size:14.5px;color:var(--ink-2)}
+.agent .by{font:500 11.5px var(--mono);display:flex;align-items:center;gap:6px;color:var(--ink-2)}
+.bubble{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13px;box-shadow:0 10px 24px -18px rgba(0,0,0,.4)}
+.bubble.me{background:var(--violet);color:#fff;border-color:var(--violet);justify-self:end;max-width:85%}
+.bubble mark{background:#B0DFF8;border-radius:3px;padding:0 2px}
+.bubble.new{background:var(--good-soft);border-color:#B0DFF8}
+.caret::after{content:"";display:inline-block;width:1.5px;height:1em;background:var(--ink);vertical-align:-2px;margin-left:1px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.mic{display:flex;align-items:center;gap:3px;height:26px}
+.mic i{width:3px;height:5px;border-radius:2px;background:var(--coral)}
+.mic.live i{animation:lvl .9s ease-in-out infinite}
+.mic i:nth-child(3n){animation-delay:-.3s}.mic i:nth-child(3n+1){animation-delay:-.6s}.mic i:nth-child(4n){animation-duration:.7s}
+@keyframes lvl{0%,100%{height:5px}50%{height:22px}}
+.styles{display:flex;gap:6px;flex-wrap:wrap}
+.styles span{font-size:12px;padding:5px 9px;border-radius:999px;background:#fff;border:1px solid var(--line);transition:all .3s}
+.styles span.on{background:var(--violet);color:#fff;border-color:var(--violet)}
+.hs-faces{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.hs-faces img{width:100%;aspect-ratio:1;object-fit:cover;object-position:center 20%;border-radius:8px;transition:opacity .4s,filter .4s}
+.hs-faces img.gen{opacity:.35;filter:blur(3px)}
+.agent .stage.dark{background:var(--char);border-color:var(--char)}
+.agent .stage.dark .wave i{background:#9A89E9}
+.agent .stage.dark .wave i.on{background:var(--lime)}
+.tagpop{justify-self:start;font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;background:var(--lime);color:var(--lime-ink);opacity:0;transform:scale(.9);transition:all .3s}
+.tagpop.show{opacity:1;transform:none}
+.car-ctrl{display:flex;gap:8px;align-items:center;margin-top:20px}
+.car-ctrl button{all:unset;cursor:pointer;width:44px;height:44px;border-radius:50%;background:var(--card);border:1px solid var(--line);display:grid;place-items:center}
+.car-ctrl button:focus-visible{outline:2px solid var(--violet)}
+.car-ctrl svg{width:16px;height:16px}
+.car-ctrl .dots{display:flex;gap:6px;margin-left:8px}
+.car-ctrl .dots i{width:8px;height:8px;border-radius:50%;background:var(--line);transition:background .2s,width .2s}
+.car-ctrl .dots i.on{background:var(--violet);width:22px;border-radius:4px}
+@media (max-width:980px){.track{grid-auto-columns:calc((100% - 16px) / 2)}}
+@media (max-width:640px){.track{grid-auto-columns:86%}}
+
+/* See it work (Harvey accordion + live demos) */
+.acc{display:grid;grid-template-columns:.8fr 1.2fr;gap:40px;margin-top:44px;align-items:start}
+.acc-list{border-top:1px solid var(--line)}
+.acc-item{border-bottom:1px solid var(--line)}
+.acc-item > button{all:unset;box-sizing:border-box;cursor:pointer;width:100%;display:flex;align-items:center;gap:12px;padding:20px 0;font-family:var(--serif);font-size:26px;color:var(--soft);transition:color .2s}
+.acc-item > button .dot{width:12px;height:12px}
+.acc-item > button::after{content:"+";margin-left:auto;font:400 18px var(--mono);color:var(--soft)}
+.acc-item.on > button{color:var(--ink)}
+.acc-item.on > button::after{content:"–"}
+.acc-item > button:focus-visible{outline:2px solid var(--violet)}
+.acc-item .body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s}
+.acc-item.on .body{grid-template-rows:1fr}
+.acc-item .body > div{overflow:hidden}
+.acc-item .body p{color:var(--ink-2);font-size:15px;padding-bottom:20px;max-width:30em}
+.acc-item .body .bar{height:2px;background:var(--line);margin-bottom:20px;overflow:hidden}
+.acc-item .body .bar i{display:block;height:100%;background:var(--violet);transform:scaleX(0);transform-origin:left}
+.acc-item.on.auto .body .bar i{animation:fill 9s linear forwards}
+@keyframes fill{to{transform:scaleX(1)}}
+.view{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:5/4;max-width:100%;background:var(--bone-2);border:1px solid var(--line)}
+.pane{position:absolute;inset:0;display:grid;place-items:center;padding:28px;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .45s,transform .55s cubic-bezier(.2,.8,.2,1),visibility 0s .45s}
+.pane.on{opacity:1;visibility:visible;transform:none;transition-delay:0s}
+.pane.v1{background:linear-gradient(160deg,#D8EFFB,#F5FBFE)}
+.pane.v2{background:linear-gradient(160deg,#DDD8F8,#F7F5FD)}
+.pane.v3{background:var(--char)}
+.doc{background:#fff;border-radius:12px;box-shadow:0 30px 60px -36px rgba(0,0,0,.45);padding:20px;width:100%;max-width:460px;display:grid;gap:10px;font-size:14px}
+.doc .t{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:13px;color:var(--ink-2)}
+.doc .t b{color:var(--ink);font-weight:700}
+.doc .row{display:grid;grid-template-columns:20px 1fr;gap:10px;padding:10px 12px;border-radius:8px;background:var(--bone);min-height:44px;transition:background .3s}
+.doc .row i{width:20px;height:20px;border-radius:5px;display:grid;place-items:center;font:500 11px var(--mono);font-style:normal}
+.doc .row.bad i{background:var(--violet-soft);color:var(--violet)}
+.doc .row.bad span{color:var(--ink-2)}
+.doc .row.good{background:var(--good-soft)}
+.doc .row.good i{background:#fff;color:var(--good)}
+.doc mark{background:#B0DFF8;border-radius:3px;padding:0 2px}
+.pct{font:500 14px var(--mono);padding:3px 9px;border-radius:6px;font-variant-numeric:tabular-nums}
+.pct.low{background:var(--bone-2);color:var(--ink-2)}.pct.high{background:var(--good-soft);color:var(--good)}
+.linkbtn{all:unset;cursor:pointer;font-size:13px;font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.studio{width:100%;max-width:470px;display:grid;gap:12px}
+.studio .bar{display:flex;gap:6px;flex-wrap:wrap}
+.studio .bar button{all:unset;cursor:pointer;font-size:13px;font-weight:500;padding:7px 12px;border-radius:999px;background:#fff;border:1px solid var(--line)}
+.studio .bar button[aria-pressed="true"]{background:var(--violet);color:#fff;border-color:var(--violet)}
+.studio .bar button:focus-visible{outline:2px solid var(--violet)}
+.studio .shots{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.studio figure{margin:0;position:relative;border-radius:12px;overflow:hidden;aspect-ratio:1;max-width:100%}
+.studio figure img{width:100%;height:100%;object-fit:cover;object-position:center 20%;transition:opacity .4s,filter .4s}
+.studio figure.gen img{opacity:.3;filter:blur(6px)}
+.studio figcaption{position:absolute;left:8px;bottom:8px;font:500 11px var(--mono);background:rgba(255,255,255,.92);padding:3px 7px;border-radius:5px}
+.player{width:100%;max-width:520px;display:grid;gap:10px;color:#F7F5FD}
+.trk{display:grid;grid-template-columns:38px 1fr;gap:10px;align-items:center;background:var(--char-2);border:1px solid var(--char-line);border-radius:999px;padding:6px 14px 6px 6px}
+.trk .who{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font:500 11px var(--mono);background:#9A89E9}
+.trk.g .who{background:#3AAFED;color:#161513}
+.trk .bars{display:flex;align-items:center;gap:2px;height:34px;min-width:0}
+.trk .bars i{flex:1;border-radius:2px;background:#9A89E9}
+.trk .bars i.on{background:#F7F5FD}
+.trk.g .bars i.on{background:var(--lime)}
+.ptags{display:flex;gap:6px;flex-wrap:wrap;min-height:28px}
+.ptags span{font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;background:var(--lime);color:var(--lime-ink);opacity:0;transform:scale(.9);transition:all .3s}
+.ptags span.show{opacity:1;transform:none}
+.pctrl{display:flex;align-items:center;gap:12px}
+.play{width:42px;height:42px;border-radius:50%;border:0;background:#F7F5FD;color:var(--char);display:grid;place-items:center;cursor:pointer}
+.play svg{width:14px;height:14px;fill:currentColor}
+.pctrl .t{font:400 12.5px var(--mono);color:var(--char-muted);font-variant-numeric:tabular-nums}
+.rec{background:#F7F5FD;color:var(--ink);border-radius:10px;padding:12px 14px;display:grid;font-size:13px;margin:0}
+.rec div{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px solid var(--line)}
+.rec div:last-child{border-bottom:0}
+.rec dt{color:var(--ink-2)}
+.rec dd{margin:0;font-weight:600}
+.rec dd.empty{opacity:.35;font-weight:400}
+@media (max-width:960px){.acc{grid-template-columns:1fr;gap:24px}.view{aspect-ratio:auto;min-height:480px}}
+
+/* Stories (Harvey "Real Impact" carousel + results list) */
+.stories{background:var(--char);color:#F7F5FD;overflow:hidden}
+.st-head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap}
+.st-head .h2{font-weight:300}
+.st-head .btn{background:transparent;color:#F7F5FD;border-color:#9A89E9}
+.st-head .btn:hover{background:var(--char-2)}
+.sample{display:inline-flex;margin-top:12px;font:500 11.5px var(--mono);background:rgba(176,223,248,.14);color:var(--lime);padding:4px 9px;border-radius:5px}
+.st-viewport{margin-top:44px;position:relative}
+.st-track{display:flex;gap:16px;transition:transform .8s cubic-bezier(.2,.8,.2,1);will-change:transform}
+.story{flex:none;width:min(72vw,900px);aspect-ratio:16/8.6;max-width:100%;border-radius:12px;overflow:hidden;position:relative;background:#563BDB;cursor:pointer}
+.story > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.06);transition:transform 6s ease-out,filter .6s}
+.story.on > img{transform:scale(1)}
+.story::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(86,59,219,.82) 0%,rgba(86,59,219,.5) 55%,rgba(86,59,219,.25) 100%);transition:background .6s}
+.story:not(.on)::after{background:rgba(86,59,219,.72)}
+.story .in{position:absolute;inset:0;z-index:1;display:grid;align-content:center;gap:22px;padding:clamp(22px,5vw,64px);max-width:640px;transition:opacity .5s}
+.story:not(.on) .in{opacity:.35}
+.story h3{font-size:clamp(24px,2.8vw,40px);font-weight:300;line-height:1.12;color:#fff}
+.story .who{display:flex;align-items:center;gap:12px;font-size:14px;color:#DDD8F8}
+.story .who img{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.25)}
+.story .who b{display:block;color:#fff;font-weight:600}
+.story .open{all:unset;cursor:pointer;width:64px;height:64px;border-radius:50%;border:1.5px solid rgba(255,255,255,.55);display:grid;place-items:center;color:#fff;transition:background .2s,transform .2s;backdrop-filter:blur(4px)}
+.story .open:hover{background:rgba(255,255,255,.14);transform:scale(1.05)}
+.story .open:focus-visible{outline:2px solid var(--lime);outline-offset:3px}
+.story .open svg{width:20px;height:20px;transition:transform .3s}
+.story.expanded .open svg{transform:rotate(45deg)}
+.story .full{position:absolute;z-index:2;right:clamp(16px,3vw,32px);bottom:clamp(16px,3vw,32px);width:min(400px,calc(100% - 32px));background:rgba(247,245,253,.97);color:var(--ink);border-radius:12px;padding:20px;display:grid;gap:12px;font-size:15px;line-height:1.5;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .35s,transform .4s cubic-bezier(.2,.8,.2,1),visibility 0s .35s}
+.story.expanded .full{opacity:1;visibility:visible;transform:none;transition-delay:0s}
+.story .full blockquote{margin:0;font-family:var(--serif);font-size:18px;line-height:1.4}
+.story .full .meta{font-size:13px;color:var(--ink-2)}
+.st-logos{display:flex;justify-content:center;flex-wrap:wrap;margin-top:36px;border-top:1px solid var(--char-line)}
+.st-logos button{all:unset;cursor:pointer;position:relative;padding:22px clamp(14px,2.4vw,32px) 18px;color:#BBB1F1;transition:color .25s;display:grid;justify-items:center}
+.st-logos button + button::before{content:"";position:absolute;left:0;top:26px;bottom:22px;width:1px;background:var(--char-line)}
+.st-logos button[aria-selected="true"]{color:#F7F5FD}
+.st-logos button:hover{color:#DDD8F8}
+.st-logos button:focus-visible{outline:2px solid var(--lime);outline-offset:-4px}
+.st-logos .bar{position:absolute;left:0;right:0;top:-1px;height:2px;background:transparent;overflow:hidden}
+.st-logos .bar i{display:block;height:100%;background:#F7F5FD;transform:scaleX(0);transform-origin:left}
+.st-logos button[aria-selected="true"] .bar i{transform:scaleX(1)}
+.st-logos button.run[aria-selected="true"] .bar i{animation:fill 7s linear forwards;transform:scaleX(0)}
+.wm{font-size:17px;white-space:nowrap}
+.wm.a{font-family:var(--serif);font-weight:500;letter-spacing:-.01em}
+.wm.b{font-family:var(--sans);font-weight:700;letter-spacing:.14em;font-size:13px}
+.wm.c{font-family:var(--serif);font-style:italic;font-weight:400}
+.wm.d{font-family:var(--mono);font-weight:500;font-size:14px;letter-spacing:.04em}
+.results{margin-top:clamp(64px,9vw,112px);display:grid;grid-template-columns:.9fr 1.1fr;gap:40px}
+.results h3{font-size:clamp(28px,3vw,40px);font-weight:300;line-height:1.12}
+.rrows{border-top:1px solid var(--char-line)}
+.rrow{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;padding:22px 0;border-bottom:1px solid var(--char-line)}
+.rrow span{font-size:16px;color:#DDD8F8}
+.rrow span small{display:inline-block;margin-left:8px;font:500 10.5px var(--mono);color:var(--lime);background:rgba(176,223,248,.12);padding:2px 6px;border-radius:4px;vertical-align:2px}
+.rrow b{font-family:var(--serif);font-weight:300;font-size:clamp(40px,5vw,64px);line-height:1;color:#fff;font-variant-numeric:tabular-nums}
+@media (max-width:900px){.story{width:86vw;aspect-ratio:4/5}.story .in{align-content:end;padding-bottom:28px}.story::after{background:linear-gradient(180deg,rgba(86,59,219,.2) 0%,rgba(86,59,219,.88) 70%)}.results{grid-template-columns:1fr;gap:24px}.st-logos{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto}}
+
+/* Solutions by team (HubSpot solutions) */
+.teams-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-top:36px}
+.teams-tabs button{all:unset;cursor:pointer;padding:9px 16px;border-radius:999px;border:1px solid var(--line);font-size:14.5px;font-weight:500;background:var(--card)}
+.teams-tabs button[aria-selected="true"]{background:var(--violet);color:#fff;border-color:var(--violet)}
+.teams-tabs button:focus-visible{outline:2px solid var(--violet)}
+.team-panel{margin-top:16px;display:grid;grid-template-columns:1.1fr .9fr;gap:16px}
+.team-panel > div{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px}
+.team-panel h3{font-size:30px}
+.team-panel p{margin-top:12px;color:var(--ink-2);font-size:16px;max-width:30em}
+.team-panel ul{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:10px}
+.team-panel li{display:grid;grid-template-columns:20px 1fr;gap:10px;font-size:15px}
+.team-panel li::before{content:"";width:16px;height:16px;margin-top:3px;border-radius:50%;background:var(--good-soft);box-shadow:inset 0 0 0 4px #fff,inset 0 0 0 16px var(--good)}
+.team-panel .uses{display:grid;gap:10px;align-content:start}
+.team-panel .uses .mono{margin-bottom:4px}
+.use{display:flex;align-items:center;gap:10px;padding:14px;border-radius:12px;background:var(--bone);font-weight:600}
+.use span{margin-left:auto;font:400 12px var(--mono);color:var(--ink-2);font-weight:400}
+@media (max-width:860px){.team-panel{grid-template-columns:1fr}}
+
+/* Integrations (HubSpot) */
+.integ{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:clamp(24px,4vw,48px);overflow:hidden}
+.integ h2{font-size:clamp(28px,3.4vw,42px)}
+.integ p{margin-top:12px;color:var(--ink-2)}
+.cloud{position:relative;min-height:260px}
+.cloud span{position:absolute;padding:12px 16px;border-radius:12px;font-weight:700;font-size:15px;box-shadow:0 14px 30px -20px rgba(0,0,0,.4);animation:drift 7s ease-in-out infinite}
+.cloud span small{display:block;font:400 11px var(--mono);opacity:.8;font-weight:400}
+@keyframes drift{50%{transform:translateY(-8px)}}
+@media (max-width:860px){.integ{grid-template-columns:1fr}.cloud{min-height:300px}}
+
+/* Readiness check (Zaro assessment) */
+.check{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px}
+.qs{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:8px 24px}
+.qrow{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;padding:16px 0;border-bottom:1px solid var(--line);font-size:15.5px}
+.qrow:last-child{border-bottom:0}
+.yn{display:inline-flex;padding:3px;border-radius:999px;background:var(--bone)}
+.yn button{all:unset;cursor:pointer;padding:6px 14px;border-radius:999px;font-size:13.5px;font-weight:600;color:var(--ink-2)}
+.yn button[aria-pressed="true"]{background:var(--violet);color:#fff}
+.yn button:focus-visible{outline:2px solid var(--violet)}
+.result{background:var(--char);color:#F7F5FD;border-radius:16px;padding:28px;display:grid;gap:14px;align-content:start}
+.result .score{font-family:var(--serif);font-size:64px;line-height:1;font-variant-numeric:tabular-nums}
+.result .score small{font-size:22px;color:var(--char-muted)}
+.result p{color:#DDD8F8}
+.result .recs{display:grid;gap:8px}
+.result .recs div{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:10px;background:var(--char-2);border:1px solid var(--char-line);font-size:14.5px}
+.result .recs div b{font-weight:700}
+@media (max-width:860px){.check{grid-template-columns:1fr}}
+
+/* FAQ */
+.faq{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px}
+.qa{border-top:1px solid var(--line)}
+.qa details{border-bottom:1px solid var(--line)}
+.qa summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:16px;padding:18px 2px;font-weight:600;font-size:16px}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::after{content:"+";font:400 20px var(--mono);color:var(--soft);transition:transform .25s}
+.qa details[open] summary::after{transform:rotate(45deg)}
+.qa details p{padding:0 2px 20px;color:var(--ink-2);font-size:15px;max-width:40em}
+@media (max-width:860px){.faq{grid-template-columns:1fr;gap:24px}}
+
+/* Close (HubSpot dark band) + footer (HubSpot columns, Zaro/Rox wordmark) */
+.close{background:var(--char);color:#F7F5FD;overflow:hidden}
+.close h2{font-size:clamp(38px,5.4vw,72px);font-weight:300;max-width:14em}
+.close h2 em{font-style:italic}
+.close .ctas{display:flex;gap:10px;flex-wrap:wrap;margin-top:32px}
+.close .btn{background:#F7F5FD;color:var(--char);border-color:#F7F5FD}
+.close .btn:hover{background:var(--lime);border-color:var(--lime)}
+.close .btn.line{background:transparent;color:#F7F5FD;border-color:#9A89E9}
+.foot{background:var(--char);color:var(--char-muted);border-top:1px solid var(--char-line);padding-block:56px 0;overflow:hidden}
+.foot .cols{display:grid;grid-template-columns:repeat(5,1fr);gap:24px;font-size:14px}
+.foot h4{margin:0 0 12px;font:600 14px var(--sans);color:#F7F5FD}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.foot ul a{text-decoration:none}
+.foot ul a:hover{color:#F7F5FD}
+.bigword{font-family:var(--serif);font-weight:300;letter-spacing:-.05em;line-height:.8;font-size:clamp(90px,20vw,290px);color:#7862E2;margin-top:48px;white-space:nowrap;user-select:none}
+.legal{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:12.5px;padding-block:18px calc(18px + env(safe-area-inset-bottom,0px))}
+@media (max-width:860px){.foot .cols{grid-template-columns:1fr 1fr}}
+
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+
+<a class="skip" href="#main">Skip to main content</a>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="word" href="#top"><i aria-hidden="true"></i>WriteSea</a>
+    <ul class="menu">
+      <li><button type="button" id="megaBtn" aria-expanded="false" aria-controls="mega">Products <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 4.5l3 3 3-3"/></svg></button></li>
+      <li><a href="#teams">Solutions</a></li>
+      <li><a href="#stories">Customers</a></li>
+      <li><a href="#check">Readiness check</a></li>
+      <li><a href="#faq">Resources</a></li>
+    </ul>
+    <div class="right"><a class="login" href="https://writesea.com">Log in</a><a class="btn sm" href="#demo">Book a demo</a></div>
+  </div>
+  <div class="mega" id="mega">
+    <div class="wrap">
+      <div class="intro"><h3>The WriteSea Career Platform</h3><p>Three products on one student record, with AI coaches built into each.</p></div>
+      <div class="mega-grid">
+        <span class="lbl">For students</span>
+        <a href="#platform"><span class="dot d-coral"></span><b>Career OS</b><span>Resumes, interviews and the job search</span></a>
+        <a href="#platform"><span class="dot d-violet"></span><b>Headshot OS</b><span>Professional photos in minutes</span></a>
+        <a href="#agents"><span class="dot d-char" style="background:linear-gradient(135deg,var(--coral),var(--violet))"></span><b>AI coaches</b><span>Help that is there at 2am</span></a>
+        <span class="lbl">For your team</span>
+        <a href="#platform"><span class="dot d-lime"></span><b>Engage OS</b><span>Voice AI check-ins and outcomes</span></a>
+        <a href="#platform"><span class="dot d-char"></span><b>Admin Dashboard</b><span>Every student in one view</span></a>
+        <a href="#platform"><span class="dot d-char"></span><b>Student Record</b><span>The data foundation under it all</span></a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<!-- Hero -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <h1>Prepare every student. Place every graduate. <em>Prove it</em> on one platform.</h1>
+        <p class="lead">WriteSea is the career platform for colleges and universities. Students get AI help with resumes, interviews and headshots. Your team gets verified job outcomes from every graduating class.</p>
+        <div class="ctas"><a class="btn" href="#demo">Book a demo</a><a class="btn line" href="#platform">Explore the platform</a></div>
+        <p class="note">Used at 60+ colleges and universities</p>
+      </div>
+      <div class="stack" id="stack">
+        <svg viewBox="0 0 600 540" role="img" aria-labelledby="stackTitle">
+          <title id="stackTitle">The WriteSea platform as stacked layers: AI coaches on top, three products in the middle, the student record at the base</title>
+          <defs>
+            <pattern id="grid" width="14" height="7" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#BBB1F1"/></pattern>
+            <clipPath id="baseClip"><polygon points="300,300 560,430 300,560 40,430"/></clipPath>
+          </defs>
+          <!-- connectors -->
+          <g stroke="#BBB1F1" stroke-dasharray="3 5" stroke-width="1.2">
+            <line x1="300" y1="160" x2="300" y2="250"/><line x1="140" y1="290" x2="140" y2="400"/><line x1="460" y1="290" x2="460" y2="400"/><line x1="300" y1="330" x2="300" y2="420"/>
+          </g>
+          <!-- Student Record (base) -->
+          <g class="plate" data-l="4">
+            <polygon points="560,430 300,560 300,580 560,450" fill="#7862E2"/>
+            <polygon points="40,430 300,560 300,580 40,450" fill="#9A89E9"/>
+            <polygon points="300,300 560,430 300,560 40,430" fill="#563BDB"/>
+            <rect x="40" y="300" width="520" height="260" fill="url(#grid)" clip-path="url(#baseClip)" opacity=".5"/>
+            <text x="300" y="440" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="#F7F5FD">Student Record</text>
+            <text x="300" y="460" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#DDD8F8">SIS, LMS and CRM</text>
+          </g>
+          <!-- Products -->
+          <g class="plate float" data-l="1">
+            <polygon points="225,290 140,333 140,349 225,306" fill="#3AAFED"/><polygon points="55,290 140,333 140,349 55,306" fill="#61BFF1"/>
+            <polygon points="140,247 225,290 140,333 55,290" fill="#89CFF4"/>
+            <text x="140" y="294" text-anchor="middle" font-family="Hanken Grotesk, sans-serif" font-weight="700" font-size="14" fill="#161513">Career OS</text>
+          </g>
+          <g class="plate float f2" data-l="2">
+            <polygon points="385,265 300,308 300,324 385,281" fill="#563BDB"/><polygon points="215,265 300,308 300,324 215,281" fill="#9A89E9"/>
+            <polygon points="300,222 385,265 300,308 215,265" fill="#7862E2"/>
+            <text x="300" y="269" text-anchor="middle" font-family="Hanken Grotesk, sans-serif" font-weight="700" font-size="14" fill="#fff">Headshot OS</text>
+          </g>
+          <g class="plate float f3" data-l="3">
+            <polygon points="545,290 460,333 460,349 545,306" fill="#89CFF4"/><polygon points="375,290 460,333 460,349 375,306" fill="#B0DFF8"/>
+            <polygon points="460,247 545,290 460,333 375,290" fill="#D8EFFB"/>
+            <text x="460" y="294" text-anchor="middle" font-family="Hanken Grotesk, sans-serif" font-weight="700" font-size="14" fill="#161513">Engage OS</text>
+          </g>
+          <!-- AI layer -->
+          <g class="plate float f2" data-l="0">
+            <polygon points="300,40 470,125 300,210 130,125" fill="rgba(255,255,255,.6)" stroke="#161513" stroke-width="1.2" stroke-dasharray="4 4"/>
+            <g fill="#563BDB"><circle cx="250" cy="110" r="3"/><circle cx="340" cy="95" r="2.4"/><circle cx="360" cy="140" r="3"/><circle cx="230" cy="150" r="2"/><circle cx="300" cy="170" r="2.4"/></g>
+            <g fill="#3AAFED"><circle cx="280" cy="80" r="2"/><circle cx="395" cy="120" r="2.4"/><circle cx="200" cy="125" r="2.4"/></g>
+            <text x="300" y="130" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="#161513">AI coaches</text>
+          </g>
+        </svg>
+        <ul class="layers" id="layers">
+          <li><button type="button" data-l="0"><span class="dot" style="background:linear-gradient(135deg,var(--coral),var(--violet))"></span><b>AI coaches</b><span>Across every product</span></button></li>
+          <li><button type="button" data-l="1"><span class="dot d-coral"></span><b>Career OS</b><span>Prepare</span></button></li>
+          <li><button type="button" data-l="2"><span class="dot d-violet"></span><b>Headshot OS</b><span>Present</span></button></li>
+          <li><button type="button" data-l="3"><span class="dot d-lime"></span><b>Engage OS</b><span>Prove</span></button></li>
+          <li><button type="button" data-l="4"><span class="dot d-char"></span><b>Student Record</b><span>The foundation</span></button></li>
+        </ul>
+        <p class="layer-desc" id="layerDesc" aria-live="polite">Hover or tap a layer to see what it does.</p>
+      </div>
+    </div>
+
+    <div class="pillars">
+      <article class="pillar p1">
+        <div class="ui"><div class="mini"><div class="r"><b>Resume Review</b><span class="ok">Ready to send</span></div><div class="r"><span>Score</span><b>58 → 91</b></div></div></div>
+        <span class="chip">Career OS</span>
+        <h3>Every student, ready for the interview.</h3>
+      </article>
+      <article class="pillar p2">
+        <img src="assets/face-2.png" alt="A professional headshot made with Headshot OS" width="336" height="437" loading="lazy">
+        <span class="chip" style="position:relative;z-index:1">Headshot OS</span>
+        <h3>Every student, looking the part.</h3>
+      </article>
+      <article class="pillar p3">
+        <div class="ui"><div class="wave" id="pillarWave" aria-hidden="true"></div></div>
+        <span class="chip" style="background:rgba(176,223,248,.18);color:var(--lime)">Engage OS</span>
+        <h3>Every graduate, reached and on record.</h3>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- What is -->
+<section class="sec" style="padding-top:clamp(40px,6vw,72px)">
+  <div class="wrap">
+    <div class="what">
+      <h2 class="h2">What is WriteSea?</h2>
+      <div>
+        <p>WriteSea brings students, career services and outcomes data onto one platform. <b>Students prepare. Graduates stay in touch. Your team sees all of it.</b></p>
+        <p>Every product writes to the same student record, so a resume review, a practice interview, a new headshot and a 6-month check-in call all add up to one story per student.</p>
+      </div>
+    </div>
+    <div class="logos">
+      <div class="head"><span class="mono">Trusted by 60+ colleges and universities</span><a class="mono" href="#demo" style="text-decoration:none">See how they use it ›</a></div>
+      <div class="lgrid">
+        <div><img src="assets/logos/stanford-university-logo.png" alt="Stanford University" loading="lazy"></div>
+        <div><img src="assets/logos/arizona-state-university-logo-png-transparent.png" alt="Arizona State University" loading="lazy"></div>
+        <div><img src="assets/logos/University_of_Alabama_logo-1.png" alt="The University of Alabama" loading="lazy"></div>
+        <div><img src="assets/logos/Oakton_College_Logo.png" alt="Oakton College" loading="lazy"></div>
+        <div><img src="assets/logos/New_TCC_LOGO.png" alt="Tulsa Community College" loading="lazy"></div>
+        <div><img src="assets/logos/Dillard_Main_Logo-Blue.png" alt="Dillard University" loading="lazy"></div>
+        <div><img src="assets/logos/LAN-5047-Logo-Langston-Horizontal-Color_0.png" alt="Langston University" loading="lazy"></div>
+        <div><img src="assets/logos/Xavier_University_Cincinnati_logo.png" alt="Xavier University" loading="lazy"></div>
+        <div><img src="assets/logos/Oklahoma_City_University_logo.svg.png" alt="Oklahoma City University" loading="lazy"></div>
+        <div><img src="assets/logos/Sitelogo_CCC_Logo.png" alt="City Colleges of Chicago" loading="lazy"></div>
+        <div><img src="assets/logos/ua-little-rock-h-rgb.png" alt="University of Arkansas at Little Rock" loading="lazy"></div>
+        <div><img src="assets/logos/Lewis_univ_logo.png" alt="Lewis University" loading="lazy"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Layered products -->
+<section class="sec" id="platform" style="border-top:1px solid var(--line)">
+  <div class="wrap hubs">
+    <div class="left">
+      <h2 class="h2">Career services is hard to scale. WriteSea makes it easier.</h2>
+      <p>One small team, thousands of students, and outcomes nobody can see. WriteSea gives each group the tools it needs, all running on the same student record.</p>
+      <div class="ctas"><a class="btn" href="#demo">Book a demo</a><a class="btn line" href="#see">See it work</a></div>
+    </div>
+    <div>
+      <div class="tier">
+        <span class="tier-h">Products students use</span>
+        <div class="tier-grid">
+          <article class="hub coral">
+            <div class="t"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg></span><h3>Career OS</h3></div>
+            <p>Help students write resumes that get read and practice interviews until they feel easy.</p>
+            <ul><li>Resume Builder</li><li>Resume Review</li><li>Cover Letters</li><li>Mock Interviews</li><li>Job Tracker</li><li>Salary Negotiation</li></ul>
+            <a href="#see" data-open="0">Learn more</a>
+          </article>
+          <article class="hub violet">
+            <div class="t"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg></span><h3>Headshot OS</h3></div>
+            <p>Turn a few everyday photos into professional headshots for LinkedIn and the career fair.</p>
+            <ul><li>AI headshots</li><li>Outfits</li><li>Backgrounds</li><li>LinkedIn ready</li></ul>
+            <a href="#see" data-open="1">Learn more</a>
+          </article>
+        </div>
+      </div>
+      <div class="tier">
+        <span class="tier-h">Products your team uses</span>
+        <div class="tier-grid">
+          <article class="hub lime">
+            <div class="t"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 12v0M8 8v8M12 5v14M16 9v6M20 11v2"/></svg></span><h3>Engage OS</h3></div>
+            <p>Reach every graduate with voice AI check-ins and record where they landed.</p>
+            <ul><li>Voice AI calls</li><li>Outcomes verification</li><li>Surveys</li><li>Campaigns</li></ul>
+            <a href="#see" data-open="2">Learn more</a>
+          </article>
+          <article class="hub char">
+            <div class="t"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><h3>Admin Dashboard</h3></div>
+            <p>See every student's progress and report outcomes to leadership and accreditors.</p>
+            <ul><li>Engagement</li><li>Hiring stage</li><li>Outcome reports</li></ul>
+            <a href="#teams">Learn more</a>
+          </article>
+        </div>
+      </div>
+      <div class="tier">
+        <span class="tier-h">The foundation</span>
+        <div class="tier-grid">
+          <article class="hub found">
+            <div style="display:grid;gap:10px">
+              <div class="t"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></span><h3>Student Record</h3></div>
+              <p>One record per student, from first login to alumni. Connected to the systems you already run.</p>
+            </div>
+            <div class="sys"><span>Canvas</span><span>Blackboard</span><span>Moodle</span><span>Ellucian</span><span>PeopleSoft</span><span>Banner</span></div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI coaches -->
+<section class="sec agents" id="agents">
+  <div class="wrap">
+    <div class="ag-head"><h2 class="h2" style="max-width:12em">Built-in AI coaches that work for students 24/7.</h2><p>Each coach lives inside a product and saves its work to the student record, so your team always has the full picture.</p></div>
+    <div class="track" id="track">
+      <article class="agent">
+        <div class="stage" id="ag1">
+          <div class="bubble"><mark>Helped with</mark> the food bank social media.</div>
+          <div class="bubble new" id="ag1new">Grew the food bank's Instagram from 300 to 2,100 followers in one semester.</div>
+        </div>
+        <span class="by"><span class="dot d-coral"></span>Career OS</span>
+        <h3>Resume Coach</h3><p>Rewrites weak lines with real results and checks them against the job post.</p>
+      </article>
+      <article class="agent">
+        <div class="stage">
+          <div class="bubble">Tell me about a time you used data to change someone's mind.</div>
+          <div class="mic live" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="bubble me">Score 86. Add the result: what changed?</div>
+        </div>
+        <span class="by"><span class="dot d-coral"></span>Career OS</span>
+        <h3>Interview Coach</h3><p>Asks real questions out loud and scores structure, pace and filler words.</p>
+      </article>
+      <article class="agent">
+        <div class="stage">
+          <div class="styles" id="agStyles"><span class="on">Navy blazer</span><span>Studio grey</span><span>City office</span></div>
+          <div class="hs-faces" id="agFaces"><img src="assets/face-1.png" alt="" loading="lazy"><img src="assets/face-2.png" alt="" loading="lazy"><img src="assets/face-3.png" alt="" loading="lazy"></div>
+        </div>
+        <span class="by"><span class="dot d-violet"></span>Headshot OS</span>
+        <h3>Headshot Studio</h3><p>Generates professional headshots in the outfit and background a student picks.</p>
+      </article>
+      <article class="agent">
+        <div class="stage dark">
+          <div class="wave" id="agWave" aria-hidden="true"></div>
+          <span class="tagpop" id="agTag">Employed, data analyst</span>
+        </div>
+        <span class="by"><span class="dot d-lime"></span>Engage OS</span>
+        <h3>Outreach Agent</h3><p>Calls graduates with a friendly voice, asks how work is going and logs the answers.</p>
+      </article>
+    </div>
+    <div class="car-ctrl"><button type="button" id="prev" aria-label="Previous coach"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 3L5 8l5 5"/></svg></button><button type="button" id="next" aria-label="Next coach"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3l5 5-5 5"/></svg></button><div class="dots" id="dots"><i class="on"></i><i></i><i></i><i></i></div></div>
+  </div>
+</section>
+
+<!-- See it work -->
+<section class="sec" id="see">
+  <div class="wrap">
+    <h2 class="h2" style="max-width:14em">See each product at work.</h2>
+    <div class="acc">
+      <div class="acc-list" id="acc">
+        <div class="acc-item on"><button type="button" aria-expanded="true"><span class="dot d-coral"></span>Career OS</button><div class="body"><div><p>Paste in a first draft. Career OS flags weak lines, rewrites them with results and checks the resume against the job post.</p><div class="bar"><i></i></div></div></div></div>
+        <div class="acc-item"><button type="button" aria-expanded="false"><span class="dot d-violet"></span>Headshot OS</button><div class="body"><div><p>Pick a style and Headshot OS makes a full set of headshots from a few everyday photos. Try the styles on the right.</p><div class="bar"><i></i></div></div></div></div>
+        <div class="acc-item"><button type="button" aria-expanded="false"><span class="dot d-lime"></span>Engage OS</button><div class="body"><div><p>Six months after graduation, a voice AI calls each graduate. Press play to hear how answers become outcome data.</p><div class="bar"><i></i></div></div></div></div>
+      </div>
+      <div class="view">
+        <div class="pane v1 on"><div class="doc">
+          <div class="t"><b>Resume Review</b><span>Ready to send <span class="pct high" id="rs-pct">91%</span></span></div>
+          <div id="rs-lines" style="display:grid;gap:8px">
+            <div class="row good"><i>✓</i><span>Grew the food bank's Instagram from 300 to 2,100 followers in one semester, doubling volunteer sign-ups.</span></div>
+            <div class="row good"><i>✓</i><span>Analyzed survey data from 1,200 students in Python, cutting report time from 3 days to 4 hours.</span></div>
+            <div class="row good"><i>✓</i><span>Skills: Python, SQL, Tableau, Excel (pivot tables, lookups).</span></div>
+          </div>
+          <div class="t"><span>Target role: Data Analyst Intern</span><button class="linkbtn" id="rs-run" type="button">Run the review again</button></div>
+        </div></div>
+        <div class="pane v2"><div class="studio">
+          <div class="bar" role="group" aria-label="Headshot style"><button type="button" aria-pressed="true" data-s="0">Navy blazer</button><button type="button" aria-pressed="false" data-s="1">Studio grey</button><button type="button" aria-pressed="false" data-s="2">City office</button></div>
+          <div class="shots" id="shots">
+            <figure><img src="assets/face-2.png" alt="Generated headshot" loading="lazy"><figcaption>Navy blazer</figcaption></figure>
+            <figure><img src="assets/face-1.png" alt="Generated headshot" loading="lazy"><figcaption>Navy blazer</figcaption></figure>
+          </div>
+        </div></div>
+        <div class="pane v3"><div class="player">
+          <div class="trk"><span class="who">WS</span><div class="bars" id="en-a"></div></div>
+          <div class="trk g"><span class="who">AO</span><div class="bars" id="en-g"></div></div>
+          <div class="ptags" id="en-tags"><span data-t=".26">Employed</span><span data-t=".5">Employer named</span><span data-t=".71">Salary range</span><span data-t=".91">Wants to mentor</span></div>
+          <div class="pctrl"><button class="play" id="en-play" type="button" aria-label="Play the check-in call"><svg viewBox="0 0 16 16"><path d="M4 2.5v11l9-5.5z"/></svg></button><span class="t" id="en-time">1:24 / 1:24</span></div>
+          <dl class="rec" id="en-rec">
+            <div><dt>Status</dt><dd data-t=".22">Employed full-time</dd></div>
+            <div><dt>Role</dt><dd data-t=".46">Data analyst, healthcare</dd></div>
+            <div><dt>Salary range</dt><dd data-t=".68">$60k to $70k</dd></div>
+            <div><dt>Alumni mentor</dt><dd data-t=".9">Yes</dd></div>
+          </dl>
+        </div></div>
+      </div>
+    </div>
+    <p class="mono" style="margin-top:14px">Example student, resume and call for illustration</p>
+  </div>
+</section>
+
+<!-- Stories (Harvey) -->
+<section class="sec stories" id="stories">
+  <div class="wrap">
+    <div class="st-head">
+      <div><h2 class="h2">What partner campuses are saying</h2><span class="sample">Sample testimonials: fictional people and colleges, replace before launch</span></div>
+      <a class="btn sm" href="#demo">Talk to a partner campus</a>
+    </div>
+  </div>
+  <div class="st-viewport" id="stViewport">
+    <div class="st-track" id="stTrack">
+      <article class="story on" data-i="0">
+        <img src="assets/stories/story-1.jpg" alt="" loading="lazy">
+        <div class="in">
+          <h3>Riverton State University reaches every student, not just the ones who book an appointment.</h3>
+          <div class="who"><img src="assets/stories/person-1.jpg" alt="" loading="lazy"><span><b>Dr. Maya Ellison</b>Director of Career Services</span></div>
+          <button class="open" type="button" aria-label="Read the full quote from Riverton State University" aria-expanded="false"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M10 4v12M4 10h12"/></svg></button>
+        </div>
+        <div class="full"><blockquote>"We used to see the same two hundred students every semester. Now every student gets resume feedback the same day, and my advisors spend their time on the conversations that need a person."</blockquote><span class="meta">Dr. Maya Ellison, Riverton State University. Uses Career OS.</span></div>
+      </article>
+      <article class="story" data-i="1">
+        <img src="assets/stories/story-2.jpg" alt="" loading="lazy">
+        <div class="in">
+          <h3>Eastbrook College made mock interviews part of every senior's routine.</h3>
+          <div class="who"><img src="assets/stories/person-2.jpg" alt="" loading="lazy"><span><b>Marcus Reid</b>Dean of Student Affairs</span></div>
+          <button class="open" type="button" aria-label="Read the full quote from Eastbrook College" aria-expanded="false"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M10 4v12M4 10h12"/></svg></button>
+        </div>
+        <div class="full"><blockquote>"Students practice at midnight before a big interview and walk into the real one calm. Employers have noticed the difference in how our graduates show up."</blockquote><span class="meta">Marcus Reid, Eastbrook College. Uses Career OS and Headshot OS.</span></div>
+      </article>
+      <article class="story" data-i="2">
+        <img src="assets/stories/story-3.jpg" alt="" loading="lazy">
+        <div class="in">
+          <h3>Calder Valley Community College hears back from graduates it used to lose touch with.</h3>
+          <div class="who"><img src="assets/stories/person-3.jpg" alt="" loading="lazy"><span><b>Alana Brooks</b>Director of Alumni Relations</span></div>
+          <button class="open" type="button" aria-label="Read the full quote from Calder Valley Community College" aria-expanded="false"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M10 4v12M4 10h12"/></svg></button>
+        </div>
+        <div class="full"><blockquote>"Our email survey got a handful of replies. When Engage OS calls, graduates pick up and talk. For the first time we know where most of our class actually works."</blockquote><span class="meta">Alana Brooks, Calder Valley Community College. Uses Engage OS.</span></div>
+      </article>
+      <article class="story" data-i="3">
+        <img src="assets/stories/story-4.jpg" alt="" loading="lazy">
+        <div class="in">
+          <h3>Pinecrest University reports outcomes it can stand behind.</h3>
+          <div class="who"><img src="assets/stories/person-4.jpg" alt="" loading="lazy"><span><b>Daniel Ortiz</b>Associate Provost, Institutional Research</span></div>
+          <button class="open" type="button" aria-label="Read the full quote from Pinecrest University" aria-expanded="false"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M10 4v12M4 10h12"/></svg></button>
+        </div>
+        <div class="full"><blockquote>"Accreditors want verified data. Every outcome now comes from a real conversation and lands on one record per student, so our reports hold up."</blockquote><span class="meta">Daniel Ortiz, Pinecrest University. Uses Engage OS and the Admin Dashboard.</span></div>
+      </article>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="st-logos" role="tablist" aria-label="Partner stories">
+      <button role="tab" aria-selected="true" data-i="0"><span class="bar"><i></i></span><span class="wm a">Riverton State</span></button>
+      <button role="tab" aria-selected="false" data-i="1"><span class="bar"><i></i></span><span class="wm b">EASTBROOK</span></button>
+      <button role="tab" aria-selected="false" data-i="2"><span class="bar"><i></i></span><span class="wm c">Calder Valley CC</span></button>
+      <button role="tab" aria-selected="false" data-i="3"><span class="bar"><i></i></span><span class="wm d">PINECREST U</span></button>
+    </div>
+    <div class="results">
+      <h3>Helping career teams do more with the same people, and prove it.</h3>
+      <div class="rrows">
+        <div class="rrow"><span>Colleges and universities using WriteSea</span><b>60+</b></div>
+        <div class="rrow"><span>Hours saved per advisor each month<small>Sample</small></span><b data-n="25" data-s="+">25+</b></div>
+        <div class="rrow"><span>Graduates reached by check-in calls<small>Sample</small></span><b data-n="72" data-s="%">72%</b></div>
+        <div class="rrow"><span>Resumes reviewed in a first semester<small>Sample</small></span><b data-n="10000" data-s="+">10,000+</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Solutions by team -->
+<section class="sec" id="teams" style="border-top:1px solid var(--line)">
+  <div class="wrap">
+    <h2 class="h2" style="max-width:15em">One platform. Every team that helps students get hired.</h2>
+    <div class="teams-tabs" role="tablist" aria-label="Teams">
+      <button role="tab" aria-selected="true" data-t="0">Career Services</button>
+      <button role="tab" aria-selected="false" data-t="1">Student Affairs</button>
+      <button role="tab" aria-selected="false" data-t="2">Alumni Relations</button>
+      <button role="tab" aria-selected="false" data-t="3">Institutional Research</button>
+      <button role="tab" aria-selected="false" data-t="4">Enrollment</button>
+    </div>
+    <div class="team-panel" id="teamPanel" role="tabpanel" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- Integrations -->
+<section class="sec" style="padding-top:0">
+  <div class="wrap">
+    <div class="integ">
+      <div><h2>Works with the systems you already run.</h2><p>WriteSea connects to your SIS, LMS and CRM through a secure API and pre-built connectors. Our implementation team handles the setup with you.</p><p style="margin-top:20px"><a class="btn line sm" href="#faq">Read the setup FAQ</a></p></div>
+      <div class="cloud" aria-label="Supported systems">
+        <span style="left:4%;top:8%;background:var(--coral-soft)">Canvas<small>LMS</small></span>
+        <span style="left:42%;top:0%;background:var(--violet-soft);animation-delay:-1.5s">Ellucian<small>SIS</small></span>
+        <span style="left:70%;top:22%;background:var(--lime);color:var(--lime-ink);animation-delay:-3s">Banner<small>SIS</small></span>
+        <span style="left:14%;top:46%;background:var(--card);border:1px solid var(--line);animation-delay:-2s">Blackboard<small>LMS</small></span>
+        <span style="left:52%;top:52%;background:var(--char);color:#F7F5FD;animation-delay:-4s">PeopleSoft<small>SIS</small></span>
+        <span style="left:22%;top:78%;background:var(--bone-2);animation-delay:-5s">Moodle<small>LMS</small></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Readiness check -->
+<section class="sec" id="check" style="border-top:1px solid var(--line)">
+  <div class="wrap">
+    <h2 class="h2" style="max-width:13em">How career-ready is your campus? <span class="soft">Find out in four questions.</span></h2>
+    <div class="check">
+      <div class="qs" id="qs">
+        <div class="qrow"><span>Can every student get resume feedback within a day?</span><div class="yn" data-q="0"><button type="button" aria-pressed="false">Yes</button><button type="button" aria-pressed="false">No</button></div></div>
+        <div class="qrow"><span>Do students practice interviews before the real thing?</span><div class="yn" data-q="1"><button type="button" aria-pressed="false">Yes</button><button type="button" aria-pressed="false">No</button></div></div>
+        <div class="qrow"><span>Do most seniors have a professional headshot?</span><div class="yn" data-q="2"><button type="button" aria-pressed="false">Yes</button><button type="button" aria-pressed="false">No</button></div></div>
+        <div class="qrow"><span>Do you know where most graduates work six months out?</span><div class="yn" data-q="3"><button type="button" aria-pressed="false">Yes</button><button type="button" aria-pressed="false">No</button></div></div>
+      </div>
+      <div class="result" aria-live="polite">
+        <span class="mono" style="color:var(--char-muted)">Your result</span>
+        <div class="score"><span id="score">0</span><small> / 4 covered</small></div>
+        <p id="resultText">Answer the questions to see where WriteSea would help first.</p>
+        <div class="recs" id="recs"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec" id="faq" style="border-top:1px solid var(--line)">
+  <div class="wrap faq">
+    <h2 class="h2">Questions, answered.</h2>
+    <div class="qa">
+      <details open><summary>How does WriteSea work with our campus systems?</summary><p>WriteSea connects to SIS, LMS and CRM platforms through a secure API and pre-built connectors. Our implementation team manages the full integration from day one.</p></details>
+      <details><summary>What implementation support do we get?</summary><p>Full onboarding with a dedicated implementation specialist, team training, data migration support and ongoing customer success management.</p></details>
+      <details><summary>How is student success measured?</summary><p>WriteSea tracks internship placements, job offers, salary benchmarks, alumni engagement and skills milestones.</p></details>
+      <details><summary>Can WriteSea support alumni engagement?</summary><p>Yes. Alumni tools help you stay connected with graduates, track long-term outcomes and build a mentorship and referral community.</p></details>
+      <details><summary>Which LMS and SIS platforms do you support?</summary><p>Canvas, Blackboard and Moodle, plus SIS systems such as Ellucian, PeopleSoft and Banner.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- Close -->
+<section class="sec close" id="demo">
+  <div class="wrap">
+    <h2>Make career readiness <em>impossibly easy</em> to prove.</h2>
+    <div class="ctas"><a class="btn" href="https://writesea.com">Book a demo</a><a class="btn line" href="#platform">Explore the platform</a></div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="cols">
+      <div><h4>Products</h4><ul><li><a href="#platform">Career OS</a></li><li><a href="#platform">Headshot OS</a></li><li><a href="#platform">Engage OS</a></li><li><a href="#platform">Admin Dashboard</a></li></ul></div>
+      <div><h4>AI coaches</h4><ul><li><a href="#agents">Resume Coach</a></li><li><a href="#agents">Interview Coach</a></li><li><a href="#agents">Headshot Studio</a></li><li><a href="#agents">Outreach Agent</a></li></ul></div>
+      <div><h4>Solutions</h4><ul><li><a href="#teams">Career Services</a></li><li><a href="#teams">Student Affairs</a></li><li><a href="#teams">Alumni Relations</a></li><li><a href="#teams">Institutional Research</a></li></ul></div>
+      <div><h4>Resources</h4><ul><li><a href="https://writesea.com/blog">Blog</a></li><li><a href="https://writesea.com">Webinars</a></li><li><a href="https://writesea.com/resources/career-fair-activation-kit/">Career Fair Kit</a></li><li><a href="#check">Readiness check</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="https://writesea.com">About</a></li><li><a href="https://writesea.com/careers/">Careers</a></li><li><a href="https://writesea.com">Press</a></li><li><a href="https://writesea.com">Contact</a></li></ul></div>
+    </div>
+    <div class="bigword" aria-hidden="true">WriteSea</div>
+    <div class="legal"><span>© 2026 WriteSea</span><span>Privacy &nbsp; Terms &nbsp; Security</span></div>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  const runner = fn => { let t = 0; const run = () => { const my = ++t; return fn(() => my === t); }; run.cancel = () => { t++; }; return run; };
+  const onView = (el, cb, th = .4) => { const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { io.disconnect(); cb(); } }), { threshold: th }); io.observe(el); };
+  async function type(el, text, alive, cps = 85) { el.textContent = ''; el.classList.add('caret'); for (let i = 0; i < text.length; i++) { if (!alive()) return; el.textContent = text.slice(0, i + 1); await sleep(1000 / cps); } el.classList.remove('caret'); }
+  async function count(set, from, to, ms, alive) { const t0 = performance.now(); while (alive()) { const p = Math.min(1, (performance.now() - t0) / ms); set(Math.round(from + (to - from) * (1 - Math.pow(1 - p, 3)))); if (p === 1) break; await new Promise(requestAnimationFrame); } }
+  const seeded = (i, k) => { const x = Math.sin(i * 12.9898 + k * 78.233) * 43758.5453; return x - Math.floor(x); };
+  const bars = (el, n, segs, k) => { for (let i = 0; i < n; i++) { const f = i / n, talk = segs.some(([a, b]) => f >= a && f <= b); const b = document.createElement('i'); b.style.height = (talk ? 28 + seeded(i, k) * 72 : 6 + seeded(i, k) * 8) + '%'; el.appendChild(b); } return [...el.children]; };
+  const A_SEG = [[.01,.15],[.29,.38],[.53,.61],[.78,.84]], G_SEG = [[.17,.27],[.40,.51],[.63,.75],[.86,.98]];
+
+  /* Products mega menu */
+  const megaBtn = $('#megaBtn'), mega = $('#mega');
+  const setMega = open => { mega.classList.toggle('open', open); megaBtn.setAttribute('aria-expanded', open); };
+  megaBtn.addEventListener('click', () => setMega(!mega.classList.contains('open')));
+  $$('a', mega).forEach(a => a.addEventListener('click', () => setMega(false)));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && mega.classList.contains('open')) { setMega(false); megaBtn.focus(); } });
+  document.addEventListener('click', e => { if (!e.target.closest('.nav')) setMega(false); });
+
+  /* Hero layer stack */
+  const DESC = [
+    'AI coaches sit across every product: a resume coach, an interview coach, a headshot studio and an outreach agent.',
+    'Career OS helps students prepare: resume builder and review, cover letters, mock interviews and the job search.',
+    'Headshot OS helps students present themselves: professional headshots from a few everyday photos.',
+    'Engage OS helps your team prove outcomes: voice AI check-ins that record where graduates landed.',
+    'The Student Record is the foundation: one record per student, connected to your SIS, LMS and CRM.'
+  ];
+  const stack = $('#stack'), plates = $$('.plate', stack), lbtns = $$('#layers button'), desc = $('#layerDesc');
+  let lTimer, userTouched = false;
+  function focusLayer(i) {
+    stack.classList.toggle('focus', i !== null);
+    plates.forEach(p => p.classList.toggle('on', +p.dataset.l === i));
+    lbtns.forEach(b => b.classList.toggle('on', +b.dataset.l === i));
+    desc.textContent = i === null ? 'Hover or tap a layer to see what it does.' : DESC[i];
+  }
+  lbtns.forEach(b => {
+    const i = +b.dataset.l;
+    b.addEventListener('mouseenter', () => { userTouched = true; clearInterval(lTimer); focusLayer(i); });
+    b.addEventListener('focus', () => { userTouched = true; clearInterval(lTimer); focusLayer(i); });
+    b.addEventListener('click', () => { userTouched = true; clearInterval(lTimer); focusLayer(i); });
+  });
+  $('#layers').addEventListener('mouseleave', () => focusLayer(null));
+  if (!RM) { let k = 0; lTimer = setInterval(() => { if (userTouched) return clearInterval(lTimer); focusLayer(k % 5); k++; if (k > 5) { clearInterval(lTimer); focusLayer(null); } }, 2200); }
+
+  /* Pillar waveform */
+  const pw = bars($('#pillarWave'), 48, A_SEG.concat(G_SEG), 5);
+  let pk = 0; const paintPW = () => { pw.forEach((b, i) => b.classList.toggle('on', i < pk)); };
+  if (RM) { pk = 48; paintPW(); } else setInterval(() => { pk = (pk + 1) % 60; paintPW(); }, 120);
+
+  /* Layered product cards open the matching demo */
+  $$('.hub a[data-open]').forEach(a => a.addEventListener('click', () => openAcc(+a.dataset.open, false)));
+
+  /* AI coaches carousel */
+  const track = $('#track'), cards = $$('.agent', track), dots = $$('#dots i');
+  const step = () => cards[0].getBoundingClientRect().width + 16;
+  $('#prev').addEventListener('click', () => track.scrollBy({ left: -step(), behavior: RM ? 'auto' : 'smooth' }));
+  $('#next').addEventListener('click', () => track.scrollBy({ left: step(), behavior: RM ? 'auto' : 'smooth' }));
+  track.addEventListener('scroll', () => { const i = Math.round(track.scrollLeft / step()); dots.forEach((d, k) => d.classList.toggle('on', k === Math.min(i, dots.length - 1))); }, { passive: true });
+  // coach card loops
+  if (!RM) {
+    const nw = $('#ag1new'); setInterval(() => { nw.style.opacity = nw.style.opacity === '0' ? '1' : '0'; }, 2600);
+    nw.style.transition = 'opacity .5s';
+    const st = $$('#agStyles span'), faces = $$('#agFaces img'); let si = 0;
+    setInterval(() => { si = (si + 1) % st.length; st.forEach((s, k) => s.classList.toggle('on', k === si)); faces.forEach(f => f.classList.add('gen')); setTimeout(() => faces.forEach(f => f.classList.remove('gen')), 700); }, 2800);
+  }
+  const agw = bars($('#agWave'), 40, G_SEG, 7); let ak = 40;
+  const paintAg = () => { agw.forEach((b, i) => b.classList.toggle('on', i < ak)); $('#agTag').classList.toggle('show', ak > 26); };
+  paintAg();
+  if (!RM) setInterval(() => { ak = (ak + 1) % 52; paintAg(); }, 110);
+
+  /* See it work: accordion */
+  const items = $$('#acc .acc-item'), panes = $$('.view .pane');
+  let aTimer, aAuto = false;
+  function openAcc(i, auto) {
+    aAuto = auto;
+    items.forEach((it, k) => { it.classList.remove('auto'); it.classList.toggle('on', k === i); $('button', it).setAttribute('aria-expanded', k === i); });
+    panes.forEach((p, k) => p.classList.toggle('on', k === i));
+    clearTimeout(aTimer);
+    if (i === 0 && !RM) playResume(); else playResume.cancel();
+    if (i === 2 && !RM) { paintCall(0); playCall(); } else playCall.cancel();
+    if (aAuto && !RM) { void items[i].offsetWidth; items[i].classList.add('auto'); aTimer = setTimeout(() => openAcc((i + 1) % items.length, true), 9000); }
+  }
+  items.forEach((it, i) => $('button', it).addEventListener('click', () => openAcc(i, false)));
+
+  // Career OS demo
+  const BAD = ['<mark>Helped with</mark> the food bank social media.', '<mark>Worked on</mark> survey data for a professor.', 'Skills: <mark>hard worker</mark>, team player, Excel.'];
+  const GOOD = ["Grew the food bank's Instagram from 300 to 2,100 followers in one semester, doubling volunteer sign-ups.", 'Analyzed survey data from 1,200 students in Python, cutting report time from 3 days to 4 hours.', 'Skills: Python, SQL, Tableau, Excel (pivot tables, lookups).'];
+  const playResume = runner(async alive => {
+    const pct = $('#rs-pct'), rows = $$('#rs-lines .row');
+    pct.className = 'pct low'; pct.textContent = '58%';
+    rows.forEach((r, i) => { r.className = 'row bad'; $('i', r).textContent = '!'; $('span', r).innerHTML = BAD[i]; });
+    await sleep(1000);
+    for (let i = 0; i < rows.length; i++) {
+      if (!alive()) return;
+      rows[i].className = 'row good'; $('i', rows[i]).textContent = '✓';
+      await type($('span', rows[i]), GOOD[i], alive); if (!alive()) return;
+      if (i === 1) pct.className = 'pct high';
+      await count(v => pct.textContent = v + '%', [58, 72, 84][i], [72, 84, 91][i], 500, alive);
+    }
+  });
+  $('#rs-run').addEventListener('click', () => { clearTimeout(aTimer); items[0].classList.remove('auto'); playResume(); });
+
+  // Headshot OS demo
+  const STYLES = [['face-2', 'face-1'], ['face-3', 'face-4'], ['face-1', 'face-4']], NAMES = ['Navy blazer', 'Studio grey', 'City office'];
+  $$('.studio .bar button').forEach(b => b.addEventListener('click', () => {
+    clearTimeout(aTimer); items[1].classList.remove('auto');
+    $$('.studio .bar button').forEach(x => x.setAttribute('aria-pressed', x === b));
+    const s = +b.dataset.s, figs = $$('#shots figure');
+    figs.forEach(f => f.classList.add('gen'));
+    setTimeout(() => figs.forEach((f, k) => { $('img', f).src = 'assets/' + STYLES[s][k] + '.png'; $('figcaption', f).textContent = NAMES[s]; f.classList.remove('gen'); }), RM ? 0 : 650);
+  }));
+
+  // Engage OS demo
+  const N = 80, eA = bars($('#en-a'), N, A_SEG, 1), eG = bars($('#en-g'), N, G_SEG, 2);
+  const DUR = 84, fmt = s => Math.floor(s / 60) + ':' + String(Math.floor(s % 60)).padStart(2, '0');
+  $$('#en-rec dd').forEach(d => d.dataset.v = d.textContent);
+  const paintCall = p => {
+    const n = Math.floor(p * N);
+    eA.forEach((b, i) => b.classList.toggle('on', i < n)); eG.forEach((b, i) => b.classList.toggle('on', i < n));
+    $$('#en-tags span').forEach(s => s.classList.toggle('show', p >= +s.dataset.t));
+    $$('#en-rec dd').forEach(d => { const on = p >= +d.dataset.t; d.textContent = on ? d.dataset.v : 'Waiting'; d.classList.toggle('empty', !on); });
+    $('#en-time').textContent = fmt(p * DUR) + ' / ' + fmt(DUR);
+  };
+  paintCall(1);
+  const playCall = runner(async alive => { const ms = 8500, t0 = performance.now(); while (alive()) { const p = Math.min(1, (performance.now() - t0) / ms); paintCall(p); if (p === 1) break; await new Promise(requestAnimationFrame); } });
+  $('#en-play').addEventListener('click', () => { clearTimeout(aTimer); items[2].classList.remove('auto'); RM ? paintCall(1) : (paintCall(0), playCall()); });
+  if (!RM) onView($('.acc'), () => openAcc(0, true), .4);
+
+  /* Stories carousel (Harvey) */
+  const stTrack = $('#stTrack'), stories = $$('.story', stTrack), stTabs = $$('.st-logos button');
+  let stI = 0, stTimer, stAuto = false;
+  function stLayout() {
+    const vw = $('#stViewport').clientWidth, card = stories[0].getBoundingClientRect().width, gap = 16;
+    stTrack.style.transform = `translateX(${(vw - card) / 2 - stI * (card + gap)}px)`;
+  }
+  function stGo(i, auto) {
+    stI = (i + stories.length) % stories.length;
+    stories.forEach((c, k) => { c.classList.toggle('on', k === stI); if (k !== stI) { c.classList.remove('expanded'); $('.open', c).setAttribute('aria-expanded', 'false'); } });
+    stTabs.forEach((t, k) => { t.setAttribute('aria-selected', k === stI); t.classList.remove('run'); });
+    stLayout();
+    clearTimeout(stTimer);
+    stAuto = auto;
+    if (auto && !RM) { void stTabs[stI].offsetWidth; stTabs[stI].classList.add('run'); stTimer = setTimeout(() => stGo(stI + 1, true), 7000); }
+  }
+  stTabs.forEach((t, i) => t.addEventListener('click', () => stGo(i, false)));
+  stories.forEach((c, i) => {
+    c.addEventListener('click', e => { if (i !== stI && !e.target.closest('.open')) stGo(i, false); });
+    $('.open', c).addEventListener('click', e => {
+      e.stopPropagation();
+      if (i !== stI) return stGo(i, false);
+      const ex = c.classList.toggle('expanded'); e.currentTarget.setAttribute('aria-expanded', ex);
+      if (ex) { clearTimeout(stTimer); stTabs[stI].classList.remove('run'); }
+    });
+  });
+  addEventListener('resize', stLayout);
+  stGo(0, false);
+  if (!RM) onView($('#stViewport'), () => stGo(0, true), .3);
+  // results count up
+  const rrows = $$('.rrow b[data-n]');
+  if (!RM) onView($('.rrows'), () => rrows.forEach(b => { const n = +b.dataset.n, suf = b.dataset.s; count(v => b.textContent = v.toLocaleString('en-US') + suf, 0, n, 1400, () => true); }), .5);
+
+  /* Solutions by team */
+  const TEAMS = [
+    ['Career Services', 'Support thousands of students with the team you have.', ['AI resume and interview help for every student', 'See who needs an advisor before graduation', 'Spend appointments on the conversations that need a person'], [['coral', 'Career OS', 'Daily'], ['char', 'Admin Dashboard', 'Weekly']]],
+    ['Student Affairs', 'Build career readiness into the whole student experience.', ['Career tools available from day one', 'Track engagement across programs', 'Reach students where they already are'], [['coral', 'Career OS', 'Every term'], ['violet', 'Headshot OS', 'Events']]],
+    ['Alumni Relations', 'Stay in touch with graduates long after they leave.', ['Voice AI check-ins at 6 and 12 months', 'Find alumni who want to mentor', 'Build a referral community'], [['lime', 'Engage OS', 'Every class'], ['char', 'Student Record', 'Always']]],
+    ['Institutional Research', 'Report outcomes you can stand behind.', ['Employment, role and salary from real conversations', 'Data for accreditors and state reporting', 'One record per student, connected to your SIS'], [['lime', 'Engage OS', 'Outcomes'], ['char', 'Admin Dashboard', 'Reports']]],
+    ['Enrollment', 'Show prospective students a clear path to a career.', ['Career tools available before day one', 'Outcome stories for admissions', 'Headshots for orientation and ID'], [['violet', 'Headshot OS', 'Orientation'], ['coral', 'Career OS', 'Onboarding']]]
+  ];
+  const panel = $('#teamPanel'), ttabs = $$('.teams-tabs button');
+  const dotCls = { coral: 'd-coral', violet: 'd-violet', lime: 'd-lime', char: 'd-char' };
+  function showTeam(i) {
+    ttabs.forEach((t, k) => t.setAttribute('aria-selected', k === i));
+    const [name, line, points, uses] = TEAMS[i];
+    panel.innerHTML = `<div><h3>For ${name}</h3><p>${line}</p><ul>${points.map(p => `<li>${p}</li>`).join('')}</ul></div>
+      <div class="uses"><span class="mono">Products they use most</span>${uses.map(([c, n, f]) => `<div class="use"><span class="dot ${dotCls[c]}"></span>${n}<span>${f}</span></div>`).join('')}<a class="btn line sm" href="#demo" style="justify-self:start;margin-top:6px">Book a demo for ${name}</a></div>`;
+  }
+  ttabs.forEach((t, i) => t.addEventListener('click', () => showTeam(i)));
+  showTeam(0);
+
+  /* Readiness check */
+  const answers = [null, null, null, null];
+  const REC = [['coral', 'Career OS', 'resume feedback for every student'], ['coral', 'Career OS', 'mock interviews with instant scores'], ['violet', 'Headshot OS', 'professional headshots in minutes'], ['lime', 'Engage OS', 'voice AI check-ins with graduates']];
+  function renderResult() {
+    const answered = answers.filter(a => a !== null).length, yes = answers.filter(a => a === true).length;
+    $('#score').textContent = yes;
+    const gaps = answers.map((a, i) => a === false ? i : -1).filter(i => i >= 0);
+    $('#resultText').textContent = answered < 4 ? `${4 - answered} question${answered === 3 ? '' : 's'} to go.` : gaps.length ? 'Here is where WriteSea would help first:' : 'Your campus covers the basics. WriteSea helps you do it at scale and prove it.';
+    $('#recs').innerHTML = gaps.map(i => `<div><span class="dot ${dotCls[REC[i][0]]}"></span><span><b>${REC[i][1]}</b> for ${REC[i][2]}</span></div>`).join('');
+  }
+  $$('.yn').forEach(g => {
+    const q = +g.dataset.q, [y, n] = $$('button', g);
+    const set = v => { answers[q] = v; y.setAttribute('aria-pressed', v === true); n.setAttribute('aria-pressed', v === false); renderResult(); };
+    y.addEventListener('click', () => set(true)); n.addEventListener('click', () => set(false));
+  });
+})();
+</script>
