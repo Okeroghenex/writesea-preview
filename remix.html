@@ -1,0 +1,1009 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>WriteSea Platform Remix</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: white page on a Zaro dot grid. Harvey ticker + logo wall + story tabs, a Zaro node map hero,
+   HubSpot product explorer, team tabs and stat band, Beside coach cards and floating CTA,
+   Dessa clip player with live subtitles, Rox research-style rows for the FAQ, HubSpot dark close. */
+:root{
+  --violet:#563BDB; --v80:#7862E2; --v60:#9A89E9; --v40:#BBB1F1; --v20:#DDD8F8; --v5:#F7F5FD;
+  --blue:#3AAFED; --b80:#61BFF1; --b60:#89CFF4; --b40:#B0DFF8; --b20:#D8EFFB; --b5:#F5FBFE;
+  --ink:#161513; --ink-2:#55524C; --soft:#8B877F; --white:#FFFFFF; --line:#E6E2FA;
+  --career:var(--blue); --headshot:var(--violet); --engage:var(--b40);
+  --sans:"Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --serif:"Instrument Serif", Georgia, "Times New Roman", serif;
+  --mono:"DM Mono", ui-monospace, Menlo, monospace;
+  --r:18px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--white);color:var(--ink);font:400 16px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:80;background:var(--white)}
+a{color:inherit}
+img{max-width:100%;display:block}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--violet);outline-offset:3px;border-radius:6px}
+.dark :focus-visible{outline-color:var(--b40)}
+h1,h2,h3,h4{margin:0;font-weight:500;letter-spacing:-.035em;line-height:1.02;text-wrap:balance}
+h1 i,h2 i{font-family:var(--serif);font-weight:400;letter-spacing:-.01em;font-style:italic}
+p{margin:0}
+.mono{font:500 11.5px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.wrap{max-width:1240px;margin:0 auto;padding-left:max(clamp(16px,4vw,40px),env(safe-area-inset-left,0px));padding-right:max(clamp(16px,4vw,40px),env(safe-area-inset-right,0px))}
+section{padding-block:clamp(64px,9vw,128px)}
+.h2{font-size:clamp(34px,4.6vw,60px)}
+.lede{color:var(--ink-2);font-size:clamp(16px,1.3vw,18.5px);max-width:36em}
+.kicker{display:inline-flex;align-items:center;gap:8px;color:var(--violet);margin-bottom:18px}
+.kicker::before{content:"";width:6px;height:6px;border-radius:2px;background:currentColor}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;height:46px;padding:0 20px;border-radius:999px;border:1px solid transparent;background:transparent;font-weight:500;font-size:15px;text-decoration:none;white-space:nowrap;transition:background .2s,color .2s,border-color .2s,transform .2s}
+.btn svg{width:14px;height:14px;transition:transform .2s}
+.btn:hover svg{transform:translateX(3px)}
+.btn.solid{background:var(--violet);color:var(--white)}
+.btn.solid:hover{background:var(--v80)}
+.btn.line{border-color:var(--v20);color:var(--violet);background:var(--white)}
+.btn.line:hover{border-color:var(--violet)}
+.btn.sm{height:38px;padding:0 15px;font-size:14px}
+.dark .btn.solid{background:var(--white);color:var(--violet)}
+.dark .btn.solid:hover{background:var(--b20)}
+.dark .btn.line{background:transparent;border-color:rgba(255,255,255,.35);color:var(--white)}
+.dark .btn.line:hover{border-color:var(--white)}
+.dot{width:9px;height:9px;border-radius:50%;flex:none;display:inline-block}
+.d-career{background:var(--career)}.d-headshot{background:var(--headshot)}.d-engage{background:var(--b60)}.d-record{background:var(--ink)}.d-coach{background:var(--b80)}
+.sample{display:inline-block;font:500 10px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);background:var(--v5);border:1px solid var(--line);border-radius:99px;padding:3px 8px;vertical-align:middle}
+.dark .sample{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.25);color:var(--v20)}
+.dots-bg{background-image:radial-gradient(var(--v20) 1px,transparent 1.2px);background-size:22px 22px}
+
+/* ticker (Harvey) */
+.ticker{background:var(--violet);color:var(--white);overflow:hidden;white-space:nowrap;font-size:13.5px;height:38px;display:flex;align-items:center}
+.ticker .track{display:inline-flex;gap:56px;padding-left:56px;animation:tick 38s linear infinite}
+.ticker span{display:inline-flex;gap:12px;align-items:center}
+.ticker b{font-weight:600}
+.ticker a{color:var(--b40);text-decoration:none}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:70;background:rgba(255,255,255,.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .3s}
+.nav.scrolled{border-bottom-color:var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:32px;height:68px}
+.logo img{height:30px;width:auto}
+.nav ul{display:flex;gap:4px;list-style:none;margin:0;padding:0}
+.nav ul a{display:block;padding:8px 12px;border-radius:8px;text-decoration:none;font-size:15px;color:var(--ink-2)}
+.nav ul a:hover{background:var(--v5);color:var(--ink)}
+.nav .r{margin-left:auto;display:flex;align-items:center;gap:10px}
+.nav .login{text-decoration:none;font-size:15px;padding:8px 10px}
+.menu-btn{display:none;border:1px solid var(--line);background:var(--white);border-radius:99px;height:38px;padding:0 15px;font-size:14px}
+.sheet{position:fixed;inset:calc(106px + env(safe-area-inset-top,0px)) 0 0;z-index:69;background:var(--white);overflow:auto}
+.sheet .wrap{display:grid;padding-block:8px 32px}
+.sheet a{padding:16px 0;border-bottom:1px solid var(--line);text-decoration:none;font-size:24px;font-weight:500;letter-spacing:-.02em}
+
+/* hero */
+.hero{padding-block:clamp(40px,6vw,80px) clamp(56px,7vw,96px)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(32px,5vw,64px);align-items:center}
+.hero h1{font-size:clamp(40px,5.6vw,80px);max-width:15em}
+.hero-grid{margin-top:clamp(28px,4vw,48px)}
+.hero h1 .ln{display:block}
+.hero h1 i{color:var(--violet)}
+.hero .lede{margin-top:0}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+.used{display:flex;align-items:center;gap:12px;margin-top:28px;color:var(--ink-2);font-size:14.5px}
+.faces{display:flex}
+.faces img{width:30px;height:30px;border-radius:50%;object-fit:cover;object-position:top;border:2px solid var(--white);margin-left:-8px}
+.faces img:first-child{margin-left:0}
+
+/* node map (Zaro) */
+.map{position:relative;border:1px solid var(--line);border-radius:24px;background-color:var(--b5);overflow:hidden;aspect-ratio:1/0.92;max-width:100%}
+.map canvas{position:absolute;inset:0;width:100%;height:100%}
+.node{position:absolute;transform:translate(-50%,-50%);display:flex;align-items:center;gap:10px;background:var(--white);border:1px solid var(--line);border-radius:14px;padding:10px 14px 10px 10px;box-shadow:0 1px 0 var(--line),0 10px 24px -14px rgba(86,59,219,.35);text-align:left;transition:transform .25s,border-color .25s,box-shadow .25s;white-space:nowrap}
+.node .ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;flex:none}
+.node .ic svg{width:18px;height:18px}
+.node b{display:block;font-weight:600;font-size:14.5px;letter-spacing:-.01em}
+.node small{display:block;color:var(--ink-2);font-size:12.5px}
+.node:hover,.node.on{transform:translate(-50%,-50%) scale(1.05);border-color:var(--violet);box-shadow:0 0 0 1px var(--violet),0 14px 30px -14px rgba(86,59,219,.5)}
+.node.core{background:var(--violet);color:var(--white);border-color:var(--violet);padding:14px 18px 14px 14px}
+.node.core small{color:var(--v20)}
+.node.core .ic{background:rgba(255,255,255,.16)}
+.n-coach .ic{background:var(--b20);color:var(--ink)}
+.n-career .ic{background:var(--blue);color:var(--white)}
+.n-headshot .ic{background:var(--v20);color:var(--violet)}
+.n-engage .ic{background:var(--b40);color:var(--ink)}
+.map .info{position:absolute;left:14px;right:14px;bottom:14px;background:var(--white);border:1px solid var(--line);border-radius:12px;padding:11px 14px;font-size:14px;display:flex;gap:10px;align-items:center;min-height:46px}
+.map .info .dot{transition:background .2s}
+.chip-float{position:absolute;right:16px;top:16px;background:var(--white);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:12.5px;display:grid;gap:4px;min-width:150px;box-shadow:0 14px 30px -18px rgba(86,59,219,.45);animation:bob 5s ease-in-out infinite}
+.chip-float b{font-weight:600;font-size:13px}
+.chip-float .row{display:flex;justify-content:space-between;color:var(--ink-2)}
+.chip-float strong{font-weight:600;color:var(--violet);font-variant-numeric:tabular-nums}
+.chip-float .bar{height:4px;border-radius:4px;background:var(--v5);overflow:hidden}
+.chip-float .bar i{display:block;height:100%;width:58%;background:var(--blue);border-radius:4px;transition:width 1.4s cubic-bezier(.3,.7,.2,1)}
+@keyframes bob{50%{transform:translateY(-6px)}}
+
+/* what is (Harvey logo wall) */
+.what{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,6vw,96px);align-items:start}
+.what p.lede + p.lede{margin-top:16px}
+.what h2{font-size:clamp(40px,5vw,68px)}
+.wall{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.wall div{height:84px;display:grid;place-items:center;padding:16px;border-radius:12px;background:var(--white);transition:background .3s}
+.wall div:hover{background:var(--v5)}
+.wall img{max-height:38px;object-fit:contain;filter:grayscale(1);opacity:.7;transition:filter .3s,opacity .3s}
+.wall div:hover img{filter:none;opacity:1}
+.wall-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:18px;padding-top:18px;border-top:1px solid var(--line);font-size:15px;color:var(--ink-2)}
+.wall-foot a{color:var(--violet);text-decoration:none;font-weight:500}
+.wall-foot a:hover{text-decoration:underline}
+
+/* layered products (HubSpot) */
+.layers{background:var(--v5)}
+.layers-head{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(24px,5vw,72px);align-items:end}
+.layers-head .ctas{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.explorer{margin-top:clamp(36px,5vw,56px);display:grid;grid-template-columns:300px minmax(0,1fr);gap:16px}
+.plist{display:grid;align-content:start;gap:6px}
+.plist .grp{margin:14px 0 4px 4px;color:var(--ink-2)}
+.plist .grp:first-child{margin-top:0}
+.plist button{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;text-align:left;border:1px solid transparent;background:transparent;border-radius:12px;padding:13px 14px;font-size:16px;font-weight:500;transition:background .2s,border-color .2s}
+.plist button svg{width:14px;height:14px;opacity:0;transition:opacity .2s,transform .2s;color:var(--violet)}
+.plist button:hover{background:rgba(255,255,255,.7)}
+.plist button[aria-selected="true"]{background:var(--white);border-color:var(--line);box-shadow:0 8px 22px -16px rgba(86,59,219,.5)}
+.plist button[aria-selected="true"] svg{opacity:1}
+.pcard{background:var(--white);border:1px solid var(--line);border-radius:22px;overflow:hidden;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);min-height:440px}
+.pcard .copy{padding:clamp(24px,3vw,40px);display:flex;flex-direction:column;gap:16px}
+.pcard .tagline{display:flex;align-items:center;gap:8px;color:var(--ink-2)}
+.pcard h3{font-size:clamp(30px,3vw,42px)}
+.pcard p{color:var(--ink-2);font-size:17px}
+.pcard ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.pcard li{border:1px solid var(--line);border-radius:99px;padding:6px 12px;font-size:14px}
+.pcard .more{margin-top:auto;color:var(--violet);font-weight:500;text-decoration:none;display:inline-flex;gap:8px;align-items:center}
+.pcard .more svg{width:14px;height:14px}
+.pvis{position:relative;background-color:var(--b5);border-left:1px solid var(--line);display:grid;place-items:center;padding:28px;overflow:hidden}
+.pvis .stage{width:100%;max-width:330px;display:grid;gap:10px;animation:rise .5s cubic-bezier(.2,.8,.2,1)}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}}
+.mini{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:14px;font-size:13.5px;box-shadow:0 14px 30px -22px rgba(86,59,219,.5)}
+.mini .hd{display:flex;justify-content:space-between;align-items:center;font-weight:600;margin-bottom:10px}
+.mini .ok{color:var(--violet);font:500 11px var(--mono)}
+.strike{text-decoration:line-through;color:var(--soft)}
+.hl{background:var(--b20);border-radius:4px;padding:1px 3px}
+.mfaces{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.mfaces img{aspect-ratio:3/4;object-fit:cover;object-position:top;border-radius:10px}
+.wave{display:flex;align-items:center;gap:3px;height:42px}
+.wave i{flex:1;border-radius:3px;background:var(--v40)}
+.bars{display:grid;gap:9px}
+.bars div{display:grid;grid-template-columns:96px 1fr 36px;gap:10px;align-items:center;font-size:12.5px;color:var(--ink-2)}
+.bars span.t{height:8px;border-radius:5px;background:var(--v5);overflow:hidden}
+.bars span.t i{display:block;height:100%;border-radius:5px}
+.bars b{font-weight:600;color:var(--ink);text-align:right;font-variant-numeric:tabular-nums}
+.syschips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.syschips span{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:9px 13px;font-weight:500;font-size:14px}
+
+/* AI coaches (Beside) */
+.coach-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap}
+.coach-head .lede{max-width:30em}
+.coaches{margin-top:clamp(32px,4vw,48px);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.coach{border-radius:24px;padding:14px 14px 22px;display:flex;flex-direction:column;gap:16px;transition:transform .3s}
+.coach:hover{transform:translateY(-4px)}
+.coach.c1{background:var(--b20)}.coach.c2{background:var(--v20)}.coach.c3{background:var(--v5)}.coach.c4{background:var(--b5);box-shadow:inset 0 0 0 1px var(--b40)}
+.phone{background:var(--white);border-radius:16px;padding:14px;min-height:230px;display:flex;flex-direction:column;gap:10px;font-size:13px;box-shadow:0 18px 36px -24px rgba(86,59,219,.55)}
+.phone .bar0{display:flex;justify-content:space-between;color:var(--ink-2);font:500 10.5px var(--mono);letter-spacing:.05em;text-transform:uppercase}
+.bub{padding:9px 11px;border-radius:12px;line-height:1.4}
+.bub.me{background:var(--v5);align-self:flex-start;border-bottom-left-radius:4px}
+.bub.ai{background:var(--violet);color:var(--white);align-self:flex-end;border-bottom-right-radius:4px}
+.bub.ai.b{background:var(--blue);color:var(--ink)}
+.coach .lbl{display:flex;gap:8px;align-items:center;color:var(--ink-2);padding:0 6px}
+.coach h3{font-size:22px;letter-spacing:-.02em;padding:0 6px}
+.coach p{font-size:14.5px;color:var(--ink-2);padding:0 6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips span{border:1px solid var(--line);border-radius:99px;padding:5px 10px;font-size:12px}
+.chips span.on{background:var(--violet);color:var(--white);border-color:var(--violet)}
+.hsrow{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.hsrow img{aspect-ratio:3/4;object-fit:cover;object-position:top;border-radius:8px}
+.callcard{display:flex;align-items:center;gap:10px;padding:10px;border-radius:12px;background:var(--b5)}
+.callcard .av{width:32px;height:32px;border-radius:50%;background:var(--b40);display:grid;place-items:center;font-weight:600;font-size:12px}
+.status{display:inline-flex;align-items:center;gap:6px;background:var(--v5);color:var(--violet);border-radius:99px;padding:5px 10px;font-weight:600;font-size:12px;align-self:flex-start}
+
+/* see it work (Dessa, dark) */
+.dark{background:var(--violet);color:var(--white)}
+.dark .lede{color:var(--v20)}
+.dark .kicker{color:var(--b40)}
+.work-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap}
+.seg{display:inline-flex;gap:4px;padding:4px;border-radius:99px;background:rgba(255,255,255,.12)}
+.seg button{border:0;background:transparent;color:var(--v20);border-radius:99px;height:40px;padding:0 16px;display:flex;align-items:center;gap:8px;font-weight:500;font-size:14.5px}
+.seg button[aria-selected="true"]{background:var(--white);color:var(--ink)}
+.work{margin-top:clamp(28px,4vw,44px);display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.4fr);gap:clamp(24px,4vw,56px);align-items:start}
+.work .wcopy h3{font-size:clamp(28px,3vw,40px)}
+.work .wcopy p{color:var(--v20);margin-top:14px;font-size:17px;max-width:28em}
+.work .note{margin-top:22px;color:var(--v40);font-size:13px}
+.wpanel{background:var(--white);color:var(--ink);border-radius:22px;padding:clamp(16px,2.4vw,28px);min-height:420px}
+.rv-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.rv-head b{font-size:17px}
+.pct{display:flex;align-items:center;gap:10px;font-weight:600;color:var(--violet)}
+.pct .ring{width:44px;height:44px}
+.pct .ring circle{fill:none;stroke-width:5}
+.rv-list{display:grid;gap:10px}
+.rv{display:grid;grid-template-columns:26px 1fr;gap:10px;padding:13px 14px;border:1px solid var(--line);border-radius:12px;font-size:15px;transition:opacity .4s,transform .4s,border-color .4s}
+.rv .ck{width:22px;height:22px;border-radius:50%;background:var(--v20);color:var(--violet);display:grid;place-items:center;font-size:12px;font-weight:700;transition:background .3s,color .3s}
+.rv.done .ck{background:var(--violet);color:var(--white)}
+.rv.pending{opacity:.35;transform:translateY(4px)}
+.rv-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:16px;color:var(--ink-2);font-size:14px}
+.styles{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.styles button{border:1px solid var(--line);background:var(--white);border-radius:99px;height:38px;padding:0 15px;font-size:14px;font-weight:500}
+.styles button[aria-pressed="true"]{background:var(--violet);color:var(--white);border-color:var(--violet)}
+.shots{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.shots figure{margin:0;position:relative;border-radius:16px;overflow:hidden;background:var(--v5);aspect-ratio:4/5}
+.shots img{width:100%;height:100%;object-fit:cover;object-position:top;transition:opacity .35s,transform .6s}
+.shots figure.swap img{opacity:0;transform:scale(1.03)}
+.shots figcaption{position:absolute;left:10px;bottom:10px;background:rgba(255,255,255,.92);border-radius:99px;padding:5px 11px;font-size:12.5px;font-weight:500}
+.shots .ws{position:absolute;right:10px;top:10px;width:30px;height:30px;border-radius:50%;background:var(--white);display:grid;place-items:center;font:600 11px var(--sans);color:var(--violet)}
+.clip{display:grid;gap:16px}
+.player{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:14px;align-items:center;padding:14px;border-radius:16px;background:var(--v5)}
+.play{width:46px;height:46px;border-radius:50%;border:0;background:var(--violet);color:var(--white);display:grid;place-items:center}
+.play svg{width:16px;height:16px}
+.cwave{display:flex;align-items:center;gap:2px;height:44px}
+.cwave i{flex:1;border-radius:2px;background:var(--v40);transition:background .2s}
+.cwave i.p{background:var(--violet)}
+.player time{font:500 13px var(--mono);font-variant-numeric:tabular-nums;color:var(--ink-2)}
+.subs{min-height:98px;padding:4px 2px;font-size:clamp(18px,2vw,23px);line-height:1.35;letter-spacing:-.01em}
+.subs .sp{display:block;font:500 10.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);margin-bottom:6px}
+.subs w{color:var(--v40);transition:color .15s}
+.subs w.s{color:var(--ink)}
+.flags{display:flex;flex-wrap:wrap;gap:8px}
+.flags span{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:99px;padding:6px 11px;font-size:13px;color:var(--soft);transition:all .3s}
+.flags span::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--v20);transition:background .3s}
+.flags span.on{color:var(--ink);border-color:var(--violet)}
+.flags span.on::before{background:var(--violet)}
+.recgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.recgrid div{background:var(--white);padding:11px 12px;display:grid;gap:2px;min-width:0}
+.recgrid span{font-size:12px;color:var(--ink-2)}
+.recgrid b{font-weight:600;font-size:14px;transition:color .3s}
+.recgrid b.wait{color:var(--v40);font-weight:500}
+
+/* stories (Harvey) */
+.st-head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap}
+.st-head p{margin-top:12px}
+.st-tabs{margin-top:clamp(28px,4vw,40px);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.st-tabs button{position:relative;border:0;background:var(--v5);border-radius:12px;height:58px;font-weight:600;letter-spacing:-.01em;color:var(--ink-2);overflow:hidden;font-size:15px}
+.st-tabs button:nth-child(2){letter-spacing:.14em;font-size:13px}
+.st-tabs button:nth-child(4){letter-spacing:.1em;font-size:13px}
+.st-tabs button[aria-selected="true"]{color:var(--ink);background:var(--white);box-shadow:inset 0 0 0 1px var(--line)}
+.st-tabs .prog{position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--violet)}
+.story{margin-top:12px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);border-radius:24px;overflow:hidden;background:var(--b5);min-height:460px}
+.story .img{position:relative;min-height:320px}
+.story .img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.story .img > span{position:absolute;left:16px;top:16px;background:var(--white);border-radius:99px;padding:6px 12px;font-size:13px;font-weight:500;display:flex;gap:8px;align-items:center}
+.story .txt{padding:clamp(24px,4vw,48px);display:flex;flex-direction:column;gap:22px;justify-content:space-between}
+.story h3{font-size:clamp(26px,2.6vw,36px)}
+.story blockquote{margin:0;font:400 clamp(20px,1.9vw,25px)/1.3 var(--serif);color:var(--ink)}
+.story .who{display:flex;align-items:center;gap:12px}
+.story .who img{width:48px;height:48px;border-radius:50%;object-fit:cover}
+.story .who b{display:block;font-weight:600}
+.story .who span{color:var(--ink-2);font-size:14px}
+.story .anim{transition:opacity .35s,transform .35s}
+.story.out .anim{opacity:0;transform:translateY(8px)}
+.statband{margin-top:clamp(40px,6vw,72px);display:grid;grid-template-columns:minmax(0,1.1fr) repeat(4,minmax(0,1fr));border-top:1px solid var(--line)}
+.statband > *{padding:22px 18px 0 0}
+.statband h3{font-size:22px;letter-spacing:-.02em;padding-right:28px}
+.stat strong{display:block;font-size:clamp(36px,4vw,54px);font-weight:500;letter-spacing:-.04em;line-height:1;color:var(--violet)}
+.stat span{display:block;margin-top:8px;font-size:14px;color:var(--ink-2)}
+.stat .sample{margin-top:8px}
+
+/* teams (HubSpot tabs) */
+.teams{background:var(--b5)}
+.ttabs{margin-top:clamp(28px,4vw,40px);display:flex;gap:6px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+.ttabs button{border:0;background:transparent;padding:12px 14px;font-weight:500;font-size:15px;color:var(--ink-2);border-bottom:2px solid transparent;margin-bottom:-1px}
+.ttabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--violet)}
+.tpanel{margin-top:28px;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);animation:rise .45s cubic-bezier(.2,.8,.2,1)}
+.tpanel h3{font-size:clamp(28px,3vw,40px)}
+.tpanel p{margin-top:10px;color:var(--ink-2);font-size:17px}
+.tpanel ul{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:0}
+.tpanel li{display:grid;grid-template-columns:24px 1fr;gap:10px;padding:13px 0;border-top:1px solid var(--line);font-size:16px}
+.tpanel li svg{width:16px;height:16px;margin-top:4px;color:var(--violet)}
+.uses{background:var(--white);border:1px solid var(--line);border-radius:20px;padding:20px;display:grid;gap:10px;align-content:start}
+.uses .mono{color:var(--ink-2);margin-bottom:4px}
+.use{display:flex;align-items:center;gap:10px;padding:13px 14px;border-radius:12px;background:var(--v5);font-weight:500}
+.use span:last-child{margin-left:auto;font-weight:400;color:var(--ink-2);font-size:14px}
+
+/* integrations (Zaro lines) */
+.integ{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(32px,5vw,72px);align-items:center}
+.integ .lede{margin-top:16px}
+.integ a.link{display:inline-flex;gap:8px;margin-top:22px;color:var(--violet);font-weight:500;text-decoration:none}
+.integ a.link svg{width:14px;height:14px}
+.sysmap{position:relative;border:1px solid var(--line);border-radius:24px;aspect-ratio:1.25/1;overflow:hidden}
+.sysmap svg.lines{position:absolute;inset:0;width:100%;height:100%}
+.sysmap .ln{fill:none;stroke:var(--v40);stroke-width:1.2;stroke-dasharray:4 5;animation:flow 1.6s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-18}}
+.sys{position:absolute;transform:translate(-50%,-50%);background:var(--white);border:1px solid var(--line);border-radius:12px;padding:9px 13px;display:grid;font-weight:600;font-size:14.5px;min-width:112px;box-shadow:0 10px 24px -18px rgba(86,59,219,.5)}
+.sys small{font:500 10.5px var(--mono);letter-spacing:.06em;color:var(--ink-2);font-weight:500}
+.hub{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:120px;height:120px;border-radius:30px;background:var(--violet);display:grid;place-items:center;box-shadow:0 0 0 10px var(--v20),0 0 0 22px var(--v5)}
+.hub img{width:78px;filter:brightness(0) invert(1)}
+
+/* readiness (Beside cards) */
+.ready{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:16px;margin-top:clamp(28px,4vw,40px)}
+.qs{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.qcard{background:var(--v5);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:16px;justify-content:space-between;min-height:170px;transition:background .3s}
+.qcard.answered{background:var(--b5);box-shadow:inset 0 0 0 1px var(--b40)}
+.qcard .mono{color:var(--ink-2)}
+.qcard p{font-size:17px;font-weight:500;letter-spacing:-.01em;line-height:1.3}
+.yn{display:flex;gap:8px}
+.yn button{flex:1;height:40px;border-radius:99px;border:1px solid var(--line);background:var(--white);font-weight:500;font-size:14.5px}
+.yn button[aria-pressed="true"]{background:var(--violet);color:var(--white);border-color:var(--violet)}
+.result{background:var(--violet);color:var(--white);border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:14px}
+.result .mono{color:var(--b40)}
+.score{font-size:clamp(64px,8vw,104px);font-weight:500;letter-spacing:-.05em;line-height:.9;font-variant-numeric:tabular-nums}
+.score small{font-size:20px;letter-spacing:-.01em;color:var(--v20);font-weight:400}
+.result p{color:var(--v20)}
+.recs{display:grid;gap:8px}
+.recs div{display:flex;gap:10px;align-items:center;background:rgba(255,255,255,.1);border-radius:12px;padding:11px 13px;font-size:14.5px;animation:rise .4s}
+.recs b{font-weight:600}
+.result .btn{margin-top:auto;align-self:flex-start}
+
+/* faq */
+.faq{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.4fr);gap:clamp(24px,5vw,80px)}
+.faq details{border-top:1px solid var(--line)}
+.faq details:last-child{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:16px;align-items:center;padding:22px 0;font-size:18px;font-weight:500;letter-spacing:-.01em}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary span.pm{width:30px;height:30px;border-radius:50%;background:var(--v5);display:grid;place-items:center;flex:none;transition:transform .3s,background .3s}
+.faq summary svg{width:12px;height:12px;color:var(--violet)}
+.faq details[open] summary span.pm{transform:rotate(45deg);background:var(--v20)}
+.faq details p{padding:0 46px 22px 0;color:var(--ink-2);max-width:40em}
+
+/* close + footer (HubSpot) */
+.close{padding-block:clamp(72px,10vw,140px) 0;position:relative;overflow:hidden}
+.close .glow{position:absolute;inset:auto -10% -30% -10%;height:70%;background:radial-gradient(60% 60% at 50% 100%,var(--v80),transparent 70%);pointer-events:none}
+.close h2{position:relative;font-size:clamp(46px,7.4vw,108px);max-width:12em}
+.close h2 i{color:var(--b40)}
+.close .ctas{position:relative;display:flex;gap:10px;flex-wrap:wrap;margin-top:34px}
+.foot{position:relative;margin-top:clamp(64px,9vw,120px);display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:24px;padding-top:36px;border-top:1px solid rgba(255,255,255,.2)}
+.foot h4{font:500 11.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--b40);margin-bottom:12px}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.foot a{text-decoration:none;color:var(--v20);font-size:14.5px}
+.foot a:hover{color:var(--white)}
+.legal{position:relative;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:28px calc(28px + env(safe-area-inset-bottom,0px));margin-top:40px;border-top:1px solid rgba(255,255,255,.2);color:var(--v20);font-size:13.5px}
+.legal img{height:24px;filter:brightness(0) invert(1)}
+.legal nav{display:flex;gap:18px}
+.legal a{text-decoration:none}
+
+/* floating CTA (Beside) */
+.float{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translate(-50%,140%);z-index:75;display:flex;align-items:center;gap:6px;padding:6px 6px 6px 18px;border-radius:99px;background:var(--ink);color:var(--white);box-shadow:0 20px 40px -16px rgba(22,21,19,.5);transition:transform .45s cubic-bezier(.2,.8,.2,1);font-size:14.5px;white-space:nowrap}
+.float.show{transform:translate(-50%,0)}
+.float .btn{height:38px;background:var(--white);color:var(--ink)}
+.float .btn:hover{background:var(--b20)}
+
+/* responsive */
+@media (max-width:1100px){
+  .coaches{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .statband{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .statband h3{grid-column:1/-1}
+  .foot{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (max-width:960px){
+  .nav ul,.nav .login{display:none}
+  .menu-btn{display:block}
+  .hero-grid,.what,.layers-head,.work,.tpanel,.integ,.ready,.faq{grid-template-columns:minmax(0,1fr)}
+  .explorer{grid-template-columns:minmax(0,1fr)}
+  .plist{grid-auto-flow:column;grid-auto-columns:max-content;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+  .plist .grp{display:none}
+  .plist button{white-space:nowrap}
+  .pcard{grid-template-columns:minmax(0,1fr)}
+  .pvis{border-left:0;border-top:1px solid var(--line);min-height:300px}
+  .story{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:640px){
+  .map{aspect-ratio:auto;height:500px}
+  .node{padding:8px 11px 8px 8px;gap:8px}
+  .node .ic{width:28px;height:28px}
+  .node b{font-size:13px}.node small{font-size:11.5px}
+  .chip-float{display:none}
+  .node[data-k="coach"]{top:11%!important}
+  .node[data-k="career"]{left:27%!important;top:31%!important}
+  .node[data-k="headshot"]{left:73%!important;top:31%!important}
+  .node[data-k="record"]{top:53%!important}
+  .node[data-k="engage"]{top:74%!important}
+  .seg button{white-space:nowrap;padding:0 11px}
+  .seg .dot{display:none}
+  .sys[style*="left:20%"],.sys[style*="left:13%"]{left:21%!important}
+  .sys[style*="left:80%"],.sys[style*="left:87%"]{left:79%!important}
+  .sys[style*="top:50%"]{top:50%;min-width:0}
+  .sys[style*="top:50%"] small{display:none}
+  .wall{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .coaches{grid-template-columns:minmax(0,1fr)}
+  .seg{width:100%;overflow-x:auto}
+  .seg button{padding:0 12px;font-size:13.5px}
+  .shots{gap:8px}
+  .recgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .st-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .qs{grid-template-columns:minmax(0,1fr)}
+  .qcard{min-height:0}
+  .sysmap{aspect-ratio:.9/1}
+  .sys{min-width:0;font-size:13px;padding:8px 10px}
+  .hub{width:88px;height:88px;border-radius:22px}
+  .hub img{width:58px}
+  .foot{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .float span.t{display:none}
+  .float{padding-left:6px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+
+<div class="ticker" aria-label="Announcement">
+  <div class="track" aria-hidden="false">
+    <span><b>The WriteSea Career Platform</b>Three products on one student record, with AI coaches built into each.<a href="#products">Explore the platform →</a></span>
+    <span><b>The WriteSea Career Platform</b>Three products on one student record, with AI coaches built into each.<a href="#products" tabindex="-1">Explore the platform →</a></span>
+    <span aria-hidden="true"><b>The WriteSea Career Platform</b>Three products on one student record, with AI coaches built into each.<a href="#products" tabindex="-1">Explore the platform →</a></span>
+    <span aria-hidden="true"><b>The WriteSea Career Platform</b>Three products on one student record, with AI coaches built into each.<a href="#products" tabindex="-1">Explore the platform →</a></span>
+  </div>
+</div>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="logo" href="#top"><img src="assets/logo.png" alt="WriteSea"></a>
+    <ul>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#teams">Solutions</a></li>
+      <li><a href="#stories">Customers</a></li>
+      <li><a href="#readiness">Readiness check</a></li>
+      <li><a href="#faq">Resources</a></li>
+    </ul>
+    <div class="r">
+      <a class="login" href="#demo">Log in</a>
+      <a class="btn solid sm" href="#demo">Book a demo</a>
+      <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="sheet">Menu</button>
+    </div>
+  </div>
+</header>
+<div class="sheet" id="sheet" hidden>
+  <div class="wrap">
+    <a href="#products">Products</a><a href="#teams">Solutions</a><a href="#stories">Customers</a><a href="#readiness">Readiness check</a><a href="#faq">Resources</a><a href="#demo">Log in</a>
+  </div>
+</div>
+
+<main id="top">
+  <!-- Hero: Harvey type + Zaro node map -->
+  <section class="hero">
+    <div class="wrap">
+      <h1><span class="ln">Prepare every student. Place every graduate.</span><span class="ln"><i>Prove it</i> on one platform.</span></h1>
+    </div>
+    <div class="wrap hero-grid">
+      <div>
+        <p class="lede">WriteSea is the career platform for colleges and universities. Students get AI help with resumes, interviews and headshots. Your team gets verified job outcomes from every graduating class.</p>
+        <div class="ctas">
+          <a class="btn solid" href="#demo">Book a demo <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+          <a class="btn line" href="#products">Explore the platform</a>
+        </div>
+        <p class="used"><span class="faces"><img src="assets/stories/person-1.jpg" alt=""><img src="assets/stories/person-2.jpg" alt=""><img src="assets/stories/person-3.jpg" alt=""><img src="assets/stories/person-4.jpg" alt=""></span>Used at 60+ colleges and universities</p>
+      </div>
+      <div class="map dots-bg" id="map">
+        <canvas id="mapCanvas" aria-hidden="true"></canvas>
+        <div class="chip-float" aria-hidden="true"><b>Resume Review</b><div class="row">Ready to send <strong id="heroScore">58</strong></div><div class="bar"><i id="heroBar"></i></div></div>
+        <button class="node n-coach" type="button" data-k="coach" style="left:50%;top:15%"><span class="ic"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2l1.8 4.6L16.5 8l-4.7 1.6L10 14l-1.8-4.4L3.5 8l4.7-1.4z"/></svg></span><span><b>AI coaches</b><small>Across every product</small></span></button>
+        <button class="node n-career" type="button" data-k="career" style="left:22%;top:44%"><span class="ic"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 2.5h7l3 3v12H5z M8 9h5M8 12h5"/></svg></span><span><b>Career OS</b><small>Prepare</small></span></button>
+        <button class="node n-headshot" type="button" data-k="headshot" style="left:78%;top:44%"><span class="ic"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="7.5" r="3.2"/><path d="M4 17c.8-3.2 3.2-5 6-5s5.2 1.8 6 5"/></svg></span><span><b>Headshot OS</b><small>Present</small></span></button>
+        <button class="node core" type="button" data-k="record" style="left:50%;top:51%"><span class="ic"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><ellipse cx="10" cy="5" rx="6" ry="2.4"/><path d="M4 5v10c0 1.3 2.7 2.4 6 2.4s6-1.1 6-2.4V5M4 10c0 1.3 2.7 2.4 6 2.4s6-1.1 6-2.4"/></svg></span><span><b>Student Record</b><small>The foundation</small></span></button>
+        <button class="node n-engage" type="button" data-k="engage" style="left:50%;top:76%"><span class="ic"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 10v0M7 7v6M10 4v12M13 7v6M16 9v2"/></svg></span><span><b>Engage OS</b><small>Prove</small></span></button>
+        <p class="info" id="mapInfo" aria-live="polite"><span class="dot d-record" id="mapDot"></span><span id="mapText">Hover or tap a layer to see what it does.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- What is WriteSea: Harvey logo wall -->
+  <section style="padding-top:0">
+    <div class="wrap what">
+      <div>
+        <h2>What is <i>WriteSea?</i></h2>
+        <p class="lede" style="margin-top:22px">WriteSea brings students, career services and outcomes data onto one platform. Students prepare. Graduates stay in touch. Your team sees all of it.</p>
+        <p class="lede">Every product writes to the same student record, so a resume review, a practice interview, a new headshot and a 6-month check-in call all add up to one story per student.</p>
+      </div>
+      <div>
+        <div class="wall">
+          <div><img src="assets/logos/arizona-state-university-logo-png-transparent.png" alt="Arizona State University" loading="lazy"></div>
+          <div><img src="assets/logos/stanford-university-logo.png" alt="Stanford University" loading="lazy"></div>
+          <div><img src="assets/logos/University_of_Alabama_logo-1.png" alt="University of Alabama" loading="lazy"></div>
+          <div><img src="assets/logos/Dillard_Main_Logo-Blue.png" alt="Dillard University" loading="lazy"></div>
+          <div><img src="assets/logos/Oklahoma_City_University_logo.svg.png" alt="Oklahoma City University" loading="lazy"></div>
+          <div><img src="assets/logos/ua-little-rock-h-rgb.png" alt="UA Little Rock" loading="lazy"></div>
+          <div><img src="assets/logos/Xavier_University_Cincinnati_logo.png" alt="Xavier University" loading="lazy"></div>
+          <div><img src="assets/logos/LAN-5047-Logo-Langston-Horizontal-Color_0.png" alt="Langston University" loading="lazy"></div>
+          <div><img src="assets/logos/Lewis_univ_logo.png" alt="Lewis University" loading="lazy"></div>
+          <div><img src="assets/logos/Oakton_College_Logo.png" alt="Oakton College" loading="lazy"></div>
+          <div><img src="assets/logos/New_TCC_LOGO.png" alt="Tulsa Community College" loading="lazy"></div>
+          <div><img src="assets/logos/Sitelogo_CCC_Logo.png" alt="City Colleges of Chicago" loading="lazy"></div>
+        </div>
+        <p class="wall-foot"><span>Trusted by 60+ colleges and universities</span><a href="#stories">See how they use it ›</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Layered products: HubSpot explorer -->
+  <section class="layers" id="products">
+    <div class="wrap">
+      <div class="layers-head">
+        <h2 class="h2">Career services is hard to scale. <i>WriteSea makes it easier.</i></h2>
+        <div>
+          <p class="lede">One small team, thousands of students, and outcomes nobody can see. WriteSea gives each group the tools it needs, all running on the same student record.</p>
+          <div class="ctas"><a class="btn solid" href="#demo">Book a demo</a><a class="btn line" href="#work">See it work</a></div>
+        </div>
+      </div>
+      <div class="explorer">
+        <div class="plist" role="tablist" aria-label="WriteSea products" id="plist">
+          <p class="grp mono">Products students use</p>
+          <button type="button" role="tab" aria-selected="true" data-p="0"><span class="dot d-career"></span>Career OS<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
+          <button type="button" role="tab" aria-selected="false" data-p="1"><span class="dot d-headshot"></span>Headshot OS<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
+          <p class="grp mono">Products your team uses</p>
+          <button type="button" role="tab" aria-selected="false" data-p="2"><span class="dot d-engage"></span>Engage OS<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
+          <button type="button" role="tab" aria-selected="false" data-p="3"><span class="dot d-coach"></span>Admin Dashboard<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
+          <p class="grp mono">The foundation</p>
+          <button type="button" role="tab" aria-selected="false" data-p="4"><span class="dot d-record"></span>Student Record<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
+        </div>
+        <div class="pcard" id="pcard" role="tabpanel"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI coaches: Beside cards -->
+  <section id="coaches">
+    <div class="wrap">
+      <div class="coach-head">
+        <h2 class="h2">Built-in AI coaches that work for students <i>24/7.</i></h2>
+        <p class="lede">Each coach lives inside a product and saves its work to the student record, so your team always has the full picture.</p>
+      </div>
+      <div class="coaches">
+        <article class="coach c1">
+          <div class="phone"><span class="bar0"><span>Resume</span><span>Draft 2</span></span><p class="bub me strike">Helped with the food bank social media.</p><p class="bub ai b">Grew the food bank's Instagram from 300 to 2,100 followers in one semester.</p></div>
+          <span class="lbl mono"><span class="dot d-career"></span>Career OS</span><h3>Resume Coach</h3><p>Rewrites weak lines with real results and checks them against the job post.</p>
+        </article>
+        <article class="coach c2">
+          <div class="phone"><span class="bar0"><span>Interview</span><span>Q3 of 5</span></span><p class="bub me">Tell me about a time you used data to change someone's mind.</p><div class="wave" aria-hidden="true" id="coachWave"></div><p class="bub ai">Score 86. Add the result: what changed?</p></div>
+          <span class="lbl mono"><span class="dot d-career"></span>Career OS</span><h3>Interview Coach</h3><p>Asks real questions out loud and scores structure, pace and filler words.</p>
+        </article>
+        <article class="coach c3">
+          <div class="phone"><span class="bar0"><span>Studio</span><span>Style</span></span><div class="chips"><span class="on">Navy blazer</span><span>Studio grey</span><span>City office</span></div><div class="hsrow"><img src="assets/face-1.png" alt="" loading="lazy"><img src="assets/face-2.png" alt="" loading="lazy"><img src="assets/face-3.png" alt="" loading="lazy"></div></div>
+          <span class="lbl mono"><span class="dot d-headshot"></span>Headshot OS</span><h3>Headshot Studio</h3><p>Generates professional headshots in the outfit and background a student picks.</p>
+        </article>
+        <article class="coach c4">
+          <div class="phone"><span class="bar0"><span>Check-in</span><span>6 months</span></span><div class="callcard"><span class="av">AO</span><div class="wave" aria-hidden="true" id="coachWave2" style="height:28px"></div></div><span class="status"><span class="dot d-headshot"></span>Employed, data analyst</span></div>
+          <span class="lbl mono"><span class="dot d-engage"></span>Engage OS</span><h3>Outreach Agent</h3><p>Calls graduates with a friendly voice, asks how work is going and logs the answers.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- See it work: Dessa clips on dark -->
+  <section class="dark" id="work">
+    <div class="wrap">
+      <div class="work-head">
+        <h2 class="h2">See each product <i>at work.</i></h2>
+        <div class="seg" role="tablist" aria-label="Product demos">
+          <button type="button" role="tab" aria-selected="true" data-w="0"><span class="dot d-career"></span>Career OS</button>
+          <button type="button" role="tab" aria-selected="false" data-w="1"><span class="dot d-headshot" style="box-shadow:0 0 0 1px #fff"></span>Headshot OS</button>
+          <button type="button" role="tab" aria-selected="false" data-w="2"><span class="dot d-engage"></span>Engage OS</button>
+        </div>
+      </div>
+      <div class="work">
+        <div class="wcopy">
+          <h3 id="wTitle">Career OS</h3>
+          <p id="wText">Paste in a first draft. Career OS flags weak lines, rewrites them with results and checks the resume against the job post.</p>
+          <p class="note">Example student, resume and call for illustration</p>
+        </div>
+        <div class="wpanel">
+          <!-- Career -->
+          <div id="w0">
+            <div class="rv-head"><b>Resume Review</b><span class="pct">Ready to send <svg class="ring" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="18" stroke="#F7F5FD"/><circle id="rvRing" cx="22" cy="22" r="18" stroke="#563BDB" stroke-linecap="round" stroke-dasharray="113.1" stroke-dashoffset="10.2" transform="rotate(-90 22 22)" style="transition:stroke-dashoffset 1s"/></svg><span id="rvPct">91%</span></span></div>
+            <div class="rv-list">
+              <div class="rv done"><span class="ck">✓</span><span>Grew the food bank's Instagram from 300 to 2,100 followers in one semester, doubling volunteer sign-ups.</span></div>
+              <div class="rv done"><span class="ck">✓</span><span>Analyzed survey data from 1,200 students in Python, cutting report time from 3 days to 4 hours.</span></div>
+              <div class="rv done"><span class="ck">✓</span><span>Skills: Python, SQL, Tableau, Excel (pivot tables, lookups).</span></div>
+            </div>
+            <div class="rv-foot"><span>Target role: Data Analyst Intern</span><button class="btn line sm" type="button" id="rvAgain">Run the review again</button></div>
+          </div>
+          <!-- Headshot -->
+          <div id="w1" hidden>
+            <div class="styles" id="hsStyles">
+              <button type="button" aria-pressed="true" data-s="0">Navy blazer</button>
+              <button type="button" aria-pressed="false" data-s="1">Studio grey</button>
+              <button type="button" aria-pressed="false" data-s="2">City office</button>
+            </div>
+            <div class="shots">
+              <figure id="shotA"><img src="assets/face-2.png" alt="Generated headshot"><figcaption>Navy blazer</figcaption><span class="ws">WS</span></figure>
+              <figure id="shotB"><img src="assets/face-1.png" alt="Generated headshot"><figcaption>Navy blazer</figcaption></figure>
+            </div>
+          </div>
+          <!-- Engage -->
+          <div id="w2" hidden>
+            <div class="clip">
+              <div class="player"><button class="play" type="button" id="clipPlay" aria-label="Play the check-in call"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11l9-5.5z"/></svg></button><div class="cwave" id="clipWave" aria-hidden="true"></div><time id="clipTime">1:24 / 1:24</time></div>
+              <p class="subs" id="subs" aria-live="polite"></p>
+              <div class="flags" id="flags"><span>Employed</span><span>Employer named</span><span>Salary range</span><span>Wants to mentor</span></div>
+              <div class="recgrid">
+                <div><span>Status</span><b data-r="0">Employed full-time</b></div>
+                <div><span>Role</span><b data-r="1">Data analyst, healthcare</b></div>
+                <div><span>Salary range</span><b data-r="2">$60k to $70k</b></div>
+                <div><span>Alumni mentor</span><b data-r="3">Yes</b></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stories: Harvey tabs -->
+  <section id="stories">
+    <div class="wrap">
+      <div class="st-head">
+        <div><h2 class="h2">What partner campuses <i>are saying</i></h2><p><span class="sample">Sample testimonials: fictional people and colleges, replace before launch</span></p></div>
+        <a class="btn line" href="#demo">Talk to a partner campus</a>
+      </div>
+      <div class="st-tabs" role="tablist" aria-label="Partner campuses" id="stTabs">
+        <button type="button" role="tab" aria-selected="true">Riverton State<span class="prog"></span></button>
+        <button type="button" role="tab" aria-selected="false">EASTBROOK<span class="prog"></span></button>
+        <button type="button" role="tab" aria-selected="false">Calder Valley CC<span class="prog"></span></button>
+        <button type="button" role="tab" aria-selected="false">PINECREST U<span class="prog"></span></button>
+      </div>
+      <article class="story" id="story" role="tabpanel">
+        <div class="img"><img id="stImg" src="assets/stories/story-1.jpg" alt=""><span class="anim" id="stUses"></span></div>
+        <div class="txt">
+          <h3 class="anim" id="stHead"></h3>
+          <blockquote class="anim" id="stQuote"></blockquote>
+          <div class="who anim"><img id="stPerson" src="assets/stories/person-1.jpg" alt=""><div><b id="stName"></b><span id="stRole"></span></div></div>
+        </div>
+      </article>
+      <div class="statband">
+        <h3>Helping career teams do more with the same people, and prove it.</h3>
+        <div class="stat"><strong data-count="60" data-suffix="+">60+</strong><span>Colleges and universities using WriteSea</span></div>
+        <div class="stat"><strong data-count="25" data-suffix="+">25+</strong><span>Hours saved per advisor each month</span><span class="sample">Sample</span></div>
+        <div class="stat"><strong data-count="72" data-suffix="%">72%</strong><span>Graduates reached by check-in calls</span><span class="sample">Sample</span></div>
+        <div class="stat"><strong data-count="10000" data-suffix="+">10,000+</strong><span>Resumes reviewed in a first semester</span><span class="sample">Sample</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solutions by team: HubSpot tabs -->
+  <section class="teams" id="teams">
+    <div class="wrap">
+      <h2 class="h2">One platform. Every team that <i>helps students get hired.</i></h2>
+      <div class="ttabs" role="tablist" aria-label="Teams" id="ttabs">
+        <button type="button" role="tab" aria-selected="true">Career Services</button>
+        <button type="button" role="tab" aria-selected="false">Student Affairs</button>
+        <button type="button" role="tab" aria-selected="false">Alumni Relations</button>
+        <button type="button" role="tab" aria-selected="false">Institutional Research</button>
+        <button type="button" role="tab" aria-selected="false">Enrollment</button>
+      </div>
+      <div id="tpanel" role="tabpanel"></div>
+    </div>
+  </section>
+
+  <!-- Integrations: Zaro lines -->
+  <section id="integrations">
+    <div class="wrap integ">
+      <div>
+        <h2 class="h2">Works with the systems <i>you already run.</i></h2>
+        <p class="lede">WriteSea connects to your SIS, LMS and CRM through a secure API and pre-built connectors. Our implementation team handles the setup with you.</p>
+        <a class="link" href="#faq">Read the setup FAQ <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      </div>
+      <div class="sysmap dots-bg" id="sysmap">
+        <svg class="lines" id="sysLines" aria-hidden="true"></svg>
+        <div class="hub"><img src="assets/logo.png" alt="WriteSea"></div>
+        <div class="sys" style="left:20%;top:18%">Canvas<small>LMS</small></div>
+        <div class="sys" style="left:80%;top:18%">Ellucian<small>SIS</small></div>
+        <div class="sys" style="left:13%;top:50%">Banner<small>SIS</small></div>
+        <div class="sys" style="left:87%;top:50%">Blackboard<small>LMS</small></div>
+        <div class="sys" style="left:20%;top:82%">PeopleSoft<small>SIS</small></div>
+        <div class="sys" style="left:80%;top:82%">Moodle<small>LMS</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Readiness check: Beside cards -->
+  <section id="readiness" style="padding-top:0">
+    <div class="wrap">
+      <h2 class="h2">How career-ready is your campus? <i>Find out in four questions.</i></h2>
+      <div class="ready">
+        <div class="qs">
+          <div class="qcard"><span class="mono">01</span><p>Can every student get resume feedback within a day?</p><div class="yn" data-q="0"><button type="button" aria-pressed="false">Yes</button><button type="button" aria-pressed="false">No</button></div></div>
+          <div class="qcard"><span class="mono">02</span><p>Do students practice interviews before the real thing?</p><div class="yn" data-q="1"><button type="button" aria-pressed="false">Yes</button><button type="button" aria-pressed="false">No</button></div></div>
+          <div class="qcard"><span class="mono">03</span><p>Do most seniors have a professional headshot?</p><div class="yn" data-q="2"><button type="button" aria-pressed="false">Yes</button><button type="button" aria-pressed="false">No</button></div></div>
+          <div class="qcard"><span class="mono">04</span><p>Do you know where most graduates work six months out?</p><div class="yn" data-q="3"><button type="button" aria-pressed="false">Yes</button><button type="button" aria-pressed="false">No</button></div></div>
+        </div>
+        <div class="result" aria-live="polite">
+          <span class="mono">Your result</span>
+          <div class="score"><span id="score">0</span><small> / 4 covered</small></div>
+          <p id="resultText">Answer the questions to see where WriteSea would help first.</p>
+          <div class="recs" id="recs"></div>
+          <a class="btn solid" href="#demo" style="background:#fff;color:#563BDB">Book a demo</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" style="background:var(--v5)">
+    <div class="wrap faq">
+      <h2 class="h2">Questions, <i>answered.</i></h2>
+      <div>
+        <details open><summary>How does WriteSea work with our campus systems?<span class="pm"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 1v10M1 6h10"/></svg></span></summary><p>WriteSea connects to SIS, LMS and CRM platforms through a secure API and pre-built connectors. Our implementation team manages the full integration from day one.</p></details>
+        <details><summary>What implementation support do we get?<span class="pm"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 1v10M1 6h10"/></svg></span></summary><p>Full onboarding with a dedicated implementation specialist, team training, data migration support and ongoing customer success management.</p></details>
+        <details><summary>How is student success measured?<span class="pm"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 1v10M1 6h10"/></svg></span></summary><p>WriteSea tracks internship placements, job offers, salary benchmarks, alumni engagement and skills milestones.</p></details>
+        <details><summary>Can WriteSea support alumni engagement?<span class="pm"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 1v10M1 6h10"/></svg></span></summary><p>Yes. Alumni tools help you stay connected with graduates, track long-term outcomes and build a mentorship and referral community.</p></details>
+        <details><summary>Which LMS and SIS platforms do you support?<span class="pm"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 1v10M1 6h10"/></svg></span></summary><p>Canvas, Blackboard and Moodle, plus SIS systems such as Ellucian, PeopleSoft and Banner.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Close: HubSpot dark -->
+  <section class="close dark" id="demo">
+    <div class="glow"></div>
+    <div class="wrap">
+      <h2>Make career readiness <i>impossibly easy to prove.</i></h2>
+      <div class="ctas"><a class="btn solid" href="#demo">Book a demo <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a><a class="btn line" href="#products">Explore the platform</a></div>
+      <div class="foot">
+        <div><h4>Products</h4><ul><li><a href="#products">Career OS</a></li><li><a href="#products">Headshot OS</a></li><li><a href="#products">Engage OS</a></li><li><a href="#products">Admin Dashboard</a></li></ul></div>
+        <div><h4>AI coaches</h4><ul><li><a href="#coaches">Resume Coach</a></li><li><a href="#coaches">Interview Coach</a></li><li><a href="#coaches">Headshot Studio</a></li><li><a href="#coaches">Outreach Agent</a></li></ul></div>
+        <div><h4>Solutions</h4><ul><li><a href="#teams">Career Services</a></li><li><a href="#teams">Student Affairs</a></li><li><a href="#teams">Alumni Relations</a></li><li><a href="#teams">Institutional Research</a></li></ul></div>
+        <div><h4>Resources</h4><ul><li><a href="#faq">Blog</a></li><li><a href="#faq">Webinars</a></li><li><a href="#faq">Career Fair Kit</a></li><li><a href="#readiness">Readiness check</a></li></ul></div>
+        <div><h4>Company</h4><ul><li><a href="#demo">About</a></li><li><a href="#demo">Careers</a></li><li><a href="#demo">Press</a></li><li><a href="#demo">Contact</a></li></ul></div>
+      </div>
+      <div class="legal"><img src="assets/logo.png" alt="WriteSea"><span>© 2026 WriteSea</span><nav><a href="#demo">Privacy</a><a href="#demo">Terms</a><a href="#demo">Security</a></nav></div>
+    </div>
+  </section>
+</main>
+
+<div class="float" id="float" aria-hidden="true"><span class="t">Prepare every student. Place every graduate.</span><a class="btn sm" href="#demo" tabindex="-1">Book a demo</a></div>
+
+<script>
+(() => {
+  const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const wait = ms => new Promise(r => setTimeout(r, ms));
+  const onView = (el, fn, th = .3) => new IntersectionObserver((es, o) => es.forEach(e => { if (e.isIntersecting) { fn(); o.disconnect(); } }), { threshold: th }).observe(el);
+  const ARROW = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 8h10M9 4l4 4-4 4"/></svg>';
+  const CHECK = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8.5l3 3 7-7"/></svg>';
+
+  /* nav + menu + floating CTA */
+  const nav = $('#nav'), float = $('#float'), menuBtn = $('#menuBtn'), sheet = $('#sheet');
+  const onScroll = () => {
+    nav.classList.toggle('scrolled', scrollY > 10);
+    const show = scrollY > 700 && scrollY < document.body.scrollHeight - innerHeight - 900;
+    float.classList.toggle('show', show); float.setAttribute('aria-hidden', !show); $('a', float).tabIndex = show ? 0 : -1;
+  };
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  const closeSheet = () => { sheet.hidden = true; menuBtn.setAttribute('aria-expanded', false); menuBtn.textContent = 'Menu'; };
+  menuBtn.addEventListener('click', () => { if (sheet.hidden) { sheet.hidden = false; menuBtn.setAttribute('aria-expanded', true); menuBtn.textContent = 'Close'; } else closeSheet(); });
+  $$('a', sheet).forEach(a => a.addEventListener('click', closeSheet));
+
+  /* hero node map (Zaro) */
+  const map = $('#map'), cv = $('#mapCanvas'), cx = cv.getContext('2d');
+  const nodes = $$('.node', map), core = $('.node.core', map);
+  const INFO = {
+    coach: ['d-coach', 'AI coaches work across every product: resume, interview, headshot and outreach.'],
+    career: ['d-career', 'Career OS · Every student, ready for the interview.'],
+    headshot: ['d-headshot', 'Headshot OS · Every student, looking the part.'],
+    engage: ['d-engage', 'Engage OS · Every graduate, reached and on record.'],
+    record: ['d-record', 'Student Record · One record per student, from first login to alumni.']
+  };
+  const COL = { coach: '#61BFF1', career: '#3AAFED', headshot: '#563BDB', engage: '#89CFF4' };
+  let active = null, dpr = 1, packets = [];
+  function size() { const r = map.getBoundingClientRect(); dpr = Math.min(2, devicePixelRatio || 1); cv.width = r.width * dpr; cv.height = r.height * dpr; }
+  function center(el) { const m = map.getBoundingClientRect(), r = el.getBoundingClientRect(); return [(r.left + r.width / 2 - m.left) * dpr, (r.top + r.height / 2 - m.top) * dpr]; }
+  function setInfo(k) {
+    active = k; nodes.forEach(n => n.classList.toggle('on', n.dataset.k === k));
+    $('#mapDot').className = 'dot ' + (k ? INFO[k][0] : 'd-record');
+    $('#mapText').textContent = k ? INFO[k][1] : 'Hover or tap a layer to see what it does.';
+  }
+  nodes.forEach(n => { n.addEventListener('mouseenter', () => setInfo(n.dataset.k)); n.addEventListener('focus', () => setInfo(n.dataset.k)); n.addEventListener('click', () => setInfo(n.dataset.k)); });
+  map.addEventListener('mouseleave', () => setInfo(null));
+  function draw(now) {
+    const [ox, oy] = center(core);
+    cx.clearRect(0, 0, cv.width, cv.height);
+    nodes.forEach(n => {
+      if (n === core) return;
+      const [x, y] = center(n), k = n.dataset.k, hot = active === k || active === 'record';
+      cx.beginPath(); cx.moveTo(x, y);
+      const mx = (x + ox) / 2, my = (y + oy) / 2;
+      cx.quadraticCurveTo(mx + (y - oy) * .12, my - (x - ox) * .12, ox, oy);
+      cx.setLineDash([5 * dpr, 6 * dpr]); cx.lineDashOffset = -now / 40;
+      cx.strokeStyle = hot ? COL[k] : '#BBB1F1'; cx.lineWidth = (hot ? 2 : 1.3) * dpr; cx.stroke(); cx.setLineDash([]);
+    });
+    // packets travel from each product into the record
+    if (!reduce && Math.random() < .035) { const src = nodes.filter(n => n !== core)[Math.floor(Math.random() * 4)]; packets.push({ n: src, t: 0 }); }
+    packets = packets.filter(p => p.t <= 1);
+    packets.forEach(p => {
+      p.t += .012; const [x, y] = center(p.n), mx = (x + ox) / 2 + (y - oy) * .12, my = (y + oy) / 2 - (x - ox) * .12, t = p.t, u = 1 - t;
+      const px = u * u * x + 2 * u * t * mx + t * t * ox, py = u * u * y + 2 * u * t * my + t * t * oy;
+      cx.beginPath(); cx.arc(px, py, 4 * dpr, 0, Math.PI * 2); cx.fillStyle = COL[p.n.dataset.k]; cx.fill();
+      cx.beginPath(); cx.arc(px, py, 8 * dpr, 0, Math.PI * 2); cx.fillStyle = COL[p.n.dataset.k] + '33'; cx.fill();
+    });
+    if (!reduce) requestAnimationFrame(draw);
+  }
+  size(); addEventListener('resize', () => { size(); if (reduce) draw(0); drawSys(); });
+  requestAnimationFrame(draw);
+  // hero chip score
+  const heroScore = $('#heroScore'), heroBar = $('#heroBar');
+  async function heroLoop() {
+    while (true) {
+      heroBar.style.width = '58%'; heroScore.textContent = '58'; await wait(1800);
+      heroBar.style.width = '91%'; countTo(heroScore, 58, 91, 1300); await wait(4200);
+    }
+  }
+  function countTo(el, a, b, ms, fmt = v => Math.round(v)) {
+    if (reduce) { el.textContent = fmt(b); return; }
+    const t0 = performance.now();
+    (function f(n) { const p = Math.min(1, (n - t0) / ms), e = 1 - Math.pow(1 - p, 3); el.textContent = fmt(a + (b - a) * e); if (p < 1) requestAnimationFrame(f); })(t0);
+  }
+  if (reduce) { heroBar.style.width = '91%'; heroScore.textContent = '91'; } else heroLoop();
+
+  /* product explorer (HubSpot) */
+  const PRODUCTS = [
+    { name: 'Career OS', dot: 'd-career', group: 'Products students use', text: 'Help students write resumes that get read and practice interviews until they feel easy.', chips: ['Resume Builder', 'Resume Review', 'Cover Letters', 'Mock Interviews', 'Job Tracker', 'Salary Negotiation'],
+      vis: `<div class="mini"><div class="hd">Resume Review<span class="ok">58 → 91</span></div><p class="strike">Helped with the food bank social media.</p><p style="margin-top:6px"><span class="hl">Grew the food bank's Instagram from 300 to 2,100 followers in one semester.</span></p></div><div class="mini"><div class="hd">Mock Interview<span class="ok">Score 86</span></div><p>Tell me about a time you used data to change someone's mind.</p></div>` },
+    { name: 'Headshot OS', dot: 'd-headshot', group: 'Products students use', text: 'Turn a few everyday photos into professional headshots for LinkedIn and the career fair.', chips: ['AI headshots', 'Outfits', 'Backgrounds', 'LinkedIn ready'],
+      vis: `<div class="mfaces"><img src="assets/face-1.png" alt=""><img src="assets/face-2.png" alt=""><img src="assets/face-3.png" alt=""></div><div class="mini"><div class="hd">Headshot Studio<span class="ok">LinkedIn ready</span></div><div class="chips"><span class="on">Navy blazer</span><span>Studio grey</span><span>City office</span></div></div>` },
+    { name: 'Engage OS', dot: 'd-engage', group: 'Products your team uses', text: 'Reach every graduate with voice AI check-ins and record where they landed.', chips: ['Voice AI calls', 'Outcomes verification', 'Surveys', 'Campaigns'],
+      vis: `<div class="mini"><div class="hd">Check-in call<span class="ok">1:24</span></div><div class="wave">${Array.from({ length: 36 }, (_, i) => `<i style="height:${20 + Math.abs(Math.sin(i * .7) * Math.cos(i * .23)) * 80}%"></i>`).join('')}</div></div><div class="mini"><div class="hd">Outcome<span class="ok">Verified</span></div><span class="status"><span class="dot d-headshot"></span>Employed, data analyst</span></div>` },
+    { name: 'Admin Dashboard', dot: 'd-coach', group: 'Products your team uses', text: "See every student's progress and report outcomes to leadership and accreditors.", chips: ['Engagement', 'Hiring stage', 'Outcome reports'],
+      vis: `<div class="mini"><div class="hd">Class of 2026<span class="ok">Sample</span></div><div class="bars"><div>Engagement<span class="t"><i style="width:84%;background:#3AAFED"></i></span><b>84%</b></div><div>Interviewing<span class="t"><i style="width:46%;background:#563BDB"></i></span><b>46%</b></div><div>Offer accepted<span class="t"><i style="width:31%;background:#89CFF4"></i></span><b>31%</b></div></div></div><div class="mini"><div class="hd">Outcome reports<span class="ok">Ready</span></div><p style="color:var(--ink-2)">Accreditation · State reporting · Leadership</p></div>` },
+    { name: 'Student Record', dot: 'd-record', group: 'The foundation', text: 'One record per student, from first login to alumni. Connected to the systems you already run.', chips: ['Canvas', 'Blackboard', 'Moodle', 'Ellucian', 'PeopleSoft', 'Banner'],
+      vis: `<div class="mini" style="text-align:center"><div class="hd" style="justify-content:center">One record per student</div><p style="color:var(--ink-2)">Resume review · Practice interview · New headshot · 6-month check-in</p></div><div class="syschips"><span>Canvas</span><span>Blackboard</span><span>Moodle</span><span>Ellucian</span><span>PeopleSoft</span><span>Banner</span></div>` }
+  ];
+  const pbtns = $$('#plist button'), pcard = $('#pcard');
+  function showProduct(i) {
+    const p = PRODUCTS[i];
+    pbtns.forEach((b, k) => b.setAttribute('aria-selected', k === i));
+    pcard.innerHTML = `<div class="copy"><span class="tagline mono"><span class="dot ${p.dot}"></span>${p.group}</span><h3>${p.name}</h3><p>${p.text}</p><ul>${p.chips.map(c => `<li>${c}</li>`).join('')}</ul><a class="more" href="#work">Learn more ${ARROW}</a></div><div class="pvis dots-bg"><div class="stage">${p.vis}</div></div>`;
+  }
+  pbtns.forEach((b, i) => b.addEventListener('click', () => showProduct(i)));
+  showProduct(0);
+
+  /* coach waves */
+  [['#coachWave', 30], ['#coachWave2', 22]].forEach(([s, n]) => { const w = $(s); for (let i = 0; i < n; i++) { const b = document.createElement('i'); b.style.height = (18 + Math.abs(Math.sin(i * .8) * Math.cos(i * .3)) * 82) + '%'; w.appendChild(b); } });
+  if (!reduce) { const bs = $$('#coachWave i, #coachWave2 i'); setInterval(() => bs.forEach((b, i) => b.style.height = (18 + Math.random() * 82) + '%'), 220); bs.forEach(b => b.style.transition = 'height .2s'); }
+
+  /* see it work */
+  const WORK = [
+    ['Career OS', 'Paste in a first draft. Career OS flags weak lines, rewrites them with results and checks the resume against the job post.'],
+    ['Headshot OS', 'Pick a style and Headshot OS makes a full set of headshots from a few everyday photos. Try the styles on the right.'],
+    ['Engage OS', 'Six months after graduation, a voice AI calls each graduate. Press play to hear how answers become outcome data.']
+  ];
+  const wbtns = $$('.seg button');
+  function showWork(i) {
+    wbtns.forEach((b, k) => b.setAttribute('aria-selected', k === i));
+    [0, 1, 2].forEach(k => $('#w' + k).hidden = k !== i);
+    $('#wTitle').textContent = WORK[i][0]; $('#wText').textContent = WORK[i][1];
+    if (i === 0) runReview();
+  }
+  wbtns.forEach((b, i) => b.addEventListener('click', () => showWork(i)));
+  // career review
+  const rvs = $$('.rv'), rvRing = $('#rvRing'), rvPct = $('#rvPct'); let rvTok = 0;
+  async function runReview() {
+    if (reduce) return;
+    const tok = ++rvTok;
+    rvs.forEach(r => { r.classList.remove('done'); r.classList.add('pending'); });
+    rvRing.style.strokeDashoffset = 113.1 * (1 - .58); rvPct.textContent = '58%';
+    await wait(500);
+    for (let i = 0; i < rvs.length; i++) { if (tok !== rvTok) return; rvs[i].classList.remove('pending'); await wait(450); rvs[i].classList.add('done'); await wait(350); }
+    if (tok !== rvTok) return;
+    rvRing.style.strokeDashoffset = 113.1 * (1 - .91); countTo(rvPct, 58, 91, 1000, v => Math.round(v) + '%');
+  }
+  $('#rvAgain').addEventListener('click', runReview);
+  onView($('#work .wpanel'), runReview);
+  // headshot styles
+  const STYLES = [['face-2', 'face-1'], ['face-3', 'face-4'], ['face-1', 'face-4']], NAMES = ['Navy blazer', 'Studio grey', 'City office'];
+  const sbtns = $$('#hsStyles button'), shots = [$('#shotA'), $('#shotB')];
+  sbtns.forEach((b, i) => b.addEventListener('click', async () => {
+    sbtns.forEach((x, k) => x.setAttribute('aria-pressed', k === i));
+    shots.forEach(f => f.classList.add('swap')); await wait(reduce ? 0 : 300);
+    shots.forEach((f, k) => { $('img', f).src = `assets/${STYLES[i][k]}.png`; $('figcaption', f).textContent = NAMES[i]; f.classList.remove('swap'); });
+  }));
+  // engage clip (Dessa): karaoke subtitles
+  const LINES = [
+    ['WriteSea agent', 'Hi Ade, this is your career office checking in. How is work going?', []],
+    ['Ade', "Good! I'm a data analyst at a healthcare company now, full time.", [0, 1]],
+    ['WriteSea agent', 'Congratulations. Would you share a salary range?', []],
+    ['Ade', 'Somewhere between sixty and seventy thousand.', [2]],
+    ['WriteSea agent', 'Thank you. Would you mentor a current student?', []],
+    ['Ade', "Yes, I'd be happy to.", [3]]
+  ];
+  const cwave = $('#clipWave'), NB = 70;
+  for (let i = 0; i < NB; i++) { const b = document.createElement('i'); b.style.height = (14 + Math.abs(Math.sin(i * .55) * Math.sin(i * .17 + 1)) * 86) + '%'; cwave.appendChild(b); }
+  const cbars = $$('i', cwave), subs = $('#subs'), flags = $$('#flags span'), recs = $$('.recgrid b'), clipTime = $('#clipTime'), playBtn = $('#clipPlay');
+  const TOTAL = 84;
+  const fmtT = s => Math.floor(s / 60) + ':' + String(Math.floor(s % 60)).padStart(2, '0');
+  function showLine(l, n) { subs.innerHTML = `<span class="sp">${l[0]}</span>` + l[1].split(' ').map((w, i) => `<w class="${i < n ? 's' : ''}">${w}</w>`).join(' '); }
+  function finalClip() { showLine(LINES[5], 99); flags.forEach(f => f.classList.add('on')); recs.forEach(r => r.classList.remove('wait')); cbars.forEach(b => b.classList.add('p')); clipTime.textContent = '1:24 / 1:24'; }
+  finalClip();
+  let clipTok = 0;
+  const PLAY = '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11l9-5.5z"/></svg>', PAUSE = '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5h3v11H4zM9 2.5h3v11H9z"/></svg>';
+  async function playClip() {
+    const tok = ++clipTok; playBtn.innerHTML = PAUSE; playBtn.setAttribute('aria-label', 'Stop the call');
+    flags.forEach(f => f.classList.remove('on')); recs.forEach(r => r.classList.add('wait')); cbars.forEach(b => b.classList.remove('p'));
+    const words = LINES.reduce((a, l) => a + l[1].split(' ').length, 0); let done = 0;
+    for (const l of LINES) {
+      const ws = l[1].split(' ');
+      for (let n = 0; n <= ws.length; n++) {
+        if (tok !== clipTok) return;
+        showLine(l, n); const p = (done + n) / words;
+        cbars.forEach((b, i) => b.classList.toggle('p', i / NB < p)); clipTime.textContent = fmtT(p * TOTAL) + ' / 1:24';
+        await wait(reduce ? 0 : 210);
+      }
+      done += ws.length;
+      l[2].forEach(k => { flags[k].classList.add('on'); recs[k].classList.remove('wait'); });
+      await wait(reduce ? 0 : 500);
+    }
+    finalClip(); playBtn.innerHTML = PLAY; playBtn.setAttribute('aria-label', 'Play the check-in call');
+  }
+  playBtn.addEventListener('click', () => { if (playBtn.getAttribute('aria-label') === 'Stop the call') { clipTok++; finalClip(); playBtn.innerHTML = PLAY; playBtn.setAttribute('aria-label', 'Play the check-in call'); } else playClip(); });
+  wbtns[2].addEventListener('click', () => { if (!reduce) playClip(); });
+
+  /* stories (Harvey) */
+  const STORIES = [
+    ['Riverton State University reaches every student, not just the ones who book an appointment.', '"We used to see the same two hundred students every semester. Now every student gets resume feedback the same day, and my advisors spend their time on the conversations that need a person."', 'Dr. Maya Ellison', 'Director of Career Services, Riverton State University', 'Uses Career OS'],
+    ['Eastbrook College made mock interviews part of every senior\'s routine.', '"Students practice at midnight before a big interview and walk into the real one calm. Employers have noticed the difference in how our graduates show up."', 'Marcus Reid', 'Dean of Student Affairs, Eastbrook College', 'Uses Career OS and Headshot OS'],
+    ['Calder Valley Community College hears back from graduates it used to lose touch with.', '"Our email survey got a handful of replies. When Engage OS calls, graduates pick up and talk. For the first time we know where most of our class actually works."', 'Alana Brooks', 'Director of Alumni Relations, Calder Valley Community College', 'Uses Engage OS'],
+    ['Pinecrest University reports outcomes it can stand behind.', '"Accreditors want verified data. Every outcome now comes from a real conversation and lands on one record per student, so our reports hold up."', 'Daniel Ortiz', 'Associate Provost, Institutional Research, Pinecrest University', 'Uses Engage OS and the Admin Dashboard']
+  ];
+  const stTabs = $$('#stTabs button'), story = $('#story'); let sI = 0, stTimer = null;
+  function setStory(i, anim = true) {
+    sI = i; const s = STORIES[i];
+    stTabs.forEach((b, k) => { b.setAttribute('aria-selected', k === i); const p = $('.prog', b); p.style.transition = 'none'; p.style.width = '0'; });
+    const apply = () => {
+      $('#stImg').src = `assets/stories/story-${i + 1}.jpg`; $('#stPerson').src = `assets/stories/person-${i + 1}.jpg`;
+      $('#stHead').textContent = s[0]; $('#stQuote').textContent = s[1]; $('#stName').textContent = s[2]; $('#stRole').textContent = s[3];
+      $('#stUses').innerHTML = `<span class="dot d-headshot"></span>${s[4]}`; story.classList.remove('out');
+    };
+    if (anim && !reduce) { story.classList.add('out'); setTimeout(apply, 300); } else apply();
+    if (!reduce) { const p = $('.prog', stTabs[i]); void p.offsetWidth; p.style.transition = 'width 7s linear'; p.style.width = '100%'; clearTimeout(stTimer); stTimer = setTimeout(() => setStory((sI + 1) % 4), 7000); }
+  }
+  stTabs.forEach((b, i) => b.addEventListener('click', () => setStory(i)));
+  setStory(0, false);
+  // stat count-up
+  onView($('.statband'), () => $$('.stat strong').forEach(el => countTo(el, 0, +el.dataset.count, 1400, v => Math.round(v).toLocaleString('en-US') + el.dataset.suffix)));
+
+  /* teams (HubSpot) */
+  const TEAMS = [
+    ['Career Services', 'Support thousands of students with the team you have.', ['AI resume and interview help for every student', 'See who needs an advisor before graduation', 'Spend appointments on the conversations that need a person'], [['d-career', 'Career OS', 'Daily'], ['d-coach', 'Admin Dashboard', 'Weekly']]],
+    ['Student Affairs', 'Build career readiness into the whole student experience.', ['Career tools available from day one', 'Track engagement across programs', 'Reach students where they already are'], [['d-career', 'Career OS', 'Every term'], ['d-headshot', 'Headshot OS', 'Events']]],
+    ['Alumni Relations', 'Stay in touch with graduates long after they leave.', ['Voice AI check-ins at 6 and 12 months', 'Find alumni who want to mentor', 'Build a referral community'], [['d-engage', 'Engage OS', 'Every class'], ['d-record', 'Student Record', 'Always']]],
+    ['Institutional Research', 'Report outcomes you can stand behind.', ['Employment, role and salary from real conversations', 'Data for accreditors and state reporting', 'One record per student, connected to your SIS'], [['d-engage', 'Engage OS', 'Outcomes'], ['d-coach', 'Admin Dashboard', 'Reports']]],
+    ['Enrollment', 'Show prospective students a clear path to a career.', ['Career tools available before day one', 'Outcome stories for admissions', 'Headshots for orientation and ID'], [['d-headshot', 'Headshot OS', 'Orientation'], ['d-career', 'Career OS', 'Onboarding']]]
+  ];
+  const ttabs = $$('#ttabs button'), tpanel = $('#tpanel');
+  function showTeam(i) {
+    ttabs.forEach((t, k) => t.setAttribute('aria-selected', k === i));
+    const [name, line, points, uses] = TEAMS[i];
+    tpanel.innerHTML = `<div class="tpanel"><div><h3>For ${name}</h3><p>${line}</p><ul>${points.map(p => `<li>${CHECK}${p}</li>`).join('')}</ul></div><div class="uses"><span class="mono">Products they use most</span>${uses.map(([c, n, f]) => `<div class="use"><span class="dot ${c}"></span>${n}<span>${f}</span></div>`).join('')}<a class="btn line sm" href="#demo" style="justify-self:start;margin-top:6px">Book a demo for ${name}</a></div></div>`;
+  }
+  ttabs.forEach((t, i) => t.addEventListener('click', () => showTeam(i)));
+  showTeam(0);
+
+  /* integrations lines */
+  const sysmap = $('#sysmap'), sysLines = $('#sysLines');
+  function drawSys() {
+    const m = sysmap.getBoundingClientRect(); if (!m.width) return;
+    sysLines.setAttribute('viewBox', `0 0 ${m.width} ${m.height}`);
+    const hx = m.width / 2, hy = m.height / 2;
+    sysLines.innerHTML = $$('.sys', sysmap).map(s => { const r = s.getBoundingClientRect(), x = r.left + r.width / 2 - m.left, y = r.top + r.height / 2 - m.top; return `<path class="ln" d="M${x} ${y} C ${(x + hx) / 2} ${y}, ${(x + hx) / 2} ${hy}, ${hx} ${hy}"/>`; }).join('');
+  }
+  drawSys();
+
+  /* readiness */
+  const answers = [null, null, null, null];
+  const REC = [['d-career', 'Career OS', 'resume feedback for every student'], ['d-career', 'Career OS', 'mock interviews with instant scores'], ['d-headshot', 'Headshot OS', 'professional headshots in minutes'], ['d-engage', 'Engage OS', 'voice AI check-ins with graduates']];
+  function renderResult() {
+    const answered = answers.filter(a => a !== null).length, yes = answers.filter(a => a === true).length;
+    $('#score').textContent = yes;
+    const gaps = answers.map((a, i) => a === false ? i : -1).filter(i => i >= 0);
+    $('#resultText').textContent = answered < 4 ? `${4 - answered} question${answered === 3 ? '' : 's'} to go.` : gaps.length ? 'Here is where WriteSea would help first:' : 'Your campus covers the basics. WriteSea helps you do it at scale and prove it.';
+    $('#recs').innerHTML = gaps.map(i => `<div><span class="dot ${REC[i][0]}" style="box-shadow:0 0 0 2px #fff"></span><span><b>${REC[i][1]}</b> for ${REC[i][2]}</span></div>`).join('');
+  }
+  $$('.yn').forEach(g => {
+    const q = +g.dataset.q, [y, n] = $$('button', g);
+    const set = v => { answers[q] = v; y.setAttribute('aria-pressed', v === true); n.setAttribute('aria-pressed', v === false); g.closest('.qcard').classList.add('answered'); renderResult(); };
+    y.addEventListener('click', () => set(true)); n.addEventListener('click', () => set(false));
+  });
+})();
+</script>
