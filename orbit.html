@@ -1,0 +1,669 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>WriteSea Orbit</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: ElevenLabs white canvas + split hero + tabbed orb carousel; Apollo pastel "agents at work" band and
+   alternating explain rows; Maze pinned scroll story; Aave gradient cards and big stats; Ramp ticker + email capture.
+   Black type on white, pearl gradients carry the color. */
+:root{
+  --white:#FFFFFF; --off:#F7F7F5; --off-2:#EFEFEC; --ink:#111110; --ink-2:#5C5C57; --mute:#94948D; --line:#E7E6E1;
+  --pearl-a:#FFE6D6; --pearl-b:#E6DCFF; --pearl-c:#D5F0FF; --pearl-d:#E9FBD6;
+  --sun:#FFE45E; --sky:#7CC4FF; --rose:#FF9FB3; --grape:#9B8CFF; --leaf:#8EDB9B; --tang:#FFB070;
+  --band:linear-gradient(110deg,#EAF9D2 0%,#D9F2FF 45%,#E7DEFF 100%);
+  --sans:"Onest", "Helvetica Neue", Arial, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, Menlo, monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{background:var(--white);color:var(--ink);font:400 16px/1.55 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:clip}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:90;background:var(--white)}
+a{color:inherit}
+img{max-width:100%;display:block}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:8px}
+h1,h2,h3,h4{font-weight:500;letter-spacing:-.035em;line-height:1.02;margin:0;text-wrap:balance}
+p{margin:0}
+.mono{font:400 11px/1.5 var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.wrap{max-width:1280px;margin:0 auto;padding-left:max(clamp(16px,4vw,40px),env(safe-area-inset-left,0px));padding-right:max(clamp(16px,4vw,40px),env(safe-area-inset-right,0px))}
+section{padding-block:clamp(64px,9vw,120px)}
+.h2{font-size:clamp(34px,4.4vw,58px)}
+.sub{color:var(--ink-2);font-size:clamp(16px,1.25vw,18px);max-width:36em}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 20px;border-radius:99px;border:1px solid transparent;background:transparent;font-weight:500;font-size:15px;text-decoration:none;white-space:nowrap;transition:background .2s,border-color .2s,transform .2s}
+.btn:active{transform:scale(.98)}
+.btn svg{width:13px;height:13px;transition:transform .2s}
+.btn:hover svg{transform:translateX(3px)}
+.btn.ink{background:var(--ink);color:var(--white)}
+.btn.ink:hover{background:#2C2C2A}
+.btn.line{border-color:var(--line);background:var(--white)}
+.btn.line:hover{border-color:var(--ink)}
+.btn.sm{height:36px;padding:0 15px;font-size:14px}
+.sample{display:inline-block;font:400 9.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);border:1px solid var(--line);border-radius:99px;padding:3px 8px;background:var(--white)}
+.link{display:inline-flex;align-items:center;gap:6px;font-weight:500;text-decoration:none;font-size:15px}
+.link svg{width:12px;height:12px;transition:transform .2s}
+.link:hover svg{transform:translateX(3px)}
+
+/* pearl orbs */
+.orb{position:relative;display:inline-block;vertical-align:middle;border-radius:50%;overflow:hidden;isolation:isolate;flex:none}
+.orb::before{content:"";position:absolute;inset:-25%;z-index:-1;animation:spin 16s linear infinite}
+.orb::after{content:"";position:absolute;inset:0;border-radius:50%;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");mix-blend-mode:soft-light;box-shadow:inset -18px -22px 50px rgba(0,0,0,.12),inset 14px 16px 40px rgba(255,255,255,.6)}
+.o1::before{background:conic-gradient(from 30deg,#BDE6FF,#9B8CFF,#FFC6E0,#D5F0FF,#BDE6FF)}
+.o2::before{background:conic-gradient(from 120deg,#FFE45E,#FFB070,#FF9FB3,#FFF1B8,#FFE45E)}
+.o3::before{background:conic-gradient(from 200deg,#B8F0C2,#7CC4FF,#E9FBD6,#8EDB9B,#B8F0C2)}
+.o4::before{background:conic-gradient(from 0deg,#E6DCFF,#9B8CFF,#5E4FD8,#C9BEFF,#E6DCFF)}
+.o5::before{background:conic-gradient(from 80deg,#FFD9C2,#FF9FB3,#9B8CFF,#FFE6D6,#FFD9C2)}
+.o6::before{background:conic-gradient(from 160deg,#D5F0FF,#8EDB9B,#FFE45E,#BDE6FF,#D5F0FF)}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ticker (Ramp) */
+.ticker{border-bottom:1px solid var(--line);background:var(--off);overflow:hidden;white-space:nowrap}
+.ticker .tr{display:inline-flex;gap:42px;padding:9px 0 9px 42px;animation:marq 48s linear infinite}
+.ticker span{font:400 11px var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--ink-2)}
+.ticker b{font-weight:500;color:var(--ink);font-variant-numeric:tabular-nums;margin-left:6px}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* nav (ElevenLabs) */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:80;background:rgba(255,255,255,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color .3s}
+.nav.scrolled{border-bottom-color:var(--line)}
+.nav .wrap{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:64px}
+.nav .logo img{height:26px;width:auto;filter:brightness(0)}
+.nav ul{display:flex;gap:2px;list-style:none;margin:0;padding:0}
+.nav ul a{display:block;padding:8px 13px;border-radius:99px;text-decoration:none;font-size:14.5px;font-weight:500}
+.nav ul a:hover{background:var(--off)}
+.nav .r{justify-self:end;display:flex;gap:8px;align-items:center}
+.menu-btn{display:none}
+.sheet{position:fixed;inset:calc(64px + env(safe-area-inset-top,0px)) 0 0;z-index:79;background:var(--white);overflow:auto}
+.sheet .wrap{display:grid;padding-block:8px 32px}
+.sheet a{display:flex;align-items:center;gap:14px;padding:16px 0;border-bottom:1px solid var(--line);text-decoration:none;font-size:24px;font-weight:500;letter-spacing:-.02em}
+.sheet .orb{width:26px;height:26px}
+
+/* hero (ElevenLabs split) */
+.hero{padding-block:clamp(48px,6vw,80px) clamp(40px,5vw,64px)}
+.hsplit{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(24px,5vw,80px);align-items:end}
+.hero h1{font-size:clamp(46px,6.6vw,96px);letter-spacing:-.05em;line-height:.95}
+.hero .r p{color:var(--ink-2);font-size:clamp(16px,1.3vw,18.5px)}
+.hero .ctas{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
+
+/* showcase tabs + orb carousel */
+.show{margin-top:clamp(36px,5vw,56px);border:1px solid var(--line);border-radius:28px;background:var(--off);overflow:hidden}
+.stabs{display:grid;grid-template-columns:repeat(3,1fr);padding:6px;gap:6px;border-bottom:1px solid var(--line);background:var(--white)}
+.stabs button{height:44px;border:0;border-radius:12px;background:transparent;font-weight:500;font-size:15px;color:var(--ink-2);display:flex;align-items:center;justify-content:center;gap:9px}
+.stabs button .orb{width:16px;height:16px}
+.stabs button[aria-selected="true"]{background:var(--off);color:var(--ink)}
+.carousel{position:relative;height:clamp(360px,34vw,430px);overflow:hidden}
+.citem{position:absolute;left:50%;top:44%;width:clamp(150px,16vw,230px);aspect-ratio:1;transform:translate(-50%,-50%);transition:transform .7s cubic-bezier(.2,.8,.2,1),opacity .7s,filter .7s;cursor:pointer;border:0;padding:0;background:none;border-radius:50%}
+.citem .orb,.citem img{display:block;width:100%;height:100%;border-radius:50%}
+.citem img{object-fit:cover;object-position:top;box-shadow:0 30px 60px -30px rgba(0,0,0,.35)}
+.citem .playb{position:absolute;left:50%;top:50%;width:52px;height:52px;margin:-26px 0 0 -26px;border-radius:50%;background:var(--white);display:grid;place-items:center;box-shadow:0 10px 24px -8px rgba(0,0,0,.35);opacity:0;transition:opacity .4s}
+.citem .playb svg{width:16px;height:16px}
+.citem.on .playb{opacity:1}
+.ccap{position:absolute;left:0;right:0;bottom:22px;display:grid;grid-template-columns:repeat(5,1fr);align-items:start;pointer-events:none}
+.capline{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);text-align:center;width:min(440px,90%)}
+.capline b{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:16px}
+.capline p{color:var(--ink-2);font-size:14.5px;margin-top:4px;min-height:44px}
+.carr{position:absolute;top:44%;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--white);display:grid;place-items:center;z-index:3}
+.carr svg{width:14px;height:14px}
+.carr.prev{left:16px}.carr.next{right:16px}
+.chip-tag{position:absolute;z-index:3;background:var(--white);border:1px solid var(--line);border-radius:12px;padding:8px 12px;font-size:13px;box-shadow:0 14px 30px -20px rgba(0,0,0,.35);display:flex;gap:8px;align-items:center;animation:bob 5s ease-in-out infinite}
+.chip-tag b{font-weight:600}
+@keyframes bob{50%{transform:translateY(-6px)}}
+
+/* Apollo agents band */
+.band{margin-top:14px;border-radius:28px;background:var(--band);overflow:hidden;padding:26px 0}
+.band .tr{display:flex;gap:18px;width:max-content;animation:marq 40s linear infinite}
+.proc{display:flex;align-items:center;gap:14px;padding:6px 22px 6px 6px}
+.ring{position:relative;width:64px;height:64px;flex:none;display:grid;place-items:center}
+.ring svg{position:absolute;inset:0;width:100%;height:100%;animation:spin 6s linear infinite}
+.ring i{width:12px;height:12px;border-radius:50%;background:var(--ink)}
+.proc span{font:500 13px/1.3 var(--mono);letter-spacing:.04em;text-transform:uppercase;max-width:15em;white-space:normal}
+
+/* logos grid (ElevenLabs) */
+.lhead{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.lgrid{margin-top:22px;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.lgrid div{height:92px;display:grid;place-items:center;padding:18px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.lgrid img{max-height:36px;object-fit:contain;filter:grayscale(1);opacity:.55;transition:opacity .3s,filter .3s}
+.lgrid div:hover img{opacity:1;filter:none}
+
+/* Apollo alternating explain rows */
+.rows{display:grid;gap:clamp(56px,8vw,110px);margin-top:clamp(40px,5vw,64px)}
+.xrow{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(28px,5vw,80px);align-items:center}
+.xrow.flip .vis{order:2}
+.vis{border-radius:26px;padding:clamp(20px,3vw,36px);min-height:380px;display:grid;place-items:center;position:relative;overflow:hidden}
+.vis.v1{background:linear-gradient(140deg,#FFF6D6,#FFE6D6)}
+.vis.v2{background:linear-gradient(140deg,#E6DCFF,#D5F0FF)}
+.vis.v3{background:linear-gradient(140deg,#E9FBD6,#D5F0FF)}
+.xrow h3{font-size:clamp(28px,3vw,40px)}
+.xrow .sub{margin-top:14px}
+.xrow ul{list-style:none;margin:22px 0 0;padding:0;display:grid}
+.xrow li{display:grid;grid-template-columns:24px 1fr;gap:10px;padding:13px 0;border-top:1px solid var(--line);font-size:15.5px}
+.xrow li b{font-weight:600}
+.xrow li svg{width:15px;height:15px;margin-top:4px}
+.xrow .link{margin-top:20px}
+.ui{width:100%;max-width:420px;display:grid;gap:10px}
+.uc{background:var(--white);border-radius:16px;padding:14px 16px;font-size:14px;box-shadow:0 20px 40px -28px rgba(0,0,0,.35)}
+.uc .hd{display:flex;justify-content:space-between;align-items:center;font-weight:600;margin-bottom:8px}
+.uc .hd span{font:400 10.5px var(--mono);color:var(--mute);text-transform:uppercase;letter-spacing:.05em}
+.uc .rw{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--off-2)}
+.uc .rw:first-of-type{border-top:0}
+.uc .rw .end{margin-left:auto;font-weight:600}
+.uc .orb{width:24px;height:24px}
+.uc img.av{width:30px;height:30px;border-radius:50%;object-fit:cover;object-position:top}
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:4px 9px;border-radius:99px}
+.b-ok{background:#E9FBD6}.b-go{background:#D5F0FF}.b-help{background:#FFE6D6}
+.prof{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center}
+.prof img{width:64px;height:64px;border-radius:18px;object-fit:cover;object-position:top}
+.prof b{font-size:17px;font-weight:600;display:block}
+.prof span{color:var(--ink-2);font-size:13.5px}
+.timeline{display:grid;gap:0;margin-top:6px}
+.timeline div{display:grid;grid-template-columns:14px 1fr auto;gap:10px;align-items:center;padding:7px 0;font-size:13.5px}
+.timeline i{width:9px;height:9px;border-radius:50%;justify-self:center}
+.timeline span{color:var(--mute);font:400 11px var(--mono)}
+
+/* Maze pinned story */
+.pin{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,80px);margin-top:clamp(36px,5vw,56px)}
+.pin .left{position:sticky;top:96px;align-self:start;height:min(72vh,560px)}
+.pinstage{position:relative;height:100%;border-radius:28px;background:var(--off);border:1px solid var(--line);overflow:hidden}
+.pv{position:absolute;inset:0;display:grid;place-items:center;padding:28px;opacity:0;transform:scale(.97);transition:opacity .5s,transform .5s}
+.pv.on{opacity:1;transform:none}
+.pv .bigorb{width:min(260px,60%);aspect-ratio:1}
+.pv .float{position:absolute;background:var(--white);border:1px solid var(--line);border-radius:14px;padding:10px 14px;font-size:13.5px;box-shadow:0 16px 34px -22px rgba(0,0,0,.4);animation:bob 5s ease-in-out infinite}
+.pv .float b{font-weight:600}
+.pv .faces{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;width:min(320px,80%)}
+.pv .faces img{border-radius:18px;aspect-ratio:3/4;object-fit:cover;object-position:top}
+.stepsr{display:grid}
+.stepr{min-height:68vh;display:flex;flex-direction:column;justify-content:center;gap:14px;border-top:1px solid var(--line);padding-block:32px}
+.stepr:first-child{border-top:0}
+.stepr .mono{color:var(--mute);display:flex;align-items:center;gap:8px}
+.stepr .mono .orb{width:14px;height:14px}
+.stepr h3{font-size:clamp(30px,3.4vw,46px)}
+.stepr p{color:var(--ink-2);font-size:17px;max-width:30em}
+.stepr .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.stepr .tags span{border:1px solid var(--line);border-radius:99px;padding:6px 12px;font-size:13.5px;font-weight:500}
+.stepr .inline{display:none}
+
+/* Aave stats + cards */
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:clamp(32px,4vw,48px)}
+.stats div{border-radius:24px;padding:28px;text-align:center;background:var(--off)}
+.stats strong{display:block;font-size:clamp(44px,5.4vw,72px);font-weight:600;letter-spacing:-.05em;line-height:1;background:linear-gradient(120deg,#5E4FD8,#7CC4FF 60%,#8EDB9B);-webkit-background-clip:text;background-clip:text;color:transparent}
+.stats span{display:block;margin-top:10px;color:var(--ink-2)}
+.stats .sample{margin-top:8px}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:clamp(32px,4vw,48px)}
+.tcard{border-radius:24px;padding:22px;display:flex;flex-direction:column;gap:12px;min-height:280px;border:1px solid var(--line);background:var(--white);transition:transform .3s,box-shadow .3s;position:relative;overflow:hidden}
+.tcard:hover{transform:translateY(-4px);box-shadow:0 30px 50px -36px rgba(0,0,0,.35)}
+.tcard::before{content:"";position:absolute;inset:auto -30% -55% -30%;height:70%;border-radius:50%;filter:blur(30px);opacity:.75;z-index:0}
+.tcard > *{position:relative;z-index:1}
+.tcard.t1::before{background:#D5F0FF}.tcard.t2::before{background:#FFE6D6}.tcard.t3::before{background:#E6DCFF}.tcard.t4::before{background:#E9FBD6}
+.tcard .mono{color:var(--mute)}
+.tcard h3{font-size:23px;letter-spacing:-.025em}
+.tcard p{color:var(--ink-2);font-size:14.5px}
+.tcard .use{margin-top:auto;display:flex;gap:-6px}
+.tcard .use .orb{width:30px;height:30px;border:2px solid var(--white);margin-right:-8px}
+
+/* stories (ElevenLabs story cards) */
+.shead{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap}
+.strack{margin-top:clamp(28px,4vw,40px);display:grid;grid-auto-flow:column;grid-auto-columns:minmax(300px,1fr);gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;scrollbar-width:thin}
+.scard{scroll-snap-align:start;position:relative;border-radius:24px;overflow:hidden;aspect-ratio:4/5;min-height:420px;color:#fff;display:flex;flex-direction:column;justify-content:flex-end;padding:22px;gap:14px}
+.scard img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;transition:transform .8s}
+.scard:hover img.bg{transform:scale(1.04)}
+.scard::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(17,17,16,0) 25%,rgba(17,17,16,.82) 75%);z-index:0}
+.scard > *:not(img){position:relative;z-index:1}
+.scard blockquote{margin:0;font-size:18px;line-height:1.4;font-weight:500;letter-spacing:-.01em}
+.scard .who{display:flex;align-items:center;gap:10px;font-size:14px}
+.scard .who img{width:36px;height:36px;border-radius:50%;object-fit:cover}
+.scard .who b{display:block;font-weight:600}
+.scard .who span{opacity:.75;font-size:13px}
+.scard .use{align-self:flex-start;background:rgba(255,255,255,.18);backdrop-filter:blur(8px);border-radius:99px;padding:5px 11px;font-size:12.5px;font-weight:500;position:absolute!important;top:18px;left:18px}
+
+/* trust (Maze security grid) */
+.trust{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(28px,5vw,72px);align-items:start}
+.tgrid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:22px;overflow:hidden}
+.tgrid div{background:var(--white);padding:22px;display:grid;gap:8px}
+.tgrid .mono{color:var(--ink)}
+.tgrid p{color:var(--ink-2);font-size:14.5px}
+.syslist{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.syslist span{border:1px solid var(--line);border-radius:12px;padding:10px 14px;font-weight:600;font-size:14.5px;display:flex;gap:8px;align-items:baseline}
+.syslist small{font:400 10px var(--mono);color:var(--mute)}
+
+/* faq */
+.faq{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.4fr);gap:clamp(24px,5vw,80px)}
+.faq details{border-top:1px solid var(--line)}
+.faq details:last-child{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:16px;align-items:center;padding:21px 0;font-size:18px;font-weight:500;letter-spacing:-.015em}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary i{width:28px;height:28px;border-radius:50%;background:var(--off);display:grid;place-items:center;flex:none;transition:transform .3s,background .3s}
+.faq summary svg{width:11px;height:11px}
+.faq details[open] summary i{transform:rotate(45deg);background:var(--ink);color:var(--white)}
+.faq details p{padding:0 44px 22px 0;color:var(--ink-2);max-width:40em}
+
+/* final (Ramp capture on pearl) */
+.final .box{border-radius:32px;padding:clamp(40px,7vw,96px) clamp(20px,5vw,72px);background:var(--band);display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(24px,5vw,64px);align-items:center;position:relative;overflow:hidden}
+.final h2{font-size:clamp(42px,6vw,88px);letter-spacing:-.05em;line-height:.94}
+.final .sub{margin-top:16px;color:var(--ink)}
+.capture{display:flex;gap:8px;background:var(--white);border-radius:99px;padding:6px;box-shadow:0 20px 40px -28px rgba(0,0,0,.35)}
+.capture input{flex:1;min-width:0;border:0;background:transparent;padding:0 16px;font-size:15.5px;outline:none}
+.capture input::placeholder{color:var(--mute)}
+.cap-note{margin-top:12px;font-size:14px;color:var(--ink-2);min-height:21px;padding-left:16px}
+.cap-note.ok{color:#1F7A3A;font-weight:500}
+.final .orbs{display:flex;gap:10px;margin-bottom:20px}
+.final .orbs .orb{width:40px;height:40px}
+
+/* footer with big wordmark */
+footer{padding-block:56px calc(28px + env(safe-area-inset-bottom,0px))}
+.fgrid{display:grid;grid-template-columns:1.2fr repeat(4,minmax(0,1fr));gap:24px}
+.fgrid h4{font:400 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--mute);margin-bottom:12px}
+.fgrid ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.fgrid a{text-decoration:none;color:var(--ink-2);font-size:14.5px}
+.fgrid a:hover{color:var(--ink)}
+.fgrid p{color:var(--ink-2);font-size:14.5px;max-width:20em}
+.word{margin-top:48px;font-size:clamp(64px,17vw,250px);font-weight:600;letter-spacing:-.065em;line-height:.8;background:linear-gradient(180deg,var(--ink) 30%,#C9C8C2);-webkit-background-clip:text;background-clip:text;color:transparent;white-space:nowrap;overflow:hidden}
+.legal{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:28px;padding-top:18px;border-top:1px solid var(--line);color:var(--mute);font-size:13.5px}
+.legal nav{display:flex;gap:18px}.legal a{text-decoration:none}
+
+/* responsive */
+@media (max-width:1040px){
+  .nav .wrap{grid-template-columns:1fr auto}
+  .nav ul,.nav .login{display:none}
+  .menu-btn{display:inline-flex}
+  .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .lgrid{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .fgrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .fgrid > div:first-child{grid-column:1/-1}
+}
+@media (max-width:860px){
+  .hsplit,.xrow,.trust,.faq,.final .box{grid-template-columns:minmax(0,1fr)}
+  .xrow.flip .vis{order:0}
+  .vis{min-height:320px}
+  .pin{grid-template-columns:minmax(0,1fr)}
+  .pin .left{display:none}
+  .stepr{min-height:0;padding-block:28px}
+  .stepr .inline{display:block;margin-top:10px}
+  .stepr .inline .pinstage{height:340px}
+  .stepr .inline .pv{opacity:1;transform:none}
+}
+@media (max-width:600px){
+  .stabs button{font-size:13.5px}
+  .stabs button .orb{display:none}
+  .carr{display:none}
+  .citem{width:150px}
+  .stats{grid-template-columns:minmax(0,1fr)}
+  .cards{grid-template-columns:minmax(0,1fr)}
+  .tcard{min-height:0}
+  .lgrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .lgrid div{height:76px;padding:12px}
+  .tgrid{grid-template-columns:minmax(0,1fr)}
+  .capture{flex-direction:column;border-radius:20px;padding:8px}
+  .capture input{height:44px}
+  .fgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .strack{grid-auto-columns:82%}
+  .chip-tag{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+
+<div class="ticker" aria-label="Sample activity">
+  <div class="tr" id="ticker"></div>
+</div>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="logo" href="#top"><img src="assets/logo.png" alt="WriteSea"></a>
+    <ul>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#teams">Solutions</a></li>
+      <li><a href="#stories">Customers</a></li>
+      <li><a href="#faq">Resources</a></li>
+    </ul>
+    <div class="r">
+      <a class="btn line sm login" href="#start">Log in</a>
+      <a class="btn ink sm" href="#start">Book a demo</a>
+      <button class="btn line sm menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="sheet">Menu</button>
+    </div>
+  </div>
+</header>
+<div class="sheet" id="sheet" hidden>
+  <div class="wrap">
+    <a href="#products"><span class="orb o1"></span>Career OS</a>
+    <a href="#products"><span class="orb o2"></span>Headshot OS</a>
+    <a href="#products"><span class="orb o4"></span>Engage OS</a>
+    <a href="#how">How it works</a><a href="#teams">Solutions</a><a href="#stories">Customers</a><a href="#faq">Resources</a><a href="#start">Log in</a>
+  </div>
+</div>
+
+<main id="top">
+  <!-- Hero (ElevenLabs) -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hsplit">
+        <h1>Bringing every student to a first job.</h1>
+        <div class="r">
+          <p>WriteSea powers career centers at 60+ colleges. Career OS and Headshot OS get students ready. Engage OS calls graduates and records where they landed.</p>
+          <div class="ctas"><a class="btn ink" href="#start">Book a demo <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2 7h10M8 3l4 4-4 4"/></svg></a><a class="btn line" href="#how">See how it works</a></div>
+        </div>
+      </div>
+
+      <div class="show" id="products">
+        <div class="stabs" role="tablist" aria-label="Products" id="stabs">
+          <button type="button" role="tab" aria-selected="true"><span class="orb o1"></span>Career OS</button>
+          <button type="button" role="tab" aria-selected="false"><span class="orb o2"></span>Headshot OS</button>
+          <button type="button" role="tab" aria-selected="false"><span class="orb o4"></span>Engage OS</button>
+        </div>
+        <div class="carousel" id="carousel" aria-live="polite">
+          <button class="carr prev" type="button" id="cPrev" aria-label="Previous"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 7H2M6 3L2 7l4 4"/></svg></button>
+          <button class="carr next" type="button" id="cNext" aria-label="Next"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2 7h10M8 3l4 4-4 4"/></svg></button>
+          <div id="citems"></div>
+          <div class="capline"><b id="capT"></b><p id="capD"></p></div>
+        </div>
+      </div>
+
+      <!-- Apollo agents band -->
+      <div class="band" aria-label="What WriteSea agents are doing">
+        <div class="tr" id="bandTr"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Logos (ElevenLabs grid) -->
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="lhead"><p class="sub" style="color:var(--ink)">Trusted by 60+ colleges and universities</p><a class="btn line sm" href="#stories">Read the stories</a></div>
+      <div class="lgrid">
+        <div><img src="assets/logos/arizona-state-university-logo-png-transparent.png" alt="Arizona State University"></div>
+        <div><img src="assets/logos/stanford-university-logo.png" alt="Stanford University"></div>
+        <div><img src="assets/logos/University_of_Alabama_logo-1.png" alt="University of Alabama"></div>
+        <div><img src="assets/logos/Dillard_Main_Logo-Blue.png" alt="Dillard University"></div>
+        <div><img src="assets/logos/Oklahoma_City_University_logo.svg.png" alt="Oklahoma City University"></div>
+        <div><img src="assets/logos/ua-little-rock-h-rgb.png" alt="UA Little Rock"></div>
+        <div><img src="assets/logos/Xavier_University_Cincinnati_logo.png" alt="Xavier University"></div>
+        <div><img src="assets/logos/LAN-5047-Logo-Langston-Horizontal-Color_0.png" alt="Langston University"></div>
+        <div><img src="assets/logos/Lewis_univ_logo.png" alt="Lewis University"></div>
+        <div><img src="assets/logos/Oakton_College_Logo.png" alt="Oakton College"></div>
+        <div><img src="assets/logos/New_TCC_LOGO.png" alt="Tulsa Community College"></div>
+        <div><img src="assets/logos/Sitelogo_CCC_Logo.png" alt="City Colleges of Chicago"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Apollo explain rows -->
+  <section style="padding-top:0" id="platform">
+    <div class="wrap">
+      <h2 class="h2" style="max-width:14em">Run your career center your way.</h2>
+      <p class="sub" style="margin-top:14px">Students work in WriteSea. Your team sees everything. Your systems stay connected.</p>
+      <div class="rows">
+        <div class="xrow">
+          <div class="vis v1"><div class="ui">
+            <div class="uc"><div class="hd">Amara's workspace<span>Student</span></div>
+              <div class="rw"><span class="orb o1"></span>Resume · Data Analyst Intern<span class="end">91</span></div>
+              <div class="rw"><span class="orb o1"></span>Mock interview · Q3 of 5<span class="end">86</span></div>
+              <div class="rw"><span class="orb o2"></span>Headshots · Navy blazer<span class="end">12</span></div>
+              <div class="rw"><span class="orb o1"></span>Job tracker<span class="end">4 applied</span></div>
+            </div>
+            <div class="uc" style="margin-left:14%"><div class="hd">Coach<span>Just now</span></div>Grew the food bank's Instagram from 300 to 2,100 followers in one semester. <b>Ready to send.</b></div>
+          </div></div>
+          <div>
+            <p class="mono" style="color:var(--mute)">Students</p>
+            <h3 style="margin-top:10px">One workspace for getting hired.</h3>
+            <p class="sub">Resumes, cover letters, interview practice, headshots and a job tracker, with AI coaches open at any hour.</p>
+            <ul>
+              <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8.5l3 3 7-7"/></svg><span><b>Career OS</b> for resumes, cover letters and mock interviews</span></li>
+              <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8.5l3 3 7-7"/></svg><span><b>Headshot OS</b> for professional photos from a few selfies</span></li>
+              <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8.5l3 3 7-7"/></svg><span><b>Job tracker</b> and salary negotiation help</span></li>
+            </ul>
+            <a class="link" href="#products">Explore the student tools <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2 7h10M8 3l4 4-4 4"/></svg></a>
+          </div>
+        </div>
+        <div class="xrow flip">
+          <div class="vis v2"><div class="ui">
+            <div class="uc"><div class="prof"><img src="assets/face-1.png" alt=""><div><b>Amara Okafor</b><span>Business Analytics · Class of 2025</span></div></div>
+              <div class="timeline">
+                <div><i style="background:#7CC4FF"></i>Resume reviewed · score 91<span>Feb</span></div>
+                <div><i style="background:#7CC4FF"></i>Mock interview · score 86<span>Mar</span></div>
+                <div><i style="background:#FFB070"></i>Headshot set on LinkedIn<span>Apr</span></div>
+                <div><i style="background:#9B8CFF"></i>6-month call · employed<span>Nov</span></div>
+              </div>
+            </div>
+            <div class="uc"><div class="rw"><span class="badge b-ok">Employed</span>Data analyst, healthcare<span class="end">$60k–$70k</span></div></div>
+          </div></div>
+          <div>
+            <p class="mono" style="color:var(--mute)">Student Record</p>
+            <h3 style="margin-top:10px">Give every team the same source of truth.</h3>
+            <p class="sub">Every product writes to one record per student, from first login to alumni. A resume review, a practice interview, a headshot and a check-in call add up to one story.</p>
+            <ul>
+              <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8.5l3 3 7-7"/></svg><span><b>One profile</b> for every student and graduate</span></li>
+              <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8.5l3 3 7-7"/></svg><span><b>Synced</b> with your SIS, LMS and CRM</span></li>
+              <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8.5l3 3 7-7"/></svg><span><b>Outcome reports</b> for leadership and accreditors</span></li>
+            </ul>
+            <a class="link" href="#trust">Explore the record <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2 7h10M8 3l4 4-4 4"/></svg></a>
+          </div>
+        </div>
+        <div class="xrow">
+          <div class="vis v3"><div class="ui">
+            <div class="uc"><div class="hd">Outreach campaign<span>Class of 2025</span></div>
+              <div class="rw"><img class="av" src="assets/stories/person-2.jpg" alt="">Marcus R.<span class="end"><span class="badge b-ok">Employed</span></span></div>
+              <div class="rw"><img class="av" src="assets/stories/person-3.jpg" alt="">Alana B.<span class="end"><span class="badge b-go">Grad school</span></span></div>
+              <div class="rw"><img class="av" src="assets/stories/person-4.jpg" alt="">Daniel O.<span class="end"><span class="badge b-help">Wants help</span></span></div>
+            </div>
+            <div class="uc" style="margin-right:14%"><div class="hd">Routed to advisor<span>Auto</span></div>Daniel asked for job search help. An advisor has the call notes.</div>
+          </div></div>
+          <div>
+            <p class="mono" style="color:var(--mute)">AI agents</p>
+            <h3 style="margin-top:10px">Let AI handle the busywork.</h3>
+            <p class="sub">Coaches review resumes and run practice interviews. The Outreach Agent calls graduates and logs the answers. Your team steps in where a person matters.</p>
+            <ul>
+              <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8.5l3 3 7-7"/></svg><span><b>Resume and Interview Coaches</b> inside Career OS</span></li>
+              <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8.5l3 3 7-7"/></svg><span><b>Outreach Agent</b> in Engage OS, at 6 and 12 months</span></li>
+              <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8.5l3 3 7-7"/></svg><span><b>Hand-offs</b> to advisors when a graduate asks for help</span></li>
+            </ul>
+            <a class="link" href="#how">See how it works <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2 7h10M8 3l4 4-4 4"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Maze pinned story -->
+  <section id="how" style="padding-top:0">
+    <div class="wrap">
+      <h2 class="h2" style="max-width:13em">Every student. One path from first draft to first job.</h2>
+      <div class="pin">
+        <div class="left"><div class="pinstage" id="pinstage"></div></div>
+        <div class="stepsr" id="stepsr">
+          <article class="stepr" data-s="0"><span class="mono"><span class="orb o1"></span>01 · Prepare · Career OS</span><h3>Ready for the interview.</h3><p>Students paste in a first draft. Career OS flags weak lines, rewrites them with results and checks the resume against the job post. Then they practice out loud until it feels easy.</p><div class="tags"><span>Resume Builder</span><span>Resume Review</span><span>Cover Letters</span><span>Mock Interviews</span></div><div class="inline"></div></article>
+          <article class="stepr" data-s="1"><span class="mono"><span class="orb o2"></span>02 · Present · Headshot OS</span><h3>Looking the part.</h3><p>A few everyday photos become professional headshots in the outfit and background a student picks, ready for LinkedIn and the career fair.</p><div class="tags"><span>AI headshots</span><span>Outfits</span><span>Backgrounds</span><span>LinkedIn ready</span></div><div class="inline"></div></article>
+          <article class="stepr" data-s="2"><span class="mono"><span class="orb o4"></span>03 · Prove · Engage OS</span><h3>Reached and on record.</h3><p>Six months after graduation, a friendly voice agent calls each graduate, asks how work is going and turns the answers into verified outcome data.</p><div class="tags"><span>Voice AI calls</span><span>Outcomes verification</span><span>Surveys</span><span>Campaigns</span></div><div class="inline"></div></article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Aave stats + team cards -->
+  <section id="teams" style="padding-top:0">
+    <div class="wrap">
+      <h2 class="h2" style="text-align:center">The career platform colleges count on.</h2>
+      <div class="stats">
+        <div><strong>60+</strong><span>Colleges and universities</span></div>
+        <div><strong>72%</strong><span>Graduates reached by check-in calls</span><span class="sample">Sample</span></div>
+        <div><strong>25+</strong><span>Hours saved per advisor each month</span><span class="sample">Sample</span></div>
+      </div>
+      <h3 style="font-size:clamp(26px,2.8vw,38px);margin-top:clamp(56px,7vw,96px)">Built for every team that helps students get hired.</h3>
+      <div class="cards">
+        <article class="tcard t1"><span class="mono">Career Services</span><h3>Support thousands with the team you have.</h3><p>AI resume and interview help for every student, and appointments saved for conversations that need a person.</p><div class="use"><span class="orb o1"></span><span class="orb o3"></span></div></article>
+        <article class="tcard t2"><span class="mono">Student Affairs</span><h3>Career readiness from day one.</h3><p>Career tools available from the first semester, with engagement tracked across programs.</p><div class="use"><span class="orb o1"></span><span class="orb o2"></span></div></article>
+        <article class="tcard t3"><span class="mono">Alumni Relations</span><h3>Stay in touch long after graduation.</h3><p>Voice check-ins at 6 and 12 months, and alumni who want to mentor.</p><div class="use"><span class="orb o4"></span></div></article>
+        <article class="tcard t4"><span class="mono">Institutional Research</span><h3>Report outcomes you can stand behind.</h3><p>Employment, role and salary from real conversations, ready for accreditors.</p><div class="use"><span class="orb o4"></span><span class="orb o6"></span></div></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stories (ElevenLabs cards) -->
+  <section id="stories" style="padding-top:0">
+    <div class="wrap">
+      <div class="shead"><h2 class="h2" style="max-width:12em">What partner campuses are saying.</h2><span class="sample">Sample testimonials: fictional people and colleges</span></div>
+      <div class="strack">
+        <article class="scard"><img class="bg" src="assets/stories/story-1.jpg" alt=""><span class="use">Career OS</span><blockquote>"Now every student gets resume feedback the same day, and my advisors spend their time on the conversations that need a person."</blockquote><div class="who"><img src="assets/stories/person-1.jpg" alt=""><div><b>Dr. Maya Ellison</b><span>Riverton State University</span></div></div></article>
+        <article class="scard"><img class="bg" src="assets/stories/story-2.jpg" alt=""><span class="use">Career OS · Headshot OS</span><blockquote>"Students practice at midnight before a big interview and walk into the real one calm."</blockquote><div class="who"><img src="assets/stories/person-2.jpg" alt=""><div><b>Marcus Reid</b><span>Eastbrook College</span></div></div></article>
+        <article class="scard"><img class="bg" src="assets/stories/story-3.jpg" alt=""><span class="use">Engage OS</span><blockquote>"When Engage OS calls, graduates pick up and talk. For the first time we know where most of our class works."</blockquote><div class="who"><img src="assets/stories/person-3.jpg" alt=""><div><b>Alana Brooks</b><span>Calder Valley Community College</span></div></div></article>
+        <article class="scard"><img class="bg" src="assets/stories/story-4.jpg" alt=""><span class="use">Engage OS · Dashboard</span><blockquote>"Every outcome now comes from a real conversation, so our reports hold up."</blockquote><div class="who"><img src="assets/stories/person-4.jpg" alt=""><div><b>Daniel Ortiz</b><span>Pinecrest University</span></div></div></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust (Maze grid) -->
+  <section id="trust" style="padding-top:0">
+    <div class="wrap trust">
+      <div>
+        <h2 class="h2">Works with the systems you already run.</h2>
+        <p class="sub" style="margin-top:16px">WriteSea connects to your SIS, LMS and CRM through a secure API and pre-built connectors. Our implementation team handles the setup with you.</p>
+        <div class="syslist"><span>Canvas<small>LMS</small></span><span>Blackboard<small>LMS</small></span><span>Moodle<small>LMS</small></span><span>Ellucian<small>SIS</small></span><span>PeopleSoft<small>SIS</small></span><span>Banner<small>SIS</small></span></div>
+      </div>
+      <div class="tgrid">
+        <div><span class="mono">Secure API</span><p>Connect your campus systems through a secure API and pre-built connectors.</p></div>
+        <div><span class="mono">Dedicated specialist</span><p>A dedicated implementation specialist manages the integration from day one.</p></div>
+        <div><span class="mono">Team training</span><p>Training for your staff, plus data migration support.</p></div>
+        <div><span class="mono">Ongoing success</span><p>Customer success management after launch, not just during setup.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" style="padding-top:0">
+    <div class="wrap faq">
+      <h2 class="h2">Questions, answered.</h2>
+      <div>
+        <details open><summary>How does WriteSea work with our campus systems?<i><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 1v10M1 6h10"/></svg></i></summary><p>WriteSea connects to SIS, LMS and CRM platforms through a secure API and pre-built connectors. Our implementation team manages the full integration from day one.</p></details>
+        <details><summary>What implementation support do we get?<i><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 1v10M1 6h10"/></svg></i></summary><p>Full onboarding with a dedicated implementation specialist, team training, data migration support and ongoing customer success management.</p></details>
+        <details><summary>How is student success measured?<i><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 1v10M1 6h10"/></svg></i></summary><p>WriteSea tracks internship placements, job offers, salary benchmarks, alumni engagement and skills milestones.</p></details>
+        <details><summary>Can WriteSea support alumni engagement?<i><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 1v10M1 6h10"/></svg></i></summary><p>Yes. Alumni tools help you stay connected with graduates, track long-term outcomes and build a mentorship and referral community.</p></details>
+        <details><summary>Which LMS and SIS platforms do you support?<i><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 1v10M1 6h10"/></svg></i></summary><p>Canvas, Blackboard and Moodle, plus SIS systems such as Ellucian, PeopleSoft and Banner.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final (Ramp capture) -->
+  <section class="final" id="start" style="padding-top:0">
+    <div class="wrap">
+      <div class="box">
+        <div>
+          <div class="orbs"><span class="orb o1"></span><span class="orb o2"></span><span class="orb o4"></span></div>
+          <h2>See it with your own students.</h2>
+          <p class="sub">Book a demo and we'll walk through Career OS, Headshot OS and Engage OS for your campus.</p>
+        </div>
+        <div>
+          <form class="capture" id="cap" novalidate>
+            <label for="email" style="position:absolute;left:-9999px">Work email</label>
+            <input id="email" type="email" placeholder="Your work email" autocomplete="email">
+            <button class="btn ink" type="submit">Book a demo</button>
+          </form>
+          <p class="cap-note" id="capNote">No setup needed for the demo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div><p>The career platform for colleges and universities.</p></div>
+      <div><h4>Products</h4><ul><li><a href="#products">Career OS</a></li><li><a href="#products">Headshot OS</a></li><li><a href="#products">Engage OS</a></li><li><a href="#platform">Admin Dashboard</a></li></ul></div>
+      <div><h4>Solutions</h4><ul><li><a href="#teams">Career Services</a></li><li><a href="#teams">Student Affairs</a></li><li><a href="#teams">Alumni Relations</a></li><li><a href="#teams">Institutional Research</a></li></ul></div>
+      <div><h4>Resources</h4><ul><li><a href="#faq">Blog</a></li><li><a href="#faq">Webinars</a></li><li><a href="#faq">Career Fair Kit</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="#start">About</a></li><li><a href="#start">Careers</a></li><li><a href="#start">Press</a></li><li><a href="#start">Contact</a></li></ul></div>
+    </div>
+    <div class="word" aria-hidden="true">WriteSea</div>
+    <div class="legal"><span>© 2026 WriteSea</span><nav><a href="#top">Privacy</a><a href="#top">Terms</a><a href="#top">Security</a></nav></div>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fmt = n => Math.round(n).toLocaleString('en-US');
+  const ARROW = '<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2 7h10M8 3l4 4-4 4"/></svg>';
+
+  /* nav + menu */
+  const nav = $('#nav'); addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 8), { passive: true });
+  const menuBtn = $('#menuBtn'), sheet = $('#sheet');
+  const closeSheet = () => { sheet.hidden = true; menuBtn.setAttribute('aria-expanded', false); menuBtn.textContent = 'Menu'; };
+  menuBtn.addEventListener('click', () => { if (sheet.hidden) { sheet.hidden = false; menuBtn.setAttribute('aria-expanded', true); menuBtn.textContent = 'Close'; } else closeSheet(); });
+  $$('a', sheet).forEach(a => a.addEventListener('click', closeSheet));
+
+  /* ticker (Ramp) */
+  const TK = [['Agents at work today', 214], ['Resumes reviewed', 4812], ['Interviews practiced', 2190], ['Headshots created', 1306], ['Graduates called', 688], ['Outcomes verified', 451]];
+  const tkHTML = hide => TK.map((t, i) => `<span${hide ? ' aria-hidden="true"' : ''}>${t[0]}:<b data-k="${i}">${fmt(t[1])}</b></span>`).join('') + `<span${hide ? ' aria-hidden="true"' : ''}>Sample numbers</span>`;
+  $('#ticker').innerHTML = tkHTML() + tkHTML(true);
+  if (!reduce) setInterval(() => { TK.forEach((t, i) => { if (i && Math.random() < .6) t[1] += 1 + Math.floor(Math.random() * 3); }); $$('#ticker b').forEach(b => b.textContent = fmt(TK[+b.dataset.k][1])); }, 1100);
+
+  /* showcase carousel (ElevenLabs) */
+  const SETS = [
+    [['o1', 'Resume Coach', 'Rewrites weak lines with real results and checks them against the job post.'], ['o3', 'Interview Coach', 'Asks real questions out loud and scores structure, pace and filler words.'], ['o6', 'Cover Letters', 'A first draft for every application, in the student\'s own voice.'], ['o5', 'Job Tracker', 'Every application, interview and offer in one place.'], ['o2', 'Salary Negotiation', 'Practice the conversation before the offer call.']],
+    [['img:face-1', 'Studio grey', 'A clean studio backdrop for LinkedIn and applications.'], ['img:face-2', 'Navy blazer', 'Pick the outfit. Headshot OS handles the rest.'], ['img:face-3', 'City office', 'A modern office background for a professional look.'], ['img:face-4', 'Campus outdoors', 'Natural light for career fairs and club pages.']],
+    [['o4', '6-month check-in', 'A friendly call asks how work is going and logs the answers.'], ['o1', '12-month check-in', 'A second call confirms where graduates are a year out.'], ['o5', 'Alumni mentors', 'Finds graduates who want to help current students.'], ['o6', 'Outcome surveys', 'Employment, role and salary captured as verified data.']]
+  ];
+  const stabs = $$('#stabs button'), citems = $('#citems'); let set = 0, act = 0, items = [], cTimer;
+  function build() {
+    citems.innerHTML = SETS[set].map((it, i) => `<button class="citem" type="button" data-i="${i}" aria-label="${it[1]}">${it[0].startsWith('img:') ? `<img src="assets/${it[0].slice(4)}.png" alt="">` : `<span class="orb ${it[0]}"></span>`}<span class="playb"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11l9-5.5z"/></svg></span></button>`).join('');
+    items = $$('.citem', citems);
+    items.forEach((b, i) => b.addEventListener('click', () => { if (i !== act) { go(i); restart(); } }));
+    act = Math.min(1, SETS[set].length - 1); layout();
+  }
+  function layout() {
+    const n = items.length, w = $('#carousel').clientWidth, sp = w < 600 ? w * .4 : Math.min(260, w * .24);
+    items.forEach((b, i) => {
+      let o = i - act; if (o > n / 2) o -= n; if (o < -n / 2) o += n;
+      const s = o === 0 ? 1 : Math.abs(o) === 1 ? .7 : .5;
+      b.style.transform = `translate(calc(-50% + ${o * sp}px), -50%) scale(${s})`;
+      b.style.opacity = Math.abs(o) > 2 ? 0 : Math.abs(o) === 2 ? .45 : 1;
+      b.style.zIndex = 10 - Math.abs(o);
+      b.style.filter = o === 0 ? 'none' : 'saturate(.85)';
+      b.classList.toggle('on', o === 0); b.tabIndex = Math.abs(o) > 1 ? -1 : 0;
+    });
+    const it = SETS[set][act];
+    $('#capT').textContent = it[1]; $('#capD').textContent = it[2];
+  }
+  function go(i) { act = (i + items.length) % items.length; layout(); }
+  function restart() { clearInterval(cTimer); if (!reduce) cTimer = setInterval(() => go(act + 1), 3200); }
+  $('#cPrev').addEventListener('click', () => { go(act - 1); restart(); });
+  $('#cNext').addEventListener('click', () => { go(act + 1); restart(); });
+  stabs.forEach((b, i) => b.addEventListener('click', () => { set = i; stabs.forEach((x, k) => x.setAttribute('aria-selected', k === i)); build(); restart(); }));
+  build(); restart();
+  addEventListener('resize', layout);
+  // swipe
+  let sx = null; $('#carousel').addEventListener('pointerdown', e => sx = e.clientX);
+  $('#carousel').addEventListener('pointerup', e => { if (sx !== null && Math.abs(e.clientX - sx) > 40) { go(act + (e.clientX < sx ? 1 : -1)); restart(); } sx = null; });
+
+  /* Apollo agents band */
+  const PROC = ['Matching resume to job post', 'Scoring a mock interview', 'Generating headshots', 'Calling a graduate', 'Verifying employment', 'Routing a graduate to an advisor', 'Updating the student record'];
+  const ringSVG = '<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="29" fill="none" stroke="#111110" stroke-width="1.2" stroke-dasharray="3 5"/><circle cx="32" cy="3" r="3" fill="#111110"/></svg>';
+  const procHTML = hide => PROC.map(p => `<div class="proc"${hide ? ' aria-hidden="true"' : ''}><span class="ring">${ringSVG}<i></i></span><span>${p}</span></div>`).join('');
+  $('#bandTr').innerHTML = procHTML() + procHTML(true);
+
+  /* Maze pinned story */
+  const PV = [
+    `<span class="orb o1 bigorb"></span><span class="float" style="left:8%;top:14%"><b>58 → 91</b> resume score</span><span class="float" style="right:8%;top:42%;animation-delay:-2s">Grew the food bank's Instagram<br>from 300 to 2,100 followers.</span><span class="float" style="left:12%;bottom:12%;animation-delay:-3.5s"><b>Score 86.</b> Add the result.</span>`,
+    `<div class="faces"><img src="assets/face-1.png" alt=""><img src="assets/face-2.png" alt=""><img src="assets/face-3.png" alt=""><img src="assets/face-4.png" alt=""></div><span class="float" style="right:6%;top:10%"><b>12</b> headshots ready</span><span class="float" style="left:6%;bottom:10%;animation-delay:-2.5s">Navy blazer · Studio grey</span>`,
+    `<span class="orb o4 bigorb"></span><span class="float" style="left:8%;top:12%"><b>Call complete</b> · 1:24</span><span class="float" style="right:6%;top:46%;animation-delay:-2s"><span class="badge b-ok">Employed</span> Data analyst</span><span class="float" style="left:10%;bottom:12%;animation-delay:-3.5s">Salary range <b>$60k–$70k</b></span>`
+  ];
+  const pin = $('#pinstage');
+  pin.innerHTML = PV.map((h, i) => `<div class="pv${i === 0 ? ' on' : ''}">${h}</div>`).join('');
+  $$('.stepr .inline').forEach((el, i) => el.innerHTML = `<div class="pinstage"><div class="pv on">${PV[i]}</div></div>`);
+  const pvs = $$('.pv', pin);
+  const spy = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { const s = +e.target.dataset.s; pvs.forEach((p, i) => p.classList.toggle('on', i === s)); }
+  }), { rootMargin: '-45% 0px -45% 0px' });
+  $$('.stepr').forEach(s => spy.observe(s));
+})();
+</script>
