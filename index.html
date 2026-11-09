@@ -146,7 +146,9 @@ p{margin:0}
 .tier + .tier{margin-top:28px}
 .tier-h{display:flex;align-items:center;gap:10px;font:500 12px var(--mono);color:var(--ink-2)}
 .tier-h::after{content:"";flex:1;height:1px;background:var(--line)}
-.tier-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tier-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:stretch}
+.tier-grid .hub{grid-template-rows:auto auto 1fr auto}
+.tier-grid .hub ul{align-content:start}
 .hub{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;display:grid;gap:10px;align-content:start;transition:box-shadow .2s,transform .2s;position:relative}
 .hub:hover{box-shadow:0 20px 40px -28px rgba(0,0,0,.35);transform:translateY(-2px)}
 .hub .t{display:flex;align-items:center;gap:10px}
@@ -411,6 +413,82 @@ p{margin:0}
 .legal{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:12.5px;padding-block:18px calc(18px + env(safe-area-inset-bottom,0px))}
 @media (max-width:860px){.foot .cols{grid-template-columns:1fr 1fr}}
 
+
+
+.pane.v4{background:linear-gradient(160deg,#DDD8F8,#D8EFFB)}
+.hdoc .hready{display:inline-flex;align-items:center;gap:6px;font:500 11px var(--mono);color:var(--violet);background:var(--violet-soft);padding:4px 8px;border-radius:999px;white-space:nowrap}
+.hjobs{display:grid;gap:8px}
+.hj{display:grid;grid-template-columns:10px minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px 12px;border-radius:8px;background:var(--bone);border:1px solid transparent;transition:border-color .3s,background .3s,opacity .3s}
+.hj i{width:10px;height:10px;border-radius:50%}
+.hj b{display:block;font-weight:600}
+.hj small{color:var(--soft);font-size:12px}
+.hj em{font:600 10.5px var(--mono);font-style:normal;color:var(--violet);background:var(--violet-soft);padding:4px 7px;border-radius:5px;white-space:nowrap}
+.hj.pick{border-color:var(--violet);background:#fff}
+.hj.dim{opacity:.45}
+.hstages{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;margin-top:4px}
+.hstages span{position:relative;text-align:center;font-size:11.5px;color:var(--soft);padding-top:14px}
+.hstages span::before{content:"";position:absolute;top:0;left:0;right:0;height:6px;border-radius:4px;background:var(--line);transition:background .35s}
+.hstages span.on{color:var(--ink);font-weight:600}
+.hstages span.on::before{background:linear-gradient(90deg,var(--coral),var(--violet))}
+@media (max-width:640px){.pane.v4{padding:14px}.hdoc{padding:14px;gap:8px}.hdoc .t{flex-wrap:wrap}.hj{padding:8px 10px}.hj small{display:none}.hstages{gap:3px}.hstages span{font-size:9.5px}}
+/* Hiring OS (new) */
+.new{display:inline-flex;align-items:center;gap:4px;font:600 10px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--violet);border-radius:999px;padding:4px 7px;vertical-align:middle;margin-left:6px}
+.new::before{content:"✦";font-size:9px}
+.d-hire{background:linear-gradient(135deg,var(--coral),var(--violet))}
+.mega-grid a b .new{grid-column:auto;font-size:10px;color:#fff}
+.hub.hire{border-color:var(--violet);box-shadow:0 0 0 1px var(--violet)}
+.hub.hire .ic{background:linear-gradient(135deg,var(--coral),var(--violet));color:#fff}
+.hub.hire a{text-decoration-color:var(--violet)}
+.hub.hire .h-mini{display:grid;gap:6px;margin-top:2px}
+.h-mini div{display:flex;align-items:center;gap:8px;padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:var(--bone);font-size:12.5px}
+.h-mini div i{width:8px;height:8px;border-radius:50%;flex:none}
+.h-mini div small{color:var(--soft);font-size:11px}
+.h-mini div em{margin-left:auto;font:600 9.5px var(--mono);font-style:normal;letter-spacing:.05em;color:var(--violet);background:var(--violet-soft);padding:3px 6px;border-radius:4px}
+.hireos{background:var(--bone-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.hireos .grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(28px,5vw,64px);align-items:center}
+.hireos .kick{display:inline-flex;align-items:center;gap:8px;font:500 12px var(--mono);color:var(--violet)}
+.hireos h2{margin-top:14px}
+.hireos .lede{margin-top:16px;color:var(--ink-2);font-size:17px;max-width:32em}
+.hireos .tag{display:block;margin-top:10px;font-weight:600;color:var(--ink)}
+.pairs{margin-top:26px;display:grid;gap:0;border-top:1px solid var(--line)}
+.pairs div{display:grid;grid-template-columns:1fr 18px 1fr;gap:10px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.pairs s{color:var(--soft);text-decoration-color:var(--soft)}
+.pairs b{font-weight:600}
+.pairs svg{width:14px;height:14px;color:var(--violet)}
+.caps{margin-top:22px;display:flex;flex-wrap:wrap;gap:6px}
+.caps span{font-size:13px;padding:6px 11px;border-radius:999px;background:var(--card);border:1px solid var(--line)}
+.hireos .ctas{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.hwin{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 40px 80px -50px rgba(86,59,219,.55)}
+.hwin .bar{display:flex;align-items:center;gap:8px;padding:11px 14px;border-bottom:1px solid var(--line);font-size:13px;color:var(--ink-2)}
+.hwin .bar i{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.hwin .bar .new{margin-left:auto}
+.htabs{display:flex;gap:2px;padding:8px 10px;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
+.htabs button{border:0;background:none;padding:7px 11px;border-radius:7px;font:500 13px var(--sans);color:var(--ink-2);cursor:pointer;white-space:nowrap}
+.htabs button[aria-selected="true"]{background:var(--violet-soft);color:var(--violet)}
+.hbody{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);min-height:360px}
+.hpane{padding:16px;display:grid;gap:8px;align-content:start}
+.hpane h4{margin:0 0 4px;font:600 14px var(--sans);display:flex;justify-content:space-between;align-items:center}
+.hpane h4 span{font:500 11px var(--mono);color:var(--soft)}
+.opp{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:10px;font-size:13.5px;animation:hin .4s cubic-bezier(.2,.8,.2,1)}
+@keyframes hin{from{opacity:0;transform:translateY(6px)}}
+.opp i{width:10px;height:10px;border-radius:50%}
+.opp b{display:block;font-weight:600}
+.opp small{color:var(--soft);font-size:12px}
+.opp em{font:600 10px var(--mono);font-style:normal;letter-spacing:.05em;color:var(--violet);background:var(--violet-soft);padding:4px 7px;border-radius:5px}
+.funnel{border-left:1px solid var(--line);padding:16px;display:grid;gap:10px;align-content:start;background:var(--bone)}
+.funnel h4{margin:0;font:600 14px var(--sans)}
+.fstep{display:grid;gap:4px;font-size:12.5px}
+.fstep div{display:flex;justify-content:space-between;color:var(--ink-2)}
+.fstep b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+.fstep .tr{height:8px;border-radius:5px;background:var(--line);overflow:hidden}
+.fstep .tr span{display:block;height:100%;border-radius:5px;background:linear-gradient(90deg,var(--coral),var(--violet));width:0;transition:width 1s cubic-bezier(.3,.7,.2,1)}
+.ats{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:12px 14px;border-top:1px solid var(--line);font-size:12.5px;color:var(--ink-2)}
+.ats b{font:500 11px var(--mono);color:var(--soft);margin-right:4px}
+.ats span{padding:4px 9px;border:1px solid var(--line);border-radius:6px;background:var(--card);font-weight:500;color:var(--ink)}
+.hnote{margin-top:12px;font:500 11px var(--mono);color:var(--soft)}
+@media (max-width:900px){.hireos .grid{grid-template-columns:minmax(0,1fr)}}
+.hireos .grid > *{min-width:0}
+@media (max-width:640px){.hbody{grid-template-columns:1fr}.funnel{border-left:0;border-top:1px solid var(--line)}.pairs div{grid-template-columns:1fr;gap:2px}.pairs svg{display:none}}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
 </style>
 
@@ -430,7 +508,7 @@ p{margin:0}
   </div>
   <div class="mega" id="mega">
     <div class="wrap">
-      <div class="intro"><h3>The WriteSea Career Platform</h3><p>Three products on one student record, with AI coaches built into each.</p></div>
+      <div class="intro"><h3>The WriteSea Career Platform</h3><p>Four products on one student record, with AI coaches built into each. Hiring OS is new.</p></div>
       <div class="mega-grid">
         <span class="lbl">For students</span>
         <a href="#platform"><span class="dot d-coral"></span><b>Career OS</b><span>Resumes, interviews and the job search</span></a>
@@ -438,7 +516,7 @@ p{margin:0}
         <a href="#agents"><span class="dot d-char" style="background:linear-gradient(135deg,var(--coral),var(--violet))"></span><b>AI coaches</b><span>Help that is there at 2am</span></a>
         <span class="lbl">For your team</span>
         <a href="#platform"><span class="dot d-lime"></span><b>Engage OS</b><span>Voice AI check-ins and outcomes</span></a>
-        <a href="#platform"><span class="dot d-char"></span><b>Admin Dashboard</b><span>Every student in one view</span></a>
+        <a href="#hiring"><span class="dot d-hire"></span><b>Hiring OS<span class="new">New</span></b><span>Employers, jobs and applications</span></a>
         <a href="#platform"><span class="dot d-char"></span><b>Student Record</b><span>The data foundation under it all</span></a>
       </div>
     </div>
@@ -596,11 +674,11 @@ p{margin:0}
             <ul><li>Voice AI calls</li><li>Outcomes verification</li><li>Surveys</li><li>Campaigns</li></ul>
             <a href="#see" data-open="2">Learn more</a>
           </article>
-          <article class="hub char">
-            <div class="t"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><h3>Admin Dashboard</h3></div>
-            <p>See every student's progress and report outcomes to leadership and accreditors.</p>
-            <ul><li>Engagement</li><li>Hiring stage</li><li>Outcome reports</li></ul>
-            <a href="#teams">Learn more</a>
+          <article class="hub hire">
+            <div class="t"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></svg></span><h3>Hiring OS<span class="new">New</span></h3></div>
+            <p>Curate partner jobs, connect ready students and track every application to hire.</p>
+            <ul><li>Partner jobs</li><li>ATS sync</li><li>Alumni referrals</li><li>Application funnel</li></ul>
+            <a href="#see" data-open="3">Learn more</a>
           </article>
         </div>
       </div>
@@ -619,6 +697,41 @@ p{margin:0}
     </div>
   </div>
 </section>
+<!-- Hiring OS spotlight (new product) -->
+<section class="sec hireos" id="hiring">
+  <div class="wrap grid">
+    <div>
+      <span class="kick"><span class="dot d-hire"></span>Coming next <span class="new">New</span></span>
+      <h2 class="h2">Hiring OS. <span style="color:var(--soft)">The job board, rebuilt for your campus.</span></h2>
+      <p class="lede">AI-powered employer and job board infrastructure. Hiring OS gives your institution one place to manage employer relationships, curate jobs, connect ready talent to opportunities, and track the application funnel from interest through hire.<span class="tag">Curate opportunities. Connect talent. Track every application.</span></p>
+      <div class="pairs" aria-label="What Hiring OS replaces"><div><s>Fragmented job sources</s><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg><b>Curated job marketplace</b></div><div><s>Manual approval workflows</s><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg><b>Partner & alumni workflows</b></div><div><s>Limited employer visibility</s><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg><b>Readiness-based access</b></div><div><s>Incomplete application data</s><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg><b>End-to-end tracking</b></div></div>
+      <div class="caps"><span>Partner + Sourced Jobs</span><span>ATS Sync + Job Imports</span><span>Cohort Targeting</span><span>Alumni Referrals</span><span>Application Funnel</span><span>Employer Analytics</span></div>
+      <div class="ctas"><a class="btn" href="#demo">Get early access</a><a class="btn line" href="#platform">See all products</a></div>
+    </div>
+    <div>
+      <div class="hwin" aria-label="Example: the Hiring OS employer workspace">
+        <div class="bar"><i></i><i></i><i></i><span>Hiring OS · Employer workspace</span><span class="new">New</span></div>
+        <div class="htabs" role="tablist" aria-label="Employer workspace" id="htabs">
+          <button type="button" role="tab" aria-selected="true">Jobs</button><button type="button" role="tab" aria-selected="false">Candidates</button><button type="button" role="tab" aria-selected="false">Interviews</button><button type="button" role="tab" aria-selected="false">Inbox</button><button type="button" role="tab" aria-selected="false">Talent</button><button type="button" role="tab" aria-selected="false">Analytics</button>
+        </div>
+        <div class="hbody">
+          <div class="hpane" id="hpane"></div>
+          <div class="funnel" id="funnel">
+            <h4>Application funnel</h4>
+            <div class="fstep"><div>Interested<b>1,240</b></div><div class="tr"><span data-w="100"></span></div></div>
+            <div class="fstep"><div>Applied<b>612</b></div><div class="tr"><span data-w="49"></span></div></div>
+            <div class="fstep"><div>Interviewing<b>188</b></div><div class="tr"><span data-w="15"></span></div></div>
+            <div class="fstep"><div>Offers<b>64</b></div><div class="tr"><span data-w="5"></span></div></div>
+            <div class="fstep"><div>Hired<b>41</b></div><div class="tr"><span data-w="3.3"></span></div></div>
+          </div>
+        </div>
+        <div class="ats"><b>ATS connections</b><span>Greenhouse</span><span>Lever</span><span>Ashby</span><span>Workable</span><span>SmartRecruiters</span></div>
+      </div>
+      <p class="hnote">Product preview with sample data. Hiring OS is coming soon.</p>
+    </div>
+  </div>
+</section>
+
 
 <!-- AI coaches -->
 <section class="sec agents" id="agents">
@@ -672,6 +785,7 @@ p{margin:0}
         <div class="acc-item on"><button type="button" aria-expanded="true"><span class="dot d-coral"></span>Career OS</button><div class="body"><div><p>Paste in a first draft. Career OS flags weak lines, rewrites them with results and checks the resume against the job post.</p><div class="bar"><i></i></div></div></div></div>
         <div class="acc-item"><button type="button" aria-expanded="false"><span class="dot d-violet"></span>Headshot OS</button><div class="body"><div><p>Pick a style and Headshot OS makes a full set of headshots from a few everyday photos. Try the styles on the right.</p><div class="bar"><i></i></div></div></div></div>
         <div class="acc-item"><button type="button" aria-expanded="false"><span class="dot d-lime"></span>Engage OS</button><div class="body"><div><p>Six months after graduation, a voice AI calls each graduate. Press play to hear how answers become outcome data.</p><div class="bar"><i></i></div></div></div></div>
+        <div class="acc-item"><button type="button" aria-expanded="false"><span class="dot d-hire"></span>Hiring OS<span class="new">New</span></button><div class="body"><div><p>Employers post partner jobs and Hiring OS matches them to students who are ready. Watch one application move from interest to hire.</p><div class="bar"><i></i></div></div></div></div>
       </div>
       <div class="view">
         <div class="pane v1 on"><div class="doc">
@@ -702,9 +816,21 @@ p{margin:0}
             <div><dt>Alumni mentor</dt><dd data-t=".9">Yes</dd></div>
           </dl>
         </div></div>
+        <div class="pane v4"><div class="doc hdoc">
+          <div class="t"><b>Partner opportunities for Amara O.</b><span class="hready">Readiness verified</span></div>
+          <div class="hjobs" id="hj-jobs">
+            <div class="hj"><i style="background:var(--coral)"></i><span><b>Data Analyst</b><small>COOP Partner · Mercy Regional</small></span><em>94% match</em></div>
+            <div class="hj"><i style="background:var(--violet)"></i><span><b>Marketing Associate</b><small>Alumni Referral · Northside Market</small></span><em>88% match</em></div>
+            <div class="hj"><i style="background:#89CFF4"></i><span><b>Customer Success</b><small>ATS Synced · Greenhouse</small></span><em>81% match</em></div>
+          </div>
+          <div class="hstages" id="hj-stages" aria-label="Application stage">
+            <span>Interested</span><span>Applied</span><span>Interview</span><span>Offer</span><span>Hired</span>
+          </div>
+          <div class="t"><span id="hj-status">Data Analyst · Hired</span><button class="linkbtn" id="hj-run" type="button">Run the match again</button></div>
+        </div></div>
       </div>
     </div>
-    <p class="mono" style="margin-top:14px">Example student, resume and call for illustration</p>
+    <p class="mono" style="margin-top:14px">Example student, resume, call and job match for illustration. Hiring OS is coming soon.</p>
   </div>
 </section>
 
@@ -854,7 +980,7 @@ p{margin:0}
 <footer class="foot">
   <div class="wrap">
     <div class="cols">
-      <div><h4>Products</h4><ul><li><a href="#platform">Career OS</a></li><li><a href="#platform">Headshot OS</a></li><li><a href="#platform">Engage OS</a></li><li><a href="#platform">Admin Dashboard</a></li></ul></div>
+      <div><h4>Products</h4><ul><li><a href="#platform">Career OS</a></li><li><a href="#platform">Headshot OS</a></li><li><a href="#platform">Engage OS</a></li><li><a href="#hiring">Hiring OS<span class="new">New</span></a></li></ul></div>
       <div><h4>AI coaches</h4><ul><li><a href="#agents">Resume Coach</a></li><li><a href="#agents">Interview Coach</a></li><li><a href="#agents">Headshot Studio</a></li><li><a href="#agents">Outreach Agent</a></li></ul></div>
       <div><h4>Solutions</h4><ul><li><a href="#teams">Career Services</a></li><li><a href="#teams">Student Affairs</a></li><li><a href="#teams">Alumni Relations</a></li><li><a href="#teams">Institutional Research</a></li></ul></div>
       <div><h4>Resources</h4><ul><li><a href="https://writesea.com/blog">Blog</a></li><li><a href="https://writesea.com">Webinars</a></li><li><a href="https://writesea.com/resources/career-fair-activation-kit/">Career Fair Kit</a></li><li><a href="#check">Readiness check</a></li></ul></div>
@@ -948,6 +1074,7 @@ p{margin:0}
     clearTimeout(aTimer);
     if (i === 0 && !RM) playResume(); else playResume.cancel();
     if (i === 2 && !RM) { paintCall(0); playCall(); } else playCall.cancel();
+    if (i === 3 && !RM) playHire(); else playHire.cancel();
     if (aAuto && !RM) { void items[i].offsetWidth; items[i].classList.add('auto'); aTimer = setTimeout(() => openAcc((i + 1) % items.length, true), 9000); }
   }
   items.forEach((it, i) => $('button', it).addEventListener('click', () => openAcc(i, false)));
@@ -994,6 +1121,23 @@ p{margin:0}
   paintCall(1);
   const playCall = runner(async alive => { const ms = 8500, t0 = performance.now(); while (alive()) { const p = Math.min(1, (performance.now() - t0) / ms); paintCall(p); if (p === 1) break; await new Promise(requestAnimationFrame); } });
   $('#en-play').addEventListener('click', () => { clearTimeout(aTimer); items[2].classList.remove('auto'); RM ? paintCall(1) : (paintCall(0), playCall()); });
+
+  // Hiring OS demo
+  const hjRows = $$('#hj-jobs .hj'), hjStages = $$('#hj-stages span'), hjStatus = $('#hj-status');
+  const HST = ['Interested', 'Applied', 'Interview', 'Offer', 'Hired'];
+  const paintHire = (pick, stage) => {
+    hjRows.forEach((r, k) => { r.classList.toggle('pick', pick >= 0 && k === pick); r.classList.toggle('dim', pick >= 0 && k !== pick); });
+    hjStages.forEach((sp, k) => sp.classList.toggle('on', k <= stage));
+    hjStatus.textContent = stage < 0 ? 'Matching jobs to readiness…' : 'Data Analyst · ' + HST[stage];
+  };
+  paintHire(0, 4);
+  const playHire = runner(async alive => {
+    paintHire(-1, -1); await sleep(900);
+    for (let k = 0; k < hjRows.length; k++) { if (!alive()) return; hjRows[k].classList.add('pick'); await sleep(450); hjRows[k].classList.remove('pick'); }
+    if (!alive()) return; paintHire(0, -1); await sleep(700);
+    for (let st = 0; st < HST.length; st++) { if (!alive()) return; paintHire(0, st); await sleep(1100); }
+  });
+  $('#hj-run').addEventListener('click', () => { clearTimeout(aTimer); items[3].classList.remove('auto'); RM ? paintHire(0, 4) : playHire(); });
   if (!RM) onView($('.acc'), () => openAcc(0, true), .4);
 
   /* Stories carousel (Harvey) */
@@ -1031,14 +1175,14 @@ p{margin:0}
 
   /* Solutions by team */
   const TEAMS = [
-    ['Career Services', 'Support thousands of students with the team you have.', ['AI resume and interview help for every student', 'See who needs an advisor before graduation', 'Spend appointments on the conversations that need a person'], [['coral', 'Career OS', 'Daily'], ['char', 'Admin Dashboard', 'Weekly']]],
+    ['Career Services', 'Support thousands of students with the team you have.', ['AI resume and interview help for every student', 'See who needs an advisor before graduation', 'Spend appointments on the conversations that need a person'], [['coral', 'Career OS', 'Daily'], ['hire', 'Hiring OS (new)', 'Partner jobs']]],
     ['Student Affairs', 'Build career readiness into the whole student experience.', ['Career tools available from day one', 'Track engagement across programs', 'Reach students where they already are'], [['coral', 'Career OS', 'Every term'], ['violet', 'Headshot OS', 'Events']]],
     ['Alumni Relations', 'Stay in touch with graduates long after they leave.', ['Voice AI check-ins at 6 and 12 months', 'Find alumni who want to mentor', 'Build a referral community'], [['lime', 'Engage OS', 'Every class'], ['char', 'Student Record', 'Always']]],
-    ['Institutional Research', 'Report outcomes you can stand behind.', ['Employment, role and salary from real conversations', 'Data for accreditors and state reporting', 'One record per student, connected to your SIS'], [['lime', 'Engage OS', 'Outcomes'], ['char', 'Admin Dashboard', 'Reports']]],
+    ['Institutional Research', 'Report outcomes you can stand behind.', ['Employment, role and salary from real conversations', 'Data for accreditors and state reporting', 'One record per student, connected to your SIS'], [['lime', 'Engage OS', 'Outcomes'], ['hire', 'Hiring OS (new)', 'Application funnel']]],
     ['Enrollment', 'Show prospective students a clear path to a career.', ['Career tools available before day one', 'Outcome stories for admissions', 'Headshots for orientation and ID'], [['violet', 'Headshot OS', 'Orientation'], ['coral', 'Career OS', 'Onboarding']]]
   ];
   const panel = $('#teamPanel'), ttabs = $$('.teams-tabs button');
-  const dotCls = { coral: 'd-coral', violet: 'd-violet', lime: 'd-lime', char: 'd-char' };
+  const dotCls = { coral: 'd-coral', violet: 'd-violet', lime: 'd-lime', char: 'd-char', hire: 'd-hire' };
   function showTeam(i) {
     ttabs.forEach((t, k) => t.setAttribute('aria-selected', k === i));
     const [name, line, points, uses] = TEAMS[i];
@@ -1064,4 +1208,29 @@ p{margin:0}
     y.addEventListener('click', () => set(true)); n.addEventListener('click', () => set(false));
   });
 })();
+
+  /* Hiring OS workspace mock */
+  (() => {
+    const VIEWS = {
+      Jobs: ['Partner opportunities', '24 open', [['var(--coral)','Data Analyst','COOP Partner'],['var(--violet)','Marketing Associate','Alumni Referral'],['#89CFF4','Customer Success','ATS Synced'],['var(--coral)','Operations Intern','Partner job · Class of 2027']]],
+      Candidates: ['Ready talent', 'Cohort: Class of 2026', [['var(--violet)','Amara O.','Resume 91 · Headshot ready'],['var(--coral)','Jordan E.','Interview score 86'],['#89CFF4','Priya N.','Nursing · Readiness verified']]],
+      Interviews: ['This week', '9 scheduled', [['var(--coral)','Amara O. · Data Analyst','Tue 10:00'],['var(--violet)','Jordan E. · Marketing Associate','Wed 14:30'],['#89CFF4','Sam L. · Customer Success','Thu 11:00']]],
+      Inbox: ['Employer messages', '3 new', [['var(--violet)','Mercy Regional','Can we add two more interview slots?'],['var(--coral)','Northside Market','Job approved for the Class of 2027'],['#89CFF4','Greenhouse sync','12 applications imported']]],
+      Talent: ['Alumni referrals', '18 active', [['var(--violet)','Ade O. · Data analyst','Referring for Data Analyst'],['var(--coral)','Rosa L. · Coordinator','Mentoring 2 students']]],
+      Analytics: ['Employer analytics', 'This term', [['var(--coral)','Partner employers','46 active'],['var(--violet)','Applications tracked','612'],['#89CFF4','Interest to hire','3.3%']]]
+    };
+    const tabs = [...document.querySelectorAll('#htabs button')], pane = document.getElementById('hpane');
+    const tag = name => name === 'Jobs' || name === 'Candidates' ? '<em>Match</em>' : '';
+    function show(name) {
+      tabs.forEach(t => t.setAttribute('aria-selected', t.textContent === name));
+      const [title, meta, rows] = VIEWS[name];
+      pane.innerHTML = `<h4>${title}<span>${meta}</span></h4>` + rows.map(r => `<div class="opp"><i style="background:${r[0]}"></i><span><b>${r[1]}</b><small>${r[2]}</small></span>${tag(name)}</div>`).join('');
+    }
+    tabs.forEach(t => t.addEventListener('click', () => show(t.textContent)));
+    show('Jobs');
+    const bars = [...document.querySelectorAll('#funnel .tr span')];
+    const fill = () => bars.forEach(b => b.style.width = b.dataset.w + '%');
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) fill();
+    else new IntersectionObserver((es, o) => es.forEach(e => { if (e.isIntersecting) { fill(); o.disconnect(); } }), { threshold: .3 }).observe(document.getElementById('funnel'));
+  })();
 </script>
